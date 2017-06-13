@@ -1,0 +1,24 @@
+<div id="c-search-results" class="panel panel-default">
+  <div class="panel-heading">
+    {{totalResults}} results
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-xs btn-defualt dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></button>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li><a href="#">Name A-Z</a></li>
+        <li><a href="#">Name Z-A</a></li>
+        <li><a href="#">Date published</a></li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  {{#with results}}
+  <div class="list-group">
+    {{#each this}}
+    <a href="{{url}}" class="list-group-item"><em>{{name}}</em> {{author}}</a>
+    {{/each}}
+  </div>
+  {{/with}}
+  <div class="panel-footer">
+    <div class="c-pagination"></div>
+  </div>
+</div>

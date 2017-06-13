@@ -1,0 +1,41 @@
+{
+  "name": "resources",
+  "version": "1.0.0",
+  "description": "IPNI wep application",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --env development",
+    "build": "webpack --env production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
+    "handlebars-loader": "^1.5.0",
+    "html-webpack-plugin": "^2.28.0",
+    "node-sass": "^4.5.3",
+    "resolve-url-loader": "^2.0.2",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-loader": "^2.1.0",
+    "deparam": "^1.0.5",
+    "handlebars": "^4.0.10",
+    "immutable": "^3.8.1",
+    "jquery": "^2.2.4",
+    "lodash": "^4.17.4",
+    "pubsub-js": "^1.5.7",
+    "rbgkew-typeahead": "^1.1.1",
+    "simple-pagination.js": "^1.6.0"
+  }
+}
