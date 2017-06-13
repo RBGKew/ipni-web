@@ -45,6 +45,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+      		<groupId>org.apache.solr</groupId>
+      		<artifactId>solr-solrj</artifactId>
+    	</dependency>
+    	<dependency>
+			<groupId>com.google.guava</groupId>
+	    	<artifactId>guava</artifactId>
+	    	<version>22.0</version>
+	    </dependency>
+	    <dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-access</artifactId>
+	    </dependency>
 	</dependencies>
 
 	<build>
@@ -52,6 +65,70 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.11</version>
+				<executions>
+
+     				<execution>
+					  <id>build-solr</id>
+					  <phase>package</phase>
+					  <goals>
+					    <goal>build</goal>
+					  </goals>
+					  <configuration>
+					    <imageName>${docker.registry}ipni-solr</imageName>
+					    <dockerDirectory>${project.basedir}/docker/solr</dockerDirectory>
+					    <forceTags>true</forceTags>
+					  </configuration>
+					</execution>
+					<execution>
+					  <id>tag-solr</id>
+					  <phase>package</phase>
+					  <goals>
+					    <goal>tag</goal>
+					  </goals>
+					  <configuration>
+					    <image>${docker.registry}ipni-solr</image>
+					    <newName>${docker.registry}solr:${project.version}</newName>
+					  </configuration>
+					</execution>
+					
+					<execution>
+						<id>build-ipni</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<imageName>${docker.registry}ipni-web</imageName>
+							<dockerDirectory>${project.basedir}/docker/web</dockerDirectory>
+							<forceTags>true</forceTags>
+							<resources>
+								<resource>
+									<targetPath>/</targetPath>
+									<directory>${project.build.directory}</directory>
+									<include>${project.build.finalName}.jar</include>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>tag-ipni</id>
+						<phase>package</phase>
+						<goals>
+							<goal>tag</goal>
+						</goals>
+						<configuration>
+							<image>${docker.registry}ipni-web</image>
+							<newName>${docker.registry}ipni-web:${project.version}</newName>
+						</configuration>
+					</execution>
+					
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

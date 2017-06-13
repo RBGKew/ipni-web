@@ -1,0 +1,13 @@
+version: '2'
+services:
+  ipni-web:
+    image: ipni/ipni-web:latest
+    ports:
+      - "18080:8080"
+    links:
+      - solr
+      
+  solr:
+    image: ipni/ipni-solr:latest
+    ports:
+      - "18983:8983"

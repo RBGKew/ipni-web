@@ -1,4 +1,4 @@
-package org.kew.ipni;
+package org.ipni;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

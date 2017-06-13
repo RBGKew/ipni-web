@@ -1,4 +1,4 @@
-package org.kew.ipni;
+package org.ipni;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
