@@ -1,0 +1,43 @@
+/*
+ * Component - Search
+ */
+
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+
+.c-search {
+
+  position: relative;
+  width: 60%;
+  margin: 50px auto 10px;
+
+  .tokenfield {
+    background-color: #fff;
+
+    .token {
+      color: #000;
+
+      .close {
+        color: #000;
+      }
+    }
+  }
+
+  .suggestion-category {
+    color: #ccc;
+    float: right;
+
+    @media (max-width: $screen-sm-min) {
+      display: none;
+    }
+  }
+
+  input.token-input {
+    background-color: transparent;
+    top: -5px;
+  }
+}
+
+.chevron {
+  width: 11px;
+  height: 11px;
+}

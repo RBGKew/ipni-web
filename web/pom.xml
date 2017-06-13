@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>ipni-web</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Web component of IPNI</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
