@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>ipni-web</name>
-	<description>Web component of IPNI</description>
+	<description>Demo project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -72,30 +72,6 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.4.11</version>
 				<executions>
-
-     				<execution>
-					  <id>build-solr</id>
-					  <phase>package</phase>
-					  <goals>
-					    <goal>build</goal>
-					  </goals>
-					  <configuration>
-					    <imageName>${docker.registry}ipni-solr</imageName>
-					    <dockerDirectory>${project.basedir}/docker/solr</dockerDirectory>
-					    <forceTags>true</forceTags>
-					  </configuration>
-					</execution>
-					<execution>
-					  <id>tag-solr</id>
-					  <phase>package</phase>
-					  <goals>
-					    <goal>tag</goal>
-					  </goals>
-					  <configuration>
-					    <image>${docker.registry}ipni-solr</image>
-					    <newName>${docker.registry}solr:${project.version}</newName>
-					  </configuration>
-					</execution>
 					
 					<execution>
 						<id>build-ipni</id>
