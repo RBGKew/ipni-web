@@ -6,7 +6,8 @@ public class SingleFieldFilterQuery extends QueryOption {
 
 	@Override
 	public void addQueryOption(String key, String value, SolrQuery query) {
-
+		value = prepareValue(key, value);
+		
 		if(query.getQuery() == null) {
 			query.setQuery(String.format("%s:%s", key, value));
 		} else {

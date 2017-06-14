@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/api/1/search/")
+@RequestMapping("/api/1/")
 public class SearchController {
 
 	private SolrClient solrClient = null;
@@ -29,7 +29,7 @@ public class SearchController {
 		this.solrClient = new HttpSolrClient("http://solr:8983/solr/ipni_view/");
 	}
 	
-	@GetMapping
+	@GetMapping("search/")
 	public ResponseEntity<Response> search(@RequestParam Map<String,String> params) throws SolrServerException, IOException {
 		QueryBuilder queryBuilder = new QueryBuilder();
 		for(Entry<String, String> param : params.entrySet() ){
