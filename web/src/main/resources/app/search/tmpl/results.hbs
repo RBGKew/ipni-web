@@ -3,10 +3,9 @@
     {{totalResults}} results
     <div class="btn-group pull-right">
       <button type="button" class="btn btn-xs btn-defualt dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></button>
-      <ul class="dropdown-menu dropdown-menu-right">
-        <li><a href="#">Name A-Z</a></li>
-        <li><a href="#">Name Z-A</a></li>
-        <li><a href="#">Date published</a></li>
+      <ul class="sort-by dropdown-menu dropdown-menu-right">
+        <li><a id="name_asc" href="#">Name A-Z</a></li>
+        <li><a id="name_desc" href="#">Name Z-A</a></li>
       </ul>
     </div>
     <div class="clearfix"></div>
@@ -14,7 +13,7 @@
   {{#with results}}
   <div class="list-group">
     {{#each this}}
-    <a href="{{url}}" class="list-group-item"><em>{{name}}</em> {{author}}</a>
+      <a href="{{url}}" class="list-group-item"><small>{{family}}</small> <em>{{name}}</em> {{author}} -- <small>{{publication}}</small></a>
     {{/each}}
   </div>
   {{/with}}

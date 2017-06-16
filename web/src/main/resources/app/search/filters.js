@@ -5,9 +5,6 @@
  */
 define(function(require) {
   require('../vendor/bootstrap-tokenfield');
-  require('./css/tokenfield-typeahead.scss');
-  require('./css/bootstrap-tokenfield.scss');
-  require('./css/search.scss');
 
   var Immutable = require('immutable');
   var pubsub = require('pubsub-js');
@@ -23,10 +20,7 @@ define(function(require) {
   var params = Immutable.Map();
 
   var suggesters = [
-    'common-name',
     'scientific-name',
-    'location',
-    'characteristic',
   ];
 
   function humanize(name) {
@@ -56,7 +50,7 @@ define(function(require) {
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: '/api/1/suggest?query=%q',
+        url: API_BASE + 'suggest?query=%q',
         wildcard: '%q',
         transform: transform,
       }
@@ -81,11 +75,10 @@ define(function(require) {
       .on('tokenfield:createdtoken', createdToken)
       .on('tokenfield:removedtoken', publishUpdated);
 
-    $(window).on('resize', refresh);
-
     initialized = true;
-  }
 
+    $(window).on('resize', refresh);
+  }
 
   function publishUpdated(e) {
     pubsub.publish('search.updated');
@@ -100,7 +93,6 @@ define(function(require) {
       tokenfield.tokenfield('setTokens', tokens);
     } else {
       initialize(tokens);
-      publishUpdated();
     }
   }
 

@@ -1,11 +1,11 @@
 {
-  "name": "resources",
+  "name": "ipni-web",
   "version": "1.0.0",
   "description": "IPNI wep application",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --env development --content-base static ",
-    "build": "webpack --env production",
+    "start": "webpack-dev-server --env.development --content-base static ",
+    "build": "webpack --env.production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
+    "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
@@ -27,8 +28,6 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "bootstrap-loader": "^2.1.0",
     "deparam": "^1.0.5",
     "handlebars": "^4.0.10",
     "immutable": "^3.8.1",

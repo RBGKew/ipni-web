@@ -1,11 +1,10 @@
 define(function(require) {
 
-  var $ = require('jquery');
-  var _ = require('lodash');
   var Handlebars = require('handlebars');
   var pagination = require('pagination');
   var filters = require('./filters');
   var events = require('./events');
+  var header = require('./results-header');
 
   var resultsTmpl = require('./tmpl/results.hbs');
 
@@ -20,23 +19,10 @@ define(function(require) {
     }
   });
 
-  var prepare = function() {
-    if(_.isEmpty($('.c-results-outer'))) {
-      $('.c-footer').show();
-      $(".c-results-outer").on("click", ".js-show-list", function() {
-        $(".c-results-outer").addClass("grid--rows").removeClass("grid--columns");
-      });
-
-      $(".c-results-outer").on("click", ".js-show-grid", function() {
-        $(".c-results-outer").addClass("grid--columns").removeClass("grid--rows");
-      });
-    }
-  }
-
   var update = function(state) {
-    prepare();
+    header.showSelectedSort(filters.getParam('sort') || 'a-z');
 
-    $.getJSON("/api/1/search?" + state, function(json) {
+    $.getJSON(API_BASE + 'search?callback=?&' + state, function(json) {
       if($('#c-search-results').length) {
         $('#c-search-results').replaceWith(resultsTmpl(json));
       } else {
@@ -48,9 +34,7 @@ define(function(require) {
   };
 
   var updateItems = function(state) {
-    $.getJSON("/api/1/search?" + state, function(json) {
-      prepare();
-
+    $.getJSON(API_BASE + 'search?callback=?&' + state, function(json) {
       filters.refresh();
     });
   }
@@ -59,6 +43,14 @@ define(function(require) {
     if($(window).width() < 992) {
       $(document).scrollTop( $("#search_box").offset().top);
     }
+
+    $('.container')
+      .on('click', '#c-search-results .sort-by a', setSort)
+  }
+
+  function setSort(event) {
+    event.preventDefault();
+    filters.setParam('sort', $(this).attr("id"));
   }
 
   function paginate(results) {

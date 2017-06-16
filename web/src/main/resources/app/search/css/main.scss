@@ -4,6 +4,9 @@
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 
+@import 'search/css/tokenfield-typeahead.scss';
+@import 'search/css/bootstrap-tokenfield.scss';
+
 .c-search {
 
   position: relative;

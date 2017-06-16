@@ -1,1 +1,5 @@
-require(['./search']);
+require([
+  './search',
+  './styles.scss',
+  'bootstrap',
+]);

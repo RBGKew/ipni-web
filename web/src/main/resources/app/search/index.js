@@ -5,30 +5,6 @@ define(function(require) {
   var filters = require('./filters');
   var results = require('./results');
 
-  require('bootstrap-loader');
-
-  function setFacet(event) {
-    event.preventDefault();
-    var facet = $(this).data('facet');
-    $('.facet.' + facet).toggleClass('selected');
-
-    var facets = [];
-    $('.facet.selected').each(function(i, el) {
-      facets.push($(el).data('facet'));
-    });
-
-    if(_.isEmpty(facets)) {
-      filters.removeParam('f');
-    } else {
-      filters.setParam('f', _.uniq(facets).join(','));
-    }
-  }
-
-  function setSort(event) {
-    event.preventDefault();
-    filters.setParam('sort', $(this).attr("id"));
-  }
-
   var initialize = function() {
     filters.initialize();
 
@@ -41,10 +17,6 @@ define(function(require) {
     $('.c-search #search').on('input', function(e) {
       results.initialize();
     });
-
-    $('.c-search')
-      .on('click', '.facet', setFacet)
-      .on('click', '.c-results-outer .sort_options', setSort)
 
     $('.s-page').removeClass('invisible');
   };

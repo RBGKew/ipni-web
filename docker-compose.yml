@@ -1,6 +1,7 @@
 version: '2'
+
 services:
-  ipni-web:
+  web:
     image: ipni/ipni-web:latest
     ports:
       - "18080:8080"
@@ -11,3 +12,8 @@ services:
     image: ipni/ipni-solr:latest
     ports:
       - "18983:8983"
+    volumes:
+      - solr_data:/opt/solr/server/solr/ipni_view/data
+
+volumes:
+  solr_data: {}

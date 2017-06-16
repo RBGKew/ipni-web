@@ -1,6 +1,6 @@
 define(function(require) {
   var $ = require('jquery');
-  var Cookies = require('libs/js.cookie.js');
+  //var Cookies = require('libs/js.cookie.js');
 
   function showSelectedSort(sort) {
     $(".sort_options").removeClass('selected_background')
