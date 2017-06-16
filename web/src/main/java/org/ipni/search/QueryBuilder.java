@@ -1,32 +1,32 @@
 package org.ipni.search;
 
 import java.util.Map;
-
 import org.apache.solr.client.solrj.SolrQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import static org.ipni.constants.FieldMapping.*;
 
 public class QueryBuilder {
 
 	private static Logger logger = LoggerFactory.getLogger(QueryBuilder.class);
 
 	private static final ImmutableSet<String> nameQueryFields = new ImmutableSet.Builder<String>()
-			.add("taxon_scientific_name_s_lower")
-			.add("family_s_lower")
-			.add("genus_s_lower")
-			.add("species_s_lower")
-			.add("infraspecies_s_lower")
-			.add("hybrid_genus_s_lower")
+			.add(scientificName.solrField())
+			.add(family.solrField())
+			.add(genus.solrField())
+			.add(species.solrField())
+			.add(infraspecies.solrField())
+			.add(hybrid.solrField())
+			.add(hybridGenus.solrField())
 			.build();
 
 	private static final ImmutableSet<String> mainQueryFields = new ImmutableSet.Builder<String>()
 			.addAll(nameQueryFields)
-			.add("authors_s_lower")
-			.add("reference_s_lower")
-			.add("rank_s_lower")
+			.add(author.solrField())
+			.add(reference.solrField())
+			.add(rank.solrField())
 			.build();
 
 	private static final Map<String, QueryOption> queryMappings = new ImmutableMap.Builder<String, QueryOption>()
