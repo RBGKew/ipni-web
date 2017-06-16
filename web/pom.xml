@@ -128,17 +128,23 @@
             <configuration>
               <nodeVersion>v6.11.0</nodeVersion>
               <npmVersion>5.0.3</npmVersion>
-              <arguments>run build</arguments>
             </configuration>
           </execution>
 
           <execution>
-            <id>build frontend with webpack</id>
+            <id>install npm dependencies</id>
             <goals>
               <goal>npm</goal>
             </goals>
+          </execution>
+
+          <execution>
+            <id>build with webpack</id>
+            <goals>
+              <goal>webpack</goal>
+            </goals>
             <configuration>
-              <arguments>run build</arguments>
+              <arguments>--env.production</arguments>
             </configuration>
           </execution>
         </executions>
