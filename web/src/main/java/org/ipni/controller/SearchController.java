@@ -26,15 +26,16 @@ public class SearchController {
 	
 	@Autowired
 	public void setSolrClient() {
-		this.solrClient = new HttpSolrClient("http://solr:8983/solr/ipni_view/");
+		this.solrClient = new HttpSolrClient("http://solr:8983/solr/ipni_view");
 	}
 	
-	@GetMapping("search/")
+	@GetMapping("search")
 	public ResponseEntity<Response> search(@RequestParam Map<String,String> params) throws SolrServerException, IOException {
 		QueryBuilder queryBuilder = new QueryBuilder();
 		for(Entry<String, String> param : params.entrySet() ){
 			queryBuilder.addParam(param.getKey(), param.getValue());
 		}
+
 		QueryResponse queryResponse = solrClient.query(queryBuilder.build());
 		Response response = new Response(queryResponse);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
