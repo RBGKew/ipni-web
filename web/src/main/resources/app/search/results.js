@@ -4,7 +4,6 @@ define(function(require) {
   var pagination = require('pagination');
   var filters = require('./filters');
   var events = require('./events');
-  var header = require('./results-header');
 
   var resultsTmpl = require('./tmpl/results.hbs');
 
@@ -20,15 +19,14 @@ define(function(require) {
   });
 
   var update = function(state) {
-    header.showSelectedSort(filters.getParam('sort') || 'a-z');
-
-    $.getJSON(API_BASE + 'search?callback=?&' + state, function(json) {
+    $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
+      results['sort'] = filters.getParam('sort');
       if($('#c-search-results').length) {
-        $('#c-search-results').replaceWith(resultsTmpl(json));
+        $('#c-search-results').replaceWith(resultsTmpl(results));
       } else {
-        $('.jumbotron').after(resultsTmpl(json));
+        $('.jumbotron').after(resultsTmpl(results));
       }
-      paginate(json);
+      paginate(results);
       filters.refresh();
     });
   };
@@ -45,7 +43,7 @@ define(function(require) {
     }
 
     $('.container')
-      .on('click', '#c-search-results .sort-by a', setSort)
+      .on('click', '.sort-by a', setSort)
   }
 
   function setSort(event) {
