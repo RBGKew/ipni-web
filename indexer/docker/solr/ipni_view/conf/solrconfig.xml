@@ -1175,6 +1175,36 @@
       <str name="suggestAnalyzerFieldType">lowercase</str>
       <str name="highlight">false</str>
     </lst>
+    
+    <lst name="suggester">
+      <str name="name">collector-team</str>
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">collector_team_as_text_t</str>
+      <str name="indexPath">collector_team_suggest</str>
+      <str name="suggestAnalyzerFieldType">text_general</str>
+      <str name="highlight">false</str>
+    </lst>
+    
+    <lst name="suggester">
+      <str name="name">author</str>
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">authors_t</str>
+      <str name="indexPath">author_suggest</str>
+      <str name="suggestAnalyzerFieldType">text_general</str>
+      <str name="highlight">false</str>
+    </lst>
+    
+    <lst name="suggester">
+      <str name="name">publication</str>
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">reference_t</str>
+      <str name="indexPath">reference_suggest</str>
+      <str name="suggestAnalyzerFieldType">text_general</str>
+      <str name="highlight">false</str>
+    </lst>
   </searchComponent>
 
   <requestHandler name="/suggest" class="solr.SearchHandler" startup="lazy">
