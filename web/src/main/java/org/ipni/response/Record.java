@@ -19,7 +19,7 @@ public class Record {
 	public Record(SolrDocument item){
 		name = (String) item.get(FieldMapping.scientificName.solrField());
 		author = (String) item.get(FieldMapping.author.solrField());
-		publication = (String) item.get(FieldMapping.reference.solrField());
+		publication = (String) item.getFirstValue(FieldMapping.reference.solrField());
 		rank = (String) item.get(FieldMapping.rank.solrField());
 		author = (String) item.get(FieldMapping.author.solrField());
 		url = constructUrl((String) item.get("id"));

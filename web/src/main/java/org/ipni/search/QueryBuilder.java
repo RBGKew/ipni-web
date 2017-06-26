@@ -10,6 +10,7 @@ import static org.ipni.constants.FieldMapping.*;
 
 public class QueryBuilder {
 
+	@SuppressWarnings("unused")
 	private static Logger logger = LoggerFactory.getLogger(QueryBuilder.class);
 
 	private static final ImmutableSet<String> nameQueryFields = new ImmutableSet.Builder<String>()
@@ -35,6 +36,7 @@ public class QueryBuilder {
 			.put("page", new PageNumberQuery())
 			.put("sort", new SortQuery())
 			.put("page.size", new PageSizeQuery())
+			.put("published", new RangeFilterQuery())
 			.build();
 
 	private SolrQuery query = new SolrQuery().setRequestHandler("/select");

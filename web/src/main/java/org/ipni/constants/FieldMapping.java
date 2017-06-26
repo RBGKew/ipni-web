@@ -1,8 +1,7 @@
 package org.ipni.constants;
 
-
 public enum FieldMapping {
-	
+
 	scientificName("scientific_name", "taxon_scientific_name_s_lower"),
 	family("family", "family_s_lower"),
 	genus("genus", "genus_s_lower"),

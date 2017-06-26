@@ -34,7 +34,7 @@ define(function(require) {
         return;
       }
 
-      for(i = 0; i < res.suggestedTerms[suggester].length && i < 2; i++) {
+      for(i = 0; i < res.suggestedTerms[suggester].length && i < 5; i++) {
         ret.push({
           value: res.suggestedTerms[suggester][i],
           category: humanize(suggester),
@@ -50,7 +50,7 @@ define(function(require) {
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: API_BASE + 'suggest?query=%q',
+        url: API_BASE + 'suggest?query=%q&callback=?',
         wildcard: '%q',
         transform: transform,
       }

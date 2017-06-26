@@ -22,7 +22,7 @@ public class Response {
 	private Integer perPage;
 	private String sort;
 	private List<Record> results = new ArrayList<Record>();
-	
+
 	public Response(QueryResponse queryResponse){
 		SolrDocumentList queryResults = queryResponse.getResults();
 		@SuppressWarnings("unchecked")
@@ -31,12 +31,12 @@ public class Response {
 		perPage = Integer.parseInt(params.get("rows"));
 		page = IntMath.divide((int)queryResults.getStart(), perPage, RoundingMode.CEILING);
 		totalPages = IntMath.divide(totalResults, perPage, RoundingMode.CEILING);
-		
+
 		queryResults.forEach(item->{
 			Record result = new Record(item);
 			results.add(result);
 		});
 	}
-	
-	
+
+
 }
