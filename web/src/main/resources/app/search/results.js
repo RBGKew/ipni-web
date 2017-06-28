@@ -21,6 +21,7 @@ define(function(require) {
   var update = function(state) {
     $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
       results['sort'] = filters.getParam('sort');
+      results['f'] = filters.getParam('f');
       if($('#c-search-results').length) {
         $('#c-search-results').replaceWith(resultsTmpl(results));
       } else {
@@ -44,6 +45,17 @@ define(function(require) {
 
     $('.container')
       .on('click', '.sort-by a', setSort)
+      .on('click', '.filter-by a', toggleFilter);
+  }
+
+  function toggleFilter(event) {
+    event.preventDefault();
+    var filter = $(this).attr("id");
+    if(filters.getParam('f') === filter) {
+      filters.removeParam('f');
+    } else {
+      filters.setParam('f', filter);
+    }
   }
 
   function setSort(event) {

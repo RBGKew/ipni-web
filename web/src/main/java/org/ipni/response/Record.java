@@ -17,16 +17,15 @@ public class Record {
 	private String infraspecific;
 	
 	public Record(SolrDocument item){
-		name = (String) item.get(FieldMapping.scientificName.solrField());
-		author = (String) item.get(FieldMapping.author.solrField());
-		publication = (String) item.getFirstValue(FieldMapping.reference.solrField());
-		rank = (String) item.get(FieldMapping.rank.solrField());
-		author = (String) item.get(FieldMapping.author.solrField());
-		url = constructUrl((String) item.get("id"));
+		author = (String) item.getFirstValue(FieldMapping.author.solrField());
 		family = (String) item.get(FieldMapping.family.solrField());
 		genus = (String) item.get(FieldMapping.genus.solrField());
-		species = (String) item.get(FieldMapping.species.solrField());
 		infraspecific = (String) item.get(FieldMapping.infraspecies.solrField());
+		name = (String) item.get(FieldMapping.scientificName.solrField());
+		publication = (String) item.getFirstValue(FieldMapping.reference.solrField());
+		rank = (String) item.get(FieldMapping.rank.solrField());
+		species = (String) item.get(FieldMapping.species.solrField());
+		url = constructUrl((String) item.get("id"));
 		
 	}
 	

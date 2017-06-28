@@ -2,16 +2,17 @@ package org.ipni.constants;
 
 public enum FieldMapping {
 
-	scientificName("scientific name", "taxon_scientific_name_s_lower"),
+	author("author", "authors_t"),
 	family("family", "family_s_lower"),
 	genus("genus", "genus_s_lower"),
-	species("species", "species_s_lower"),
-	infraspecies("infraspecies", "infraspecies_s_lower"),
-	rank("rank", "taxon_rank_s_lower"),
 	hybrid("hybrid", "hybrid_s_lower"),
 	hybridGenus("hybrid genus", "hybrid_genus_s_lower"),
-	author("author", "authors_s_lower"),
-	reference("reference", "reference_s_lower");
+	infraspecies("infraspecies", "infraspecies_s_lower"),
+	rank("rank", "rank_s"),
+	reference("reference", "reference_s_lower"),
+	scientificName("scientific name", "taxon_scientific_name_s_lower"),
+	species("species", "species_s_lower"),
+	yearPublished("published", "publication_year_i");
 
 	private String solrField;
 	private String apiField;

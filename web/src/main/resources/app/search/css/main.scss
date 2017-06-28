@@ -38,6 +38,17 @@
     background-color: transparent;
     top: -5px;
   }
+
+  #search {
+    width: 500px;
+  }
+}
+
+#advanced-search {
+  .form-control, .checkbox-inline {
+    width: 30%;
+    margin: 10px 0 10px 15px;
+  }
 }
 
 .chevron {

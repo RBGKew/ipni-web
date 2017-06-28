@@ -9,13 +9,61 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-        <img src="./img/ipni_logo_175.png" />
         <h1>International Plant Names Index</h1>
         The International Plant Names Index (IPNI) is a database of the names and associated basic bibliographical details of seed plants, ferns and lycophytes. Its goal is to eliminate the need for repeated reference to primary sources for basic bibliographic information about plant names. The data are freely available and are gradually being standardized and checked. IPNI is a dynamic resource, depending on direct contributions by all members of the botanical community.</p>
 
-        <div class="c-search">
-          <input type="text" class="form-control" id="search" placeholder="Search by name, author or publication"/>
-        </div>
+        <form>
+          <div class="c-search">
+            <div id="basic-search" class="form-inline">
+              <input type="text" class="form-control" id="search" placeholder="Search by name, author or publication"/>
+              <button type="button" class="btn btn-normal" data-toggle="collapse" data-target="#advanced-search" aria-expanded="false" aria-controls="advanced-search">
+                Advanced <span class="glyphicon glyphicon-menu-down"></span>
+              </button>
+            </div>
+          </div>
+          <div class="collapse panel panel-default" id="advanced-search">
+            <div class="panel-heading">Advanced Search</div>
+            <div class="panel-body form-inline">
+
+              <b>Name</b>
+              <div class="row">
+                <input type="text" class="form-control" id="family" placeholder="Family">
+                <input type="text" class="form-control" id="genus" placeholder="Genus">
+                <input type="text" class="form-control" id="species" placeholder="Species">
+              </div>
+              <div class="row">
+                <input type="text" class="form-control" id="infrafamilial" placeholder="Infrafamilial">
+                <input type="text" class="form-control" id="infrageneric" placeholder="Infrageneric">
+                <input type="text" class="form-control" id="infraspecific" placeholder="Infraspecific">
+              </div>
+
+              <b>Author</b>
+              <div class="row">
+                <input type="text" class="form-control" id="author" placeholder="Standard form">
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="name-authors" value="name-author" checked/> Taxon Name Authors
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="basionym-authors" value="basionym-author" checked/> Basionym Authors
+                </label>
+              </div>
+
+              <b>Publication</b>
+              <div class="row">
+                <input type="text" class="form-control" id="publication" placeholder="Standard abbreviation">
+                <input type="text" class="form-control" id="date published" placeholder="Date published" data-provide="datepicker">
+              </div>
+
+              <b>Record Date</b>
+              <div class="row">
+                <input type="text" class="form-control" id="added since" placeholder="Added since" data-provide="datepicker">
+                <input type="text" class="form-control" id="modified since" placeholder="Modified since" data-provide="datepicker">
+              </div>
+
+              <button type="submit" class="btn btn-normal">Search</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </body>

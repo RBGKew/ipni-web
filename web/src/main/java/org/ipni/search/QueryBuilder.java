@@ -37,6 +37,7 @@ public class QueryBuilder {
 			.put("sort", new SortQuery())
 			.put("page.size", new PageSizeQuery())
 			.put("published", new RangeFilterQuery())
+			.put("f", new FilterQuery())
 			.build();
 
 	private SolrQuery query = new SolrQuery().setRequestHandler("/select");

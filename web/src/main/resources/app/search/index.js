@@ -1,5 +1,6 @@
 define(function(require) {
   var pubsub = require('pubsub-js');
+  require('bootstrap-datepicker');
 
   var events = require('./events');
   var filters = require('./filters');

@@ -1,21 +1,38 @@
 <div id="c-search-results" class="panel panel-default">
   <div class="panel-heading">
     {{totalResults}} results
-    <div class="btn-group pull-right">
-      <button type="button" class="btn btn-xs btn-defualt dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></button>
-      <ul class="sort-by dropdown-menu dropdown-menu-right">
-        <li class="{{highlight sort "name_asc"}}"><a id="name_asc" href="#">Name A-Z</a></li>
-        <li class="{{highlight sort "name_desc"}}"><a id="name_desc" href="#">Name Z-A</a></li>
-      </ul>
+    <div class="pull-right">
+      <div class="btn-group">
+        <button type="button" class="btn btn-xs btn-defualt dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></button>
+        <ul class="sort-by dropdown-menu dropdown-menu-right">
+          <li class="{{highlight sort "name_asc"}}"><a id="name_asc" href="#">Name A-Z</a></li>
+          <li class="{{highlight sort "name_desc"}}"><a id="name_desc" href="#">Name Z-A</a></li>
+          <li class="{{highlight sort "published_asc"}}"><a id="published_asc" href="#">Date Published - Oldest first</a></li>
+          <li class="{{highlight sort "published_desc"}}"><a id="published_desc" href="#">Date Published - Newest first</a></li>
+        </ul>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-xs btn-defualt dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by <span class="caret"></span></button>
+        <ul class="filter-by dropdown-menu dropdown-menu-right">
+          <li class="{{highlight f "f_familial"}}" ><a id="f_familial" href="#">Familial</li>
+          <li class="{{highlight f "f_infrafamilial"}}" ><a id="f_infrafamilial" href="#">Infrafamilial</li>
+          <li class="{{highlight f "f_generic"}}" ><a id="f_generic" href="#">Generic</li>
+          <li class="{{highlight f "f_infrageneric"}}" ><a id="f_infrageneric" href="#">Infrageneric</li>
+          <li class="{{highlight f "f_specific"}}" ><a id="f_specific" href="#">Specific</li>
+          <li class="{{highlight f "f_infraspecific"}}" ><a id="f_infraspecific" href="#">InfraSpecific</li>
+          <li class="{{highlight f "f_hybrid"}}" ><a id="f_hybrid" href="#">Hybrid</li>
+        </ul>
+      </div>
     </div>
     <div class="clearfix"></div>
   </div>
   {{#with results}}
-  <div class="list-group">
-    {{#each this}}
-      <a href="{{url}}" class="list-group-item"><small>{{family}}</small> <em>{{name}}</em> {{author}} -- <small>{{publication}}</small></a>
-    {{/each}}
-  </div>
+    <div class="list-group">
+      {{#each this}}
+        <a href="{{url}}" class="list-group-item"><em>{{name}}</em> {{author}}, <small>{{publication}}</small></a>
+      {{/each}}
+    </div>
   {{/with}}
   <div class="panel-footer">
     <div class="c-pagination"></div>
