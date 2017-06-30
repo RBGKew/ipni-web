@@ -20,6 +20,7 @@
     "file-loader": "^0.11.2",
     "handlebars-loader": "^1.5.0",
     "html-webpack-plugin": "^2.28.0",
+    "jquery-serializejson": "^2.8.1",
     "node-sass": "^4.5.3",
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.5",

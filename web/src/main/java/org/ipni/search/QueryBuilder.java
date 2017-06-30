@@ -36,7 +36,6 @@ public class QueryBuilder {
 			.put("page", new PageNumberQuery())
 			.put("sort", new SortQuery())
 			.put("page.size", new PageSizeQuery())
-			.put("published", new RangeFilterQuery())
 			.put("f", new FilterQuery())
 			.build();
 

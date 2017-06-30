@@ -1,6 +1,7 @@
 define(function(require) {
   var pubsub = require('pubsub-js');
   require('bootstrap-datepicker');
+  require('jquery-serializejson');
 
   var events = require('./events');
   var filters = require('./filters');
@@ -15,11 +16,10 @@ define(function(require) {
       filters.deserialize(window.location.search);
     }
 
-    $('.c-search #search').on('input', function(e) {
-      results.initialize();
-    });
-
-    $('.s-page').removeClass('invisible');
+    $('.container').on('click', '#advanced-search button', function(e) {
+      e.preventDefault();
+      filters.set(_.pickBy($('#advanced-search').serializeJSON()));
+    })
   };
 
   // event listeners for updating search results based on filters

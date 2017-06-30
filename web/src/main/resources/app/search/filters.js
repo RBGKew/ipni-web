@@ -88,7 +88,13 @@ define(function(require) {
     publishUpdated();
   };
 
-  function setTokens(tokens) {
+  var setTokens = function(tokens) {
+    if(_.isObject(tokens) && !_.isArray(tokens)) {
+      tokens = _.map(tokens, function(val, key) {
+        return val ? key + ':' + val : key
+      });
+    }
+
     if(initialized) {
       tokenfield.tokenfield('setTokens', tokens);
     } else {
@@ -173,5 +179,6 @@ define(function(require) {
     removeParam: removeParam,
     serialize: serialize,
     setParam: setParam,
+    set: setTokens,
   }
 });
