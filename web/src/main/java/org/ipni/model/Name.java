@@ -1,0 +1,115 @@
+package org.ipni.model;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.apache.solr.common.SolrDocument;
+import org.ipni.constants.FieldMapping;
+
+import lombok.Data;
+
+@Data
+public class Name {
+	private String name;
+	private String authors;
+	private String publishingAuthor;
+	private String originalRemarks;
+	private String publication;
+	private String rank;
+	private String url;
+	private String family;
+	private String genus;
+	private String species;
+	private String infraspecific;
+	private Name basionym;
+	private String bibliographicReference;
+	private String bibliographicTypeInfo;
+	private String citationType;
+	private String referenceCollation;
+	private LocalDate collectionDate1;
+	private LocalDate collectionDate2;
+	private String collectionNumber;
+	private String collectorTeam;
+	private Name conservedAgainst;
+	private Name correctionOf;
+	private LocalDate dateCreated;
+	private LocalDate dateLastModified;
+	private String distribution;
+	private String eastOrWest;
+	private String endPage;
+	private String fullName;
+	private String geographicUnit;
+	private String hybrid;
+	private String hybridGenus;
+	private List<Name> hybridParents;
+	private String infrafamily;
+	private String infragenus;
+	private String infraspecies;
+	private Name isonymOf;
+	private Name laterHomonymOf;
+	private String latitudeDegrees;
+	private String latitudeMinutes;
+	private String latitudeSeconds;
+	private String locality;
+	private String longitudeDegrees;
+	private String longitudeMinutes;
+	private String longitudeSeconds;
+	private String nameStatus;
+	private String nameStatusBotCodeType;
+	private String nameStatusEditorComment;
+	private String nameStatusEditorType;
+	private String nameStatusQualifier;
+	private Name nomenclaturalSynonym;
+	private String northOrSouth;
+	private String originalBasionym;
+	private String originalBasionymAuthorTeam;
+	private String originalCitedType;
+	private String originalHybridParentage;
+	private String originalParentCitationTaxonNameAuthorTeam;
+	private String originalReplacedSynonym;
+	private String originalReplacedSynonymAuthorTeam;
+	private String originalTaxonDistribution;
+	private String originalTaxonName;
+	private String originalTaxonNameAuthorTeam;
+	private String otherLinks;
+	private String primaryPagination;
+	private String publicationId;
+	private String publicationAuthor;
+	private String publicationYear;
+	private String publicationYearFull;
+	private String publicationYearNote;
+	private String publicationYearText;
+	private String reference;
+	private String referenceRemarks;
+	private String remarks;
+	private Name replacedSynonym;
+	private Name sameCitationAs;
+	private String secondaryPagination;
+	private String speciesAuthor;
+	private String standardisedBasionymAuthorFlag;
+	private String standardisedPublicationFlag;
+	private String standardisedPublishingAuthorFlag;
+	private String startPage;
+	private Name superfluousNameOf;
+	private boolean suppressed;
+	private Name type;
+	private String typeLocations;
+	private String typeName;
+	private String typeRemarks;
+	private Name validationOf;
+	private String version;
+	private String volume;
+	private Name parent;
+	private Name orthographicVariantOf;
+	
+	public Name(SolrDocument name) {
+		this.authors = (String) name.getFirstValue(FieldMapping.author.solrField());
+		this.family = (String) name.get(FieldMapping.family.solrField());
+		this.genus = (String) name.get(FieldMapping.genus.solrField());
+		this.infraspecific = (String) name.get(FieldMapping.infraspecies.solrField());
+		this.name = (String) name.get(FieldMapping.scientificName.solrField());
+		this.publication = (String) name.getFirstValue(FieldMapping.reference.solrField());
+		this.rank = (String) name.get(FieldMapping.rank.solrField());
+		this.species = (String) name.get(FieldMapping.species.solrField());
+	}
+}

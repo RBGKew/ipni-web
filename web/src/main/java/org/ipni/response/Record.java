@@ -26,7 +26,6 @@ public class Record {
 		rank = (String) item.get(FieldMapping.rank.solrField());
 		species = (String) item.get(FieldMapping.species.solrField());
 		url = constructUrl((String) item.get("id"));
-		
 	}
 	
 	private String constructUrl(String id){

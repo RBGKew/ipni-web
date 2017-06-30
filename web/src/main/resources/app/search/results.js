@@ -7,17 +7,6 @@ define(function(require) {
 
   var resultsTmpl = require('./tmpl/results.hbs');
 
-  $(document).on('keydown', function (event) {
-    if($(event.target).is('input')) return;
-
-    var pag = $('.c-pagination');
-    if(event.which === events.LEFT_ARROW) {
-      pag.pagination('prevPage');
-    } else if (event.which === events.RIGHT_ARROW) {
-      pag.pagination('nextPage');
-    }
-  });
-
   var update = function(state) {
     $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
       results['sort'] = filters.getParam('sort');
@@ -39,13 +28,31 @@ define(function(require) {
   }
 
   var initialize = function(initialToken) {
+    $(document).on('keydown', function (event) {
+      if($(event.target).is('input')) return;
+
+      var pag = $('.c-pagination');
+      if(event.which === events.LEFT_ARROW) {
+        pag.pagination('prevPage');
+      } else if (event.which === events.RIGHT_ARROW) {
+        pag.pagination('nextPage');
+      }
+    });
+
     if($(window).width() < 992) {
       $(document).scrollTop( $("#search_box").offset().top);
     }
 
     $('.container')
       .on('click', '.sort-by a', setSort)
-      .on('click', '.filter-by a', toggleFilter);
+      .on('click', '.filter-by a', toggleFilter)
+      .on('click', '.results a', showDetail);
+  }
+
+  function showDetail(e) {
+    e.preventDefault();
+    var link = $(this);
+    history.pushState(null, null, link.attr('href'));
   }
 
   function toggleFilter(event) {
