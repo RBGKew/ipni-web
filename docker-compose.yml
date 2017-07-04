@@ -7,6 +7,12 @@ services:
       - "18080:8080"
     links:
       - solr
+  indexer:
+    image: ipni/ipni-indexer:latest
+    ports:
+      - "28080:8080"
+    links:
+      - solr
       
   solr:
     image: ipni/ipni-solr:latest
