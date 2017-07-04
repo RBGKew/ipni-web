@@ -10,7 +10,7 @@ public class SolrConfiguration {
 
 	@Bean
 	public SolrClient solrClient() {
-		return new HttpSolrClient.Builder("http://solr:8983/solr/ipni_view").build();
+		return new HttpSolrClient.Builder("http://solr:8983/solr/ipni_1").build();
 	}
 
 }
