@@ -1,17 +1,25 @@
 package org.ipni.indexer.loader;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.client.solrj.response.CoreAdminResponse;
+import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.apache.solr.common.util.ContentStream;
 import org.apache.solr.common.util.ContentStreamBase;
@@ -57,8 +65,12 @@ public class Loader {
 	private SolrClient adminSolrClient = null;
 	private SolrClient oldClient = null;
 	private Logger logger = LoggerFactory.getLogger(Loader.class);
-	private File file = new File("/index.csv");
+	private File indexFile = new File("/index.csv");
 	private File coreFile = new File("/currentCore");
+	private File updateFile = new File("/update.csv");
+	
+	private static String INDEX_FILE_URL = "http://storage.googleapis.com/kew-dev-backup/ipni_flat_all.csv.xz";
+	private static String UPDATE_FILE_URL = "http://storage.googleapis.com/kew-dev-backup/powo_ipni_ids.txt.xz";
 	
 	@Autowired
 	public void setadminSolrClient() {
@@ -74,8 +86,10 @@ public class Loader {
 	public void Load(){
 		try {
 			getCurrentCore();
-			getFile();
+			getFile(indexFile, INDEX_FILE_URL);
 			loadData();
+			getFile(updateFile, UPDATE_FILE_URL);
+			updateData();
 			switchCores();
 			clearCore();
 		} catch (SolrServerException | IOException e) {
@@ -89,12 +103,12 @@ public class Loader {
 		
 	}
 	
-	public void getFile() throws MalformedURLException, IOException {
+	public void getFile(File file, String filePathUrl) throws MalformedURLException, IOException {
 		logger.info("Getting file from server..");
 		if(file.exists()){
 			file.delete();
 		}
-		BufferedInputStream in = new BufferedInputStream(new URL("http://storage.googleapis.com/kew-dev-backup/ipni_flat_all.csv.xz").openStream());
+		BufferedInputStream in = new BufferedInputStream(new URL(filePathUrl).openStream());
 		XZInputStream unzip = new XZInputStream(in);
 		FileOutputStream out = new FileOutputStream(file);
 		final byte[] buffer = new byte[8192];
@@ -109,7 +123,7 @@ public class Loader {
 	
 	public void loadData() throws MalformedURLException, IOException, SolrServerException{
 		logger.info("Loading Data to Solr...");
-		ContentStreamBase.FileStream stream = new ContentStreamBase.FileStream(file);
+		ContentStreamBase.FileStream stream = new ContentStreamBase.FileStream(indexFile);
 		stream.setContentType("application/csv");
 		ContentStreamUpdateRequest request = new ContentStreamUpdateRequest("/ipni_2/update");
 		request.setParams(params);
@@ -130,6 +144,31 @@ public class Loader {
 		oldClient.deleteByQuery("*:*");
 		oldClient.commit();
 		logger.info("Old core cleared");
+	}
+	
+	public void updateData() throws MalformedURLException, IOException, SolrServerException{
+		logger.info("Updating Solr Data...");
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(updateFile),"UTF8"));
+		String IPNI_URI = "urn:lsid:ipni.org:names:";
+		String sCurrentLine;
+		String recordIdClean = null;
+		
+		Collection<SolrInputDocument> solrDocs = new ArrayList<SolrInputDocument>();
+		
+        while ((sCurrentLine = br.readLine()) != null) {
+        	recordIdClean = sCurrentLine.replaceFirst(IPNI_URI, "");
+			SolrInputDocument sdoc = new SolrInputDocument();
+			sdoc.addField("id",recordIdClean);
+			sdoc.addField("powo_b", Collections.singletonMap("set",true));
+			solrDocs.add(sdoc);
+        }
+        
+        br.close();
+        logger.info("updating and commiting docs");
+        oldClient.add(solrDocs);
+        oldClient.commit();
+		logger.info("Data updated");
 	}
 	
 	
