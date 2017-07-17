@@ -25,6 +25,16 @@
     }
   }
 
+  .name-page {
+    padding: 0px 15px 0px 0px;
+    .c-title {
+      display: none;
+    }
+    .c-search {
+      float:right;
+    }
+
+  }
   .suggestion-category {
     color: #ccc;
     float: right;

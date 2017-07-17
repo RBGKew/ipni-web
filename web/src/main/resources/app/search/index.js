@@ -6,7 +6,7 @@ define(function(require) {
   var events = require('./events');
   var filters = require('./filters');
   var results = require('./results');
-
+  var name = require('./name');
   var initialize = function() {
     filters.initialize();
 
@@ -20,7 +20,14 @@ define(function(require) {
       e.preventDefault();
       filters.set(_.pickBy($('#advanced-search').serializeJSON()));
     })
+
+    $('.container').on('click', '.result', function(e) {
+      e.preventDefault();
+      var url = $(this).data("id");
+      name.setName(url);
+    })
   };
+
 
   // event listeners for updating search results based on filters
   pubsub.subscribe('search.updated', function() {

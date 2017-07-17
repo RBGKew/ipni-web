@@ -12,32 +12,26 @@ import lombok.Data;
 public class Name {
 	private String name;
 	private String authors;
-	private String publishingAuthor;
 	private String originalRemarks;
-	private String publication;
 	private String rank;
 	private String url;
 	private String family;
 	private String genus;
 	private String species;
 	private String infraspecific;
-	private Name basionym;
+	private List<Name> basionym;
 	private String bibliographicReference;
 	private String bibliographicTypeInfo;
-	private String citationType;
-	private String referenceCollation;
 	private LocalDate collectionDate1;
 	private LocalDate collectionDate2;
 	private String collectionNumber;
 	private String collectorTeam;
-	private Name conservedAgainst;
-	private Name correctionOf;
+	private List<Name> conservedAgainst;
+	private List<Name> correctionOf;
 	private LocalDate dateCreated;
 	private LocalDate dateLastModified;
 	private String distribution;
 	private String eastOrWest;
-	private String endPage;
-	private String fullName;
 	private String geographicUnit;
 	private String hybrid;
 	private String hybridGenus;
@@ -45,8 +39,8 @@ public class Name {
 	private String infrafamily;
 	private String infragenus;
 	private String infraspecies;
-	private Name isonymOf;
-	private Name laterHomonymOf;
+	private List<Name> isonymOf;
+	private List<Name> laterHomonymOf;
 	private String latitudeDegrees;
 	private String latitudeMinutes;
 	private String latitudeSeconds;
@@ -55,61 +49,171 @@ public class Name {
 	private String longitudeMinutes;
 	private String longitudeSeconds;
 	private String nameStatus;
-	private String nameStatusBotCodeType;
-	private String nameStatusEditorComment;
-	private String nameStatusEditorType;
-	private String nameStatusQualifier;
-	private Name nomenclaturalSynonym;
+	private List<Name> nomenclaturalSynonym;
 	private String northOrSouth;
 	private String originalBasionym;
 	private String originalBasionymAuthorTeam;
-	private String originalCitedType;
 	private String originalHybridParentage;
-	private String originalParentCitationTaxonNameAuthorTeam;
 	private String originalReplacedSynonym;
 	private String originalReplacedSynonymAuthorTeam;
 	private String originalTaxonDistribution;
-	private String originalTaxonName;
-	private String originalTaxonNameAuthorTeam;
 	private String otherLinks;
-	private String primaryPagination;
 	private String publicationId;
-	private String publicationAuthor;
-	private String publicationYear;
-	private String publicationYearFull;
-	private String publicationYearNote;
-	private String publicationYearText;
 	private String reference;
-	private String referenceRemarks;
 	private String remarks;
-	private Name replacedSynonym;
-	private Name sameCitationAs;
-	private String secondaryPagination;
+	private List<Name> replacedSynonym;
+	private List<Name> sameCitationAs;
 	private String speciesAuthor;
-	private String standardisedBasionymAuthorFlag;
-	private String standardisedPublicationFlag;
-	private String standardisedPublishingAuthorFlag;
-	private String startPage;
-	private Name superfluousNameOf;
+	private List<Name> superfluousNameOf;
 	private boolean suppressed;
 	private Name type;
 	private String typeLocations;
 	private String typeName;
 	private String typeRemarks;
-	private Name validationOf;
+	private List<Name> validationOf;
 	private String version;
-	private String volume;
-	private Name parent;
-	private Name orthographicVariantOf;
+	private List<Name> parent;
+	private List<Name> orthographicVariantOf;
+	private String id;
+	private boolean taxonomyHasData;
+	private boolean bibliographyHasData;
+	private boolean hybridHasData;
+	private boolean remarksHasData;
+	private boolean originalDataHasData;
+	private boolean distributionHasData;
+	private boolean typeHasData;
+	private boolean nomenclaturalHasData;
+	private boolean linksHasData;
+	private boolean otherDataHasData;
 	
 	public Name(SolrDocument name) {
+		this.id = (String) name.getFirstValue("id");
 		this.authors = (String) name.getFirstValue(FieldMapping.author.solrField());
 		this.family = (String) name.get(FieldMapping.family.solrField());
 		this.genus = (String) name.get(FieldMapping.genus.solrField());
 		this.infraspecific = (String) name.get(FieldMapping.infraspecies.solrField());
 		this.name = (String) name.get(FieldMapping.scientificName.solrField());
-		this.publication = (String) name.getFirstValue(FieldMapping.reference.solrField());
 		this.rank = (String) name.get(FieldMapping.rank.solrField());
 		this.species = (String) name.get(FieldMapping.species.solrField());
+		this.publicationId = (String) name.get(FieldMapping.publicationId.solrField());
+		this.originalRemarks = (String) name.getFirstValue(FieldMapping.originalRemarks.solrField());
+		this.rank = (String) name.getFirstValue(FieldMapping.rank.solrField());
+		this.family = (String) name.getFirstValue(FieldMapping.family.solrField());
+		this.genus = (String) name.getFirstValue(FieldMapping.genus.solrField());
+		this.species = (String) name.getFirstValue(FieldMapping.species.solrField());
+		this.infraspecific = (String) name.getFirstValue(FieldMapping.infraspecific.solrField());
+		this.bibliographicReference = (String) name.getFirstValue(FieldMapping.bibliographicReference.solrField());
+		this.bibliographicTypeInfo = (String) name.getFirstValue(FieldMapping.bibliographicTypeInfo.solrField());
+		this.collectionNumber = (String) name.getFirstValue(FieldMapping.collectionNumber.solrField());
+		this.collectorTeam = (String) name.getFirstValue(FieldMapping.collectorTeam.solrField());
+		this.distribution = (String) name.getFirstValue(FieldMapping.distribution.solrField());
+		this.eastOrWest = (String) name.getFirstValue(FieldMapping.eastOrWest.solrField());
+		this.geographicUnit = (String) name.getFirstValue(FieldMapping.geographicUnit.solrField());
+		this.hybrid = (String) name.getFirstValue(FieldMapping.hybrid.solrField());
+		this.hybridGenus = (String) name.getFirstValue(FieldMapping.hybridGenus.solrField());
+		this.infrafamily = (String) name.getFirstValue(FieldMapping.infrafamily.solrField());
+		this.infragenus = (String) name.getFirstValue(FieldMapping.infragenus.solrField());
+		this.infraspecies = (String) name.getFirstValue(FieldMapping.infraspecies.solrField());
+		this.latitudeDegrees = (String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField());
+		this.latitudeMinutes = (String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField());
+		this.latitudeSeconds = (String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField());
+		this.locality = (String) name.getFirstValue(FieldMapping.locality.solrField());
+		this.longitudeDegrees = (String) name.getFirstValue(FieldMapping.longitudeDegrees.solrField());
+		this.longitudeMinutes = (String) name.getFirstValue(FieldMapping.longitudeMinutes.solrField());
+		this.longitudeSeconds = (String) name.getFirstValue(FieldMapping.longitudeSeconds.solrField());
+		this.nameStatus = (String) name.getFirstValue(FieldMapping.nameStatus.solrField());
+		this.northOrSouth = (String) name.getFirstValue(FieldMapping.northOrSouth.solrField());
+		this.originalBasionym = (String) name.getFirstValue(FieldMapping.originalBasionym.solrField());
+		this.originalBasionymAuthorTeam = (String) name.getFirstValue(FieldMapping.originalBasionymAuthorTeam.solrField());
+		this.originalHybridParentage = (String) name.getFirstValue(FieldMapping.originalHybridParentage.solrField());
+		this.originalReplacedSynonym = (String) name.getFirstValue(FieldMapping.originalReplacedSynonym.solrField());
+		this.originalReplacedSynonymAuthorTeam = (String) name.getFirstValue(FieldMapping.originalReplacedSynonymAuthorTeam.solrField());
+		this.originalTaxonDistribution = (String) name.getFirstValue(FieldMapping.originalTaxonDistribution.solrField());
+		this.otherLinks = (String) name.getFirstValue(FieldMapping.otherLinks.solrField());
+		this.publicationId = (String) name.getFirstValue(FieldMapping.publicationId.solrField());
+		this.reference = (String) name.getFirstValue(FieldMapping.reference.solrField());
+		this.remarks = (String) name.getFirstValue(FieldMapping.remarks.solrField());
+		this.speciesAuthor = (String) name.getFirstValue(FieldMapping.speciesAuthor.solrField());
+		this.typeLocations = (String) name.getFirstValue(FieldMapping.typeLocations.solrField());
+		this.typeName = (String) name.getFirstValue(FieldMapping.typeName.solrField());
+		this.typeRemarks = (String) name.getFirstValue(FieldMapping.typeRemarks.solrField());
+		this.url = url();
+		this.version = (String) name.getFirstValue(FieldMapping.version.solrField());
+		taxonomyCheck();
+		bibliographyCheck();
+		hybridCheck();
+		originalCheck();
+		typeCheck();
+		nomenclaturalCheck();
+		otherDataCheck();
+		
+
+	}
+	
+	private void otherDataCheck() {
+		otherDataHasData = false;
+		
+	}
+
+	private void typeCheck() {
+		if( typeName != null
+			|| bibliographicTypeInfo != null
+			|| typeLocations != null
+			|| geographicUnit != null
+			|| locality != null
+			|| latitudeDegrees != null
+			|| collectorTeam != null
+			|| bibliographicReference != null){
+			typeHasData = true;
+		}
+
+		
+	}
+
+	private void nomenclaturalCheck() {
+		if( nameStatus != null){
+			nomenclaturalHasData = true;
+		}
+		
+	}
+
+	private String url(){
+		return "/urn:lsid:ipni.org:names:" + id;
+	}
+	
+	private void taxonomyCheck(){
+		if(	parent != null
+			|| rank != null 
+			|| family != null
+			|| infrafamily != null 
+			|| genus != null 
+			|| infragenus != null
+			|| species != null 
+			|| infraspecies != null) {
+			taxonomyHasData = true;
+		}
+	}
+	
+	private void bibliographyCheck(){
+		if(authors != null){
+			bibliographyHasData = true;
+		}
+	}
+	
+	private void hybridCheck(){
+		if(hybridParents != null){
+			hybridHasData = true;
+		}
+	}
+	
+	private void originalCheck(){
+		if(	originalBasionym != null
+				|| originalRemarks != null 
+				|| originalHybridParentage != null
+				|| originalReplacedSynonym != null 
+				|| originalHybridParentage != null 
+				|| originalTaxonDistribution != null) {
+				originalDataHasData = true;
+			}
 	}
 }

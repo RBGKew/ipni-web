@@ -78,7 +78,7 @@ public class SearchController {
 		return null;
 	}
 
-	@GetMapping("/urn:lsid:ipni.org:names:{id}")
+	@GetMapping("urn:lsid:ipni.org:names:{id}")
 	public ResponseEntity<Name> getName(@PathVariable String id) throws SolrServerException, IOException {
 		return new ResponseEntity<Name>(names.load(id), HttpStatus.OK);
 	}
