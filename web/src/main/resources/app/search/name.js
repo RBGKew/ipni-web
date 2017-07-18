@@ -7,7 +7,7 @@ define(function(require) {
     $.getJSON(API_BASE  + url + "?callback=?", function(json) {
       $('#c-search-results').replaceWith(nameTmpl(json));
     });
-    $(".jumbotron").addClass("name-page")
+    $(".container").addClass("name-page")
   }
 
     return {
