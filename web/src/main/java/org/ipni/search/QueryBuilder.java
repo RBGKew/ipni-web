@@ -42,6 +42,12 @@ public class QueryBuilder {
 	private SolrQuery query = new SolrQuery().setRequestHandler("/select");
 	private static final QueryOption basicMapper = new  SingleFieldFilterQuery();
 
+	public QueryBuilder() {
+		// set defaults
+		addParam("sort", "name_asc");
+		addParam("suppressed", "false");
+	}
+
 	public QueryBuilder addParam(String key, String value) {
 		if(key.equals("callback") || key.equals("_")) {
 			// do nothing, jsonp param

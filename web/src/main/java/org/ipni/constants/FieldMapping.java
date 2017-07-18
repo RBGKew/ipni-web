@@ -12,7 +12,7 @@ public enum FieldMapping {
 	reference("reference", "reference_t"),
 	scientificName("scientific name", "taxon_scientific_name_s_lower"),
 	species("species", "species_s_lower"),
-	yearPublished("published", "publication_year_i"), 
+	yearPublished("published", "publication_year_s_lower"),
 	publishingAuthor("publishing author", "publishing_author_s_lower"), 
 	publicationId("publication id", "publication_id"),
 	
@@ -70,6 +70,7 @@ public enum FieldMapping {
 	standardisedPublicationFlag("standardised publication flag", "standardised_publication_flag_s_lower"),
 	standardisedPublishingAuthorFlag("standardised publishing author flag", "standardised_publishing_author_flag_s_lower"),
 	startPage("start page", "start_page_s_lower"),
+	suppressed("suppressed", "suppressed_b"),
 	typeLocations("type locations", "type_locations_s_lower"),
 	typeName("type name", "type_name_s_lower"),
 	typeRemarks("type remarks", "type_remarks_s_lower"),

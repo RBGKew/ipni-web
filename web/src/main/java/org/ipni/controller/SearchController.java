@@ -47,11 +47,6 @@ public class SearchController {
 			queryBuilder.addParam(param.getKey(), param.getValue());
 		}
 
-		// Add default sort
-		if(!params.containsKey("sort")) {
-			queryBuilder.addParam("sort", "name_asc");
-		}
-
 		QueryResponse queryResponse = solr.query(queryBuilder.build());
 		Response response = new Response(queryResponse);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
