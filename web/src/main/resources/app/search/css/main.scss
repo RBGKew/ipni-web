@@ -3,12 +3,47 @@
  */
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins/_grid.scss';
 
 @import 'search/css/tokenfield-typeahead.scss';
 @import 'search/css/bootstrap-tokenfield.scss';
 
-.c-search {
+body {
+  background-color: #eee;
+}
 
+.vertically-centred {
+  min-height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  height: 175px;
+  display: block;
+  background-image: url('./img/ipni_logo_175.png');
+  background-repeat: no-repeat;
+  padding-left: 200px;
+  padding-top: 55px;
+}
+
+.collaborators {
+  text-align: center;
+  @include make-row();
+}
+
+.collaborator {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-bottom: 10px;
+  @include make-md-column(3);
+  @include make-md-column-offset(0.8);
+}
+
+.c-search {
   position: relative;
   width: 60%;
   margin: 50px auto 10px;
@@ -25,16 +60,7 @@
     }
   }
 
-  .name-page {
-    padding: 0px 15px 0px 0px;
-    .c-title {
-      display: none;
-    }
-    .c-search {
-      float:right;
-    }
 
-  }
   .suggestion-category {
     color: #ccc;
     float: right;
@@ -50,14 +76,37 @@
   }
 
   #search {
-    width: 500px;
+    width: 599px;
+  }
+
+  #advanced-search {
+    .form-control, .checkbox-inline {
+      width: 30%;
+      margin: 10px 0 10px 15px;
+    }
   }
 }
 
-#advanced-search {
-  .form-control, .checkbox-inline {
-    width: 30%;
-    margin: 10px 0 10px 15px;
+.collapse-header {
+  .content { @include make-row(); }
+  .blurb { display: none };
+  .title {
+    @include make-md-column(4);
+    font-size: 1.5em;
+    background-size: contain;
+    height: auto;
+    padding: 6px 85px;
+    background-position: 15px 0;
+  }
+  .c-search {
+    margin: 20px 0;
+    @include make-md-column(8);
+  }
+  &.jumbotron {
+    padding: 10px 0;
+  }
+  .c-search {
+    margin: 30px 0;
   }
 }
 

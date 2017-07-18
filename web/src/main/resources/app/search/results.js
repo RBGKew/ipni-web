@@ -14,7 +14,7 @@ define(function(require) {
       if($('#c-search-results').length) {
         $('#c-search-results').replaceWith(resultsTmpl(results));
       } else {
-        $('.jumbotron').after(resultsTmpl(results));
+        $('.content').after(resultsTmpl(results));
       }
       paginate(results);
       filters.refresh();

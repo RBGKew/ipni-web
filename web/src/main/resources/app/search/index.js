@@ -31,6 +31,11 @@ define(function(require) {
 
   // event listeners for updating search results based on filters
   pubsub.subscribe('search.updated', function() {
+    if(!$('.jumbotron').hasClass('collapse-header')) {
+      $('.jumbotron').addClass('collapse-header');
+      $('.jumbotron').removeClass('vertically-centred');
+    }
+
     console.log(filters.serialize());
     results.update(filters.serialize());
     history.pushState(null, null, '?' + filters.serialize());
