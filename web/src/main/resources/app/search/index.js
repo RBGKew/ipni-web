@@ -32,7 +32,6 @@ define(function(require) {
     };
   };
 
-
   // event listeners for updating search results based on filters
   pubsub.subscribe('search.updated', function() {
     if($('.jumbotron')) {

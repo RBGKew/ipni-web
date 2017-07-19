@@ -11,8 +11,8 @@ define(function(require) {
     $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
       results['sort'] = filters.getParam('sort');
       results['f'] = filters.getParam('f');
-      if($('#c-search-results').length) {
-        $('#c-search-results').replaceWith(resultsTmpl(results));
+      if($('#c-page-body').length) {
+        $('#c-page-body').replaceWith(resultsTmpl(results));
       } else {
         $('.content').after(resultsTmpl(results));
       }
@@ -53,6 +53,7 @@ define(function(require) {
     e.preventDefault();
     var link = $(this);
     history.pushState(null, null, link.attr('href'));
+    filters.clear();
   }
 
   function toggleFilter(event) {

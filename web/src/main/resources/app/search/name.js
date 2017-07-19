@@ -5,12 +5,12 @@ define(function(require) {
 
   var setName = function(url) {
     $.getJSON(API_BASE  + url + "?callback=?", function(json) {
-      $('#c-search-results').replaceWith(nameTmpl(json));
+      $('#c-page-body').replaceWith(nameTmpl(json));
     });
     $(".container").addClass("name-page")
   }
 
-    return {
-      setName : setName
-    }
+  return {
+    setName : setName
+  }
 });

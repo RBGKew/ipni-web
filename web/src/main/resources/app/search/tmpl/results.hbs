@@ -1,4 +1,4 @@
-<div id="c-search-results" class="panel panel-default">
+<div id="c-page-body" class="panel panel-default c-search-results">
   <div class="panel-heading">
     {{totalResults}} results
     <div class="pull-right">
@@ -29,11 +29,11 @@
     <div class="clearfix"></div>
   </div>
   {{#with results}}
-    <div class="list-group results">
-      {{#each this}}
-      <a href="{{url}}" class="list-group-item result" data-id="{{url}}"><em>{{name}}</em> {{author}}{{#if publication}}, <small>{{publication}}</small>{{/if}}</a>
-      {{/each}}
-    </div>
+  <div class="list-group results">
+    {{#each this}}
+    <a href="{{url}}" class="list-group-item result" data-id="{{url}}"><em>{{name}}</em> {{author}}{{#if publication}}, <small>{{publication}}</small>{{/if}}</a>
+    {{/each}}
+  </div>
   {{/with}}
   <div class="panel-footer">
     <div class="c-pagination"></div>

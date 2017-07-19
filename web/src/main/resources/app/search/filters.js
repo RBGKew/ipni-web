@@ -171,6 +171,10 @@ define(function(require) {
     tokenfield.tokenfield('update');
   }
 
+  var clear = function() {
+    setTokens([]);
+  }
+
   return {
     add: add,
     deserialize: deserialize,
@@ -182,5 +186,6 @@ define(function(require) {
     serialize: serialize,
     setParam: setParam,
     set: setTokens,
+    clear: clear,
   }
 });
