@@ -21,7 +21,9 @@ services:
     ports:
       - "18983:8983"
     volumes:
-      - solr_data:/opt/solr/server/solr/ipni_1/data
+      - solr_data_1:/opt/solr/server/solr/ipni_1/data
+      - solr_data_2:/opt/solr/server/solr/ipni_2/data
 
 volumes:
-  solr_data: {}
+  solr_data_1: {}
+  solr_data_2: {}
