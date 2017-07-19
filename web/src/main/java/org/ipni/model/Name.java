@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 
 @Data
@@ -75,17 +77,7 @@ public class Name {
 	private List<Name> parent;
 	private List<Name> orthographicVariantOf;
 	private String id;
-	private boolean taxonomyHasData;
-	private boolean bibliographyHasData;
-	private boolean hybridHasData;
-	private boolean remarksHasData;
-	private boolean originalDataHasData;
-	private boolean distributionHasData;
-	private boolean typeHasData;
-	private boolean nomenclaturalHasData;
-	private boolean linksHasData;
-	private boolean otherDataHasData;
-	
+
 	public Name(SolrDocument name) {
 		this.id = (String) name.getFirstValue("id");
 		this.authors = (String) name.getFirstValue(FieldMapping.author.solrField());
@@ -139,81 +131,44 @@ public class Name {
 		this.typeRemarks = (String) name.getFirstValue(FieldMapping.typeRemarks.solrField());
 		this.url = url();
 		this.version = (String) name.getFirstValue(FieldMapping.version.solrField());
-		taxonomyCheck();
-		bibliographyCheck();
-		hybridCheck();
-		originalCheck();
-		typeCheck();
-		nomenclaturalCheck();
-		otherDataCheck();
-		
-
-	}
-	
-	private void otherDataCheck() {
-		otherDataHasData = false;
-		
 	}
 
-	private void typeCheck() {
-		if( typeName != null
-			|| bibliographicTypeInfo != null
-			|| typeLocations != null
-			|| geographicUnit != null
-			|| locality != null
-			|| latitudeDegrees != null
-			|| collectorTeam != null
-			|| bibliographicReference != null){
-			typeHasData = true;
-		}
-
-		
+	@JsonProperty
+	public boolean hasTypeData() {
+		return typeName != null
+				|| bibliographicTypeInfo != null
+				|| typeLocations != null
+				|| geographicUnit != null
+				|| locality != null
+				|| latitudeDegrees != null
+				|| collectorTeam != null
+				|| bibliographicReference != null;
 	}
 
-	private void nomenclaturalCheck() {
-		if( nameStatus != null){
-			nomenclaturalHasData = true;
-		}
-		
+	@JsonProperty
+	public boolean hasTaxonomyData() {
+		return parent != null
+				|| rank != null
+				|| family != null
+				|| infrafamily != null
+				|| genus != null
+				|| infragenus != null
+				|| species != null
+				|| infraspecies != null;
+	}
+
+	@JsonProperty
+	public boolean hasOriginalData() {
+		return originalBasionym != null
+				|| originalRemarks != null
+				|| originalHybridParentage != null
+				|| originalReplacedSynonym != null
+				|| originalHybridParentage != null
+				|| originalTaxonDistribution != null;
 	}
 
 	private String url(){
 		return "/urn:lsid:ipni.org:names:" + id;
 	}
-	
-	private void taxonomyCheck(){
-		if(	parent != null
-			|| rank != null 
-			|| family != null
-			|| infrafamily != null 
-			|| genus != null 
-			|| infragenus != null
-			|| species != null 
-			|| infraspecies != null) {
-			taxonomyHasData = true;
-		}
-	}
-	
-	private void bibliographyCheck(){
-		if(authors != null){
-			bibliographyHasData = true;
-		}
-	}
-	
-	private void hybridCheck(){
-		if(hybridParents != null){
-			hybridHasData = true;
-		}
-	}
-	
-	private void originalCheck(){
-		if(	originalBasionym != null
-				|| originalRemarks != null 
-				|| originalHybridParentage != null
-				|| originalReplacedSynonym != null 
-				|| originalHybridParentage != null 
-				|| originalTaxonDistribution != null) {
-				originalDataHasData = true;
-			}
-	}
+
 }

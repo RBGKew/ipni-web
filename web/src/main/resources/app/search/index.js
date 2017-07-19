@@ -26,14 +26,19 @@ define(function(require) {
       var url = $(this).data("id");
       name.setName(url);
     })
+
+    window.onpopstate = function(event) {
+      filters.deserialize(window.location.search);
+    };
   };
 
 
   // event listeners for updating search results based on filters
   pubsub.subscribe('search.updated', function() {
-    if(!$('.jumbotron').hasClass('collapse-header')) {
-      $('.jumbotron').addClass('collapse-header');
+    if($('.jumbotron')) {
+      $('.jumbotron').addClass('p-search');
       $('.jumbotron').removeClass('vertically-centred');
+      $('.jumbotron').removeClass('jumbotron');
     }
 
     console.log(filters.serialize());

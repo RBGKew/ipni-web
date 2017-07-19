@@ -1,172 +1,136 @@
 <div id="c-search-results" class="panel panel-default">
+
   <div class="panel-heading">
-    <h2>{{name}}<i> {{authors}}</i></h2>
+    <h2>{{name}} <i>{{authors}}</i></h2>
     <div class="pull-right">
       <button type="button" class="btn btn-xs btn-info" disabled="disabled">Download <span class="glyphicon glyphicon-download"></button>
     </div>
   </div>
-<div class="panel-body">
-      <dl class="dl-horizontal">
-        <dt>Publication:</dt><dd>{{reference}}</dd>
-        <dt>Ipni ID:</dt><dd>{{id}}</dd>
-      </dl>
-  {{#if taxonomyHasData}}
-  <h4>Published Taxonomy</h4>
-  <div>
-        <dl class="dl-horizontal">
-          {{#if parent}}
-            <dt>Parent:</dt> <dd><a href="{{parent.[0].url}}">{{parent.[0].name}}</a></dd>
-          {{/if}}
-          {{#if rank}}
-            <dt>Rank:</dt> <dd>{{rank}}</dd>
-          {{/if}}
-          {{#if family}}
-            <dt>Family:</dt> <dd>{{family}}</dd>
-          {{/if}}
-          {{#if infrafamily}}
-            <dt>InfraFamily:</dt> <dd>{{family}}</dd>
-          {{/if}}
-          {{#if genus}}
-            <dt>Genus:</dt> <dd>{{genus}}</dd>
-          {{/if}}
-          {{#if infragenus}}
-            <dt>Infragenus:</dt> <dd>{{infragenus}}</dd>
-          {{/if}}
-          {{#if species}}
-            <dt>Species:</dt> <dd>{{species}}</dd>
-          {{/if}}
-          {{#if infraspecies}}
-            <dt>Infraspecies:</dt> <dd>{{infraspecies}}</dd>
-          {{/if}}
-        </dl>
-  </div>
-  {{/if}}
 
-  {{#if bibliographyHasData}}
-  <h4>Bibliography</h4>
-  <div>
-        <dl class="dl-horizontal">
-          {{#if authors}}
-            <dt>Author:</dt> <dd>{{authors}}</dd>
-          {{/if}}
-  </div>
-  {{/if}}
+  <div class="panel-body">
 
-  {{#if hybridHasData}}
-  <h4>Hybrid Information</h4>
-  <div>
-      <dl class="dl-horizontal">
-        {{#if hybridParents}}
-          <dt>Hybrid Parents:</dt><dd>{{hybridParents.[0].name}} x {{hybridParents.[1].name}}</dd>
-        {{/if}}
-      </dl>
-  </div>
-  {{/if}}
+    <dl class="dl-horizontal">
+      <dt>Publication:</dt><dd>{{reference}}</dd>
+      <dt>Ipni ID:</dt><dd>{{id}}</dd>
+    </dl>
 
-  {{#if remarks}}
-  <h4>Remarks</h4>
-  <div>
-        <dl class="dl-horizontal">
-          <dt>{{remarks}}</dt>
-        </div>
-      </div>
-  </div>
-  {{/if}}
+    {{#if hasTaxonomyData}}
+    <h4>Published Taxonomy</h4>
+    <dl class="dl-horizontal">
+      {{#if parent}}
+      <dt>Parent:</dt> <dd><a href="{{parent.[0].url}}">{{parent.[0].name}}</a></dd>
+      {{/if}}
+      {{#if rank}}
+      <dt>Rank:</dt> <dd>{{rank}}</dd>
+      {{/if}}
+      {{#if family}}
+      <dt>Family:</dt> <dd>{{family}}</dd>
+      {{/if}}
+      {{#if infrafamily}}
+      <dt>InfraFamily:</dt> <dd>{{family}}</dd>
+      {{/if}}
+      {{#if genus}}
+      <dt>Genus:</dt> <dd>{{genus}}</dd>
+      {{/if}}
+      {{#if infragenus}}
+      <dt>Infragenus:</dt> <dd>{{infragenus}}</dd>
+      {{/if}}
+      {{#if species}}
+      <dt>Species:</dt> <dd>{{species}}</dd>
+      {{/if}}
+      {{#if infraspecies}}
+      <dt>Infraspecies:</dt> <dd>{{infraspecies}}</dd>
+      {{/if}}
+    </dl>
+    {{/if}}
 
-  {{#if originalHasData}}
-  <h4>Original Data</h4>
-  <div>
-        <dl class="dl-horizontal">">
-          {{#if originalBasionym}}
-            <dt>Original Basionym:</dt><dd> {{originalBasionym}} {{originalBasionymAuthorTeam}}</dd>
-          {{/if}}
-          {{#if originalRemarks}}
-            <dt>Original Remarks:</dt><dd> {{originalRemarks}}</dd>
-          {{/if}}
-          {{#if originalHybridParentage}}
-            <dt>Original Hybrid Parentage:</dt><dd> {{originalHybridParentage}}</dd>
-          {{/if}}
-          {{#if originalReplacedSynonym}}
-            <dt>Original Replaced Synonym:</dt><dd> {{originalReplacedSynonym}} {{originalReplacedSynonymAuthorTeam}}</dd>
-          {{/if}}
-          {{#if originalHybridParentage}}
-            <dt>Original Hybrid Parentage:</dt><dd> {{originalHybridParentage}}</dd>
-          {{/if}}
-          {{#if originalTaxonDistribution}}
-            <dt>Original Taxon Distribution:</dt><dd> {{originalTaxonDistribution}}</dd>
-          {{/if}}
-        </div>
-      </div>
-  </div>
-  {{/if}}
+    {{#if authors}}
+    <h4>Bibliography</h4>
+    <dl class="dl-horizontal">
+      <dt>Author:</dt> <dd>{{authors}}</dd>
+    </dl>
+    {{/if}}
 
-  {{#if distribution}}
-  <h4>Distribution</h4>
-  <div id="{{id}}-distribution" class="collapse in">
-      <dl class="dl-horizontal">
-          <dt>Distribution:</dt><dd> {{distribution}}</dd>
-      </div>
-  </div>
-  {{/if}}
+    {{#if hybridParents}}
+    <h4>Hybrid Information</h4>
+    <dl class="dl-horizontal">
+      <dt>Hybrid Parents:</dt><dd>{{hybridParents.[0].name}} x {{hybridParents.[1].name}}</dd>
+    </dl>
+    {{/if}}
 
-  {{#if typeHasData}}
-  <h4>Type</h4>
-  <div>
-      <dl class="dl-horizontal">
-        {{#if typeName}}
-          <dt>Type Name:</dt><dd> {{typeName}}</dd>
-        {{/if}}
-        {{#if bibliographicTypeInfo}}
-          <dt>Type Information:</dt><dd> {{bibliographicTypeInfo}}</dd>
-        {{/if}}
-        {{#if typeLocations}}
-          <dt>Type Locations:</dt><dd> {{typeLocations}}</dd>
-        {{/if}}
-        {{#if geographicUnit}}
-          <dt>Geographic Unit:</dt><dd> {{geographicUnit}}</dd>
-        {{/if}}
-        {{#if locality}}
-          <dt>Locality:</dt><dd> {{locality}}</dd>
-        {{/if}}
-        {{#if latitudeDegrees}}
-          <dt>Latitude:</dt><dd> {{latitudeDegrees}} {{latitudeMinutes}} {{latitudeSeconds}} {{northOrSouth}}</dd>
-          <dt>Longitude:</dt><dd> {{longitudeDegrees}} {{longitudeMinutes}} {{longitudeSeconds}} {{eastOrWest}}</dd>
-        {{/if}}
-        {{#if collectorTeam}}
-          <dt>Collector Team:</dt><dd> {{collectorTeam}} {{collectorNumber}}</dd>
-        {{/if}}
-        {{#if bibliographicReference}}
-          <dt>Type Published in:</dt><dd> {{bibliographicReference}}</dd>
-        {{/if}}
-      </dl>
-  </div>
-  {{/if}}
+    {{#if hasOriginalData}}
+    <h4>Original Data</h4>
+    <dl class="dl-horizontal">">
+      {{#if originalBasionym}}
+      <dt>Original Basionym:</dt><dd> {{originalBasionym}} {{originalBasionymAuthorTeam}}</dd>
+      {{/if}}
+      {{#if originalRemarks}}
+      <dt>Original Remarks:</dt><dd> {{originalRemarks}}</dd>
+      {{/if}}
+      {{#if originalHybridParentage}}
+      <dt>Original Hybrid Parentage:</dt><dd> {{originalHybridParentage}}</dd>
+      {{/if}}
+      {{#if originalReplacedSynonym}}
+      <dt>Original Replaced Synonym:</dt><dd> {{originalReplacedSynonym}} {{originalReplacedSynonymAuthorTeam}}</dd>
+      {{/if}}
+      {{#if originalHybridParentage}}
+      <dt>Original Hybrid Parentage:</dt><dd> {{originalHybridParentage}}</dd>
+      {{/if}}
+      {{#if originalTaxonDistribution}}
+      <dt>Original Taxon Distribution:</dt><dd> {{originalTaxonDistribution}}</dd>
+      {{/if}}
+    </dl>
+    {{/if}}
 
-  {{#if nomenclaturalHasData}}
-  <h4>Nomeclatural Notes</h4>
-  <div>
-      <dl class="dl-horizontal">
-        {{#if nameStatus}}
-          <dt>Name Status:</dt><dd> {{nameStatus}}</dd>
-        {{/if}}
-      </dl>
-  </div>
-  {{/if}}
+    {{#if distribution}}
+    <h4>Distribution</h4>
+    <dl class="dl-horizontal">
+      <dt>Distribution:</dt><dd> {{distribution}}</dd>
+    </dl>
+    {{/if}}
 
-  {{#if linksHasData}}
-  <h4></h4>
-  <div>
-      <dl class="dl-horizontal">
-      </dl>
-  </div>
-  {{/if}}
+    {{#if hasTypeData}}
+    <h4>Type</h4>
+    <dl class="dl-horizontal">
+      {{#if typeName}}
+      <dt>Type Name:</dt><dd> {{typeName}}</dd>
+      {{/if}}
+      {{#if bibliographicTypeInfo}}
+      <dt>Type Information:</dt><dd> {{bibliographicTypeInfo}}</dd>
+      {{/if}}
+      {{#if typeLocations}}
+      <dt>Type Locations:</dt><dd> {{typeLocations}}</dd>
+      {{/if}}
+      {{#if geographicUnit}}
+      <dt>Geographic Unit:</dt><dd> {{geographicUnit}}</dd>
+      {{/if}}
+      {{#if locality}}
+      <dt>Locality:</dt><dd> {{locality}}</dd>
+      {{/if}}
+      {{#if latitudeDegrees}}
+      <dt>Latitude:</dt><dd> {{latitudeDegrees}} {{latitudeMinutes}} {{latitudeSeconds}} {{northOrSouth}}</dd>
+      <dt>Longitude:</dt><dd> {{longitudeDegrees}} {{longitudeMinutes}} {{longitudeSeconds}} {{eastOrWest}}</dd>
+      {{/if}}
+      {{#if collectorTeam}}
+      <dt>Collector Team:</dt><dd> {{collectorTeam}} {{collectorNumber}}</dd>
+      {{/if}}
+      {{#if bibliographicReference}}
+      <dt>Type Published in:</dt><dd> {{bibliographicReference}}</dd>
+      {{/if}}
+    </dl>
+    {{/if}}
 
-  {{#if otherDataHasData}}
-  <h4>Other Data</h4>
-  <div>
-      <dl class="dl-horizontal">
-      </dl>
+    {{#if nameStatus}}
+    <h4>Nomeclatural Notes</h4>
+    <dl class="dl-horizontal">
+      <dt>Name Status:</dt><dd> {{nameStatus}}</dd>
+    </dl>
+    {{/if}}
+
+    {{#if remarks}}
+    <h4>Remarks</h4>
+    <p>{{remarks}}</p>
+    {{/if}}
+
   </div>
-  {{/if}}
-</div>
 </div>

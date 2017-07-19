@@ -12,7 +12,7 @@ public enum FieldMapping {
 	reference("reference", "reference_t"),
 	scientificName("scientific name", "taxon_scientific_name_s_lower"),
 	species("species", "species_s_lower"),
-	yearPublished("published", "publication_year_s_lower"),
+	yearPublished("published", "publication_year_i"),
 	publishingAuthor("publishing author", "publishing_author_s_lower"), 
 	publicationId("publication id", "publication_id"),
 	
