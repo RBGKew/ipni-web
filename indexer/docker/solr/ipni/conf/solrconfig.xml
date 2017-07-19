@@ -1172,7 +1172,7 @@
       <str name="field">taxon_sci_name_not_suppressed_s_lower</str>
       <str name="indexPath">scientific_name_suggest</str>
       <str name="weightField">suggest.weight_i</str>
-      <str name="suggestAnalyzerFieldType">lowercase</str>
+      <str name="suggestAnalyzerFieldType">names_suggester</str>
       <str name="highlight">false</str>
     </lst>
     

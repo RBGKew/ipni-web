@@ -38,7 +38,10 @@ public class SearchController {
 	@Autowired
 	private NameService names;
 
-	private static List<String> suggesters = ImmutableList.<String>of("scientific-name");
+	private static List<String> suggesters = ImmutableList.<String>of(
+			"scientific-name",
+			"publication",
+			"author");
 
 	@GetMapping("search")
 	public ResponseEntity<Response> search(@RequestParam Map<String,String> params) throws SolrServerException, IOException {

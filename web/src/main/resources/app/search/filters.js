@@ -21,6 +21,8 @@ define(function(require) {
 
   var suggesters = [
     'scientific-name',
+    'author',
+    'publication'
   ];
 
   function humanize(name) {
