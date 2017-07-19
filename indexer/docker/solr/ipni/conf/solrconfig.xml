@@ -1169,7 +1169,7 @@
       <str name="lookupImpl">AnalyzingLookupFactory</str>
       <str name="exactMatchFirst">AnalyzingLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">taxon_scientific_name_s_lower</str>
+      <str name="field">taxon_sci_name_not_suppressed_s_lower</str>
       <str name="indexPath">scientific_name_suggest</str>
       <str name="weightField">suggest.weight_i</str>
       <str name="suggestAnalyzerFieldType">lowercase</str>
