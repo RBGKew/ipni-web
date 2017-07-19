@@ -53,6 +53,14 @@
   <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType" geo="true" maxDistErr="0.001" distErrPct="0.025" distanceUnits="kilometers"/>
   <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
   <fieldType name="longs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="names_suggester" class="solr.TextField" omitNorms="true" sortMissingLast="true">
+    <analyzer>
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false" />
+      <filter class="solr.PatternReplaceFilterFactory" pattern="\[.*\]" replacement=""/>
+    </analyzer>
+  </fieldType>
   <fieldType name="alphaOnlySort" class="solr.TextField" omitNorms="true" sortMissingLast="true">
     <analyzer>
       <tokenizer class="solr.KeywordTokenizerFactory"/>
