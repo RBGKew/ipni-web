@@ -19,11 +19,11 @@ import org.slf4j.Logger;
 
 @Service
 public class NameService {
-	
+
 	private Logger logger = LoggerFactory.getLogger(NameService.class);
 	@Autowired
 	SolrClient solr;
-	
+
 	public Name load(String id) throws SolrServerException, IOException {
 		ModifiableSolrParams params = new ModifiableSolrParams().add("fl", "*");
 		SolrDocument result = solr.getById(id, params);
@@ -47,21 +47,21 @@ public class NameService {
 		name.setOrthographicVariantOf(names.get("lookup_orthographic_variant_of_id"));
 		return name;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	private Map<String, List<String>> getIds(SolrDocument result) throws SolrServerException, IOException{
-		Map<String, List<String>> idFieldMapping = new HashMap<String, List<String>>();
+	private Map<String, List<String>> getIds(SolrDocument result) throws SolrServerException, IOException {
+		Map<String, List<String>> idFieldMapping = new HashMap<>();
 		Collection<String> fieldNames = result.getFieldNames();
 		fieldNames.forEach(item -> {
-			if(item.endsWith("_id")){
-				Collection<String> ids = (Collection<String>)(Collection<?>) result.getFieldValues(item);
+			if (item.endsWith("_id")) {
+				Collection<String> ids = (Collection<String>) (Collection<?>) result.getFieldValues(item);
 				ids.forEach(id -> {
-					if(idFieldMapping.containsKey(id)){
+					if (idFieldMapping.containsKey(id)) {
 						List<String> fieldList = idFieldMapping.get(id);
 						fieldList.add(item);
 						idFieldMapping.put(id, fieldList);
-					}else{
-						List<String> fieldList = new ArrayList<String>();
+					} else {
+						List<String> fieldList = new ArrayList<>();
 						fieldList.add(item);
 						idFieldMapping.put(id, fieldList);
 					}
@@ -70,27 +70,30 @@ public class NameService {
 		});
 		return idFieldMapping;
 	}
-	
-	private Map<String, List<Name>> getNames(Map<String, List<String>> ids) throws SolrServerException, IOException{
-		List<SolrDocument> docs = solr.getById(ids.keySet());
-		Map<String, List<Name>> names = new HashMap<String, List<Name>>();
-		for(SolrDocument doc : docs){
-			List<String> fields = ids.get((String) doc.getFirstValue("id"));
-			Name name = new Name(doc);
-			for(String field : fields){
-				if(names.containsKey(field)){
-					List<Name> nameList = names.get(field);
-					nameList.add(name);
-					names.put(field, nameList);
-				}else{
-					List<Name> nameList = new ArrayList<Name>();
-					nameList.add(name);
-					names.put(field, nameList);
+
+	private Map<String, List<Name>> getNames(Map<String, List<String>> ids) throws SolrServerException, IOException {
+		Map<String, List<Name>> names = new HashMap<>();
+
+		if(!ids.isEmpty()) {
+			List<SolrDocument> docs = solr.getById(ids.keySet());
+			for (SolrDocument doc : docs) {
+				List<String> fields = ids.get((String) doc.getFirstValue("id"));
+				Name name = new Name(doc);
+				for (String field : fields) {
+					if (names.containsKey(field)) {
+						List<Name> nameList = names.get(field);
+						nameList.add(name);
+						names.put(field, nameList);
+					} else {
+						List<Name> nameList = new ArrayList<>();
+						nameList.add(name);
+						names.put(field, nameList);
+					}
 				}
 			}
 		}
+
 		return names;
 	}
-
 
 }

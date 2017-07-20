@@ -11,9 +11,11 @@ public class SortQuery extends QueryOption {
 		switch(value){
 		case "name_asc":
 			query.setSort(FieldMapping.scientificName.solrField(), ORDER.asc);
+			query.addSort(FieldMapping.family.solrField(), ORDER.asc);
 			break;
 		case "name_desc":
 			query.setSort(FieldMapping.scientificName.solrField(), ORDER.desc);
+			query.addSort(FieldMapping.family.solrField(), ORDER.desc);
 			break;
 		case "published_asc":
 			query.setSort(FieldMapping.yearPublished.solrField(), ORDER.asc);

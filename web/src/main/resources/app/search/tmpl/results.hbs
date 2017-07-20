@@ -31,7 +31,9 @@
   {{#with results}}
   <div class="list-group results">
     {{#each this}}
-    <a href="{{url}}" class="list-group-item result" data-id="{{url}}"><em>{{name}}</em> {{author}}{{#if publication}}, <small>{{publication}}</small>{{/if}}</a>
+    <a href="{{url}}" class="list-group-item result {{#if topCopy}}top-copy{{/if}}" data-id="{{url}}">
+      <em>{{show-name this}}</em> {{author}}{{#if publication}}, <small>{{publication}}</small>{{/if}}
+    </a>
     {{/each}}
   </div>
   {{/with}}

@@ -15,6 +15,7 @@ public class Record {
 	private String genus;
 	private String species;
 	private String infraspecific;
+	private boolean topCopy;
 	
 	public Record(SolrDocument item){
 		author = (String) item.getFirstValue(FieldMapping.author.solrField());
@@ -25,6 +26,7 @@ public class Record {
 		publication = (String) item.getFirstValue(FieldMapping.reference.solrField());
 		rank = (String) item.get(FieldMapping.rank.solrField());
 		species = (String) item.get(FieldMapping.species.solrField());
+		topCopy = (Boolean) item.get(FieldMapping.topCopy.solrField());
 		url = constructUrl((String) item.get("id"));
 	}
 	

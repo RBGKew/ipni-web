@@ -6,11 +6,14 @@ import java.util.List;
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
+@JsonInclude(Include.NON_NULL)
 public class Name {
 	private String name;
 	private String authors;

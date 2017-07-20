@@ -71,6 +71,7 @@ public enum FieldMapping {
 	standardisedPublishingAuthorFlag("standardised publishing author flag", "standardised_publishing_author_flag_s_lower"),
 	startPage("start page", "start_page_s_lower"),
 	suppressed("suppressed", "suppressed_b"),
+	topCopy("top copy", "top_copy_b"),
 	typeLocations("type locations", "type_locations_s_lower"),
 	typeName("type name", "type_name_s_lower"),
 	typeRemarks("type remarks", "type_remarks_s_lower"),
