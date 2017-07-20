@@ -1200,8 +1200,8 @@
       <str name="name">publication</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">reference_t</str>
-      <str name="indexPath">reference_suggest</str>
+      <str name="field">publication_s_lower</str>
+      <str name="indexPath">publication_suggest</str>
       <str name="suggestAnalyzerFieldType">text_general</str>
       <str name="highlight">false</str>
     </lst>
