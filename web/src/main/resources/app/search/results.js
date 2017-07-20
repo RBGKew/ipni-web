@@ -43,7 +43,7 @@ define(function(require) {
       $(document).scrollTop( $("#search_box").offset().top);
     }
 
-    $('.container')
+    $('body')
       .on('click', '.sort-by a', setSort)
       .on('click', '.filter-by a', toggleFilter)
       .on('click', '.results a', showDetail);

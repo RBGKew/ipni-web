@@ -17,28 +17,28 @@
     <h4>Published Taxonomy</h4>
     <dl class="dl-horizontal">
       {{#if parent}}
-      <dt>Parent:</dt> <dd><a href="{{parent.[0].url}}">{{parent.[0].name}}</a></dd>
+      <dt>Parent:</dt><dd><a href="{{parent.[0].url}}">{{parent.[0].name}}</a></dd>
       {{/if}}
       {{#if rank}}
-      <dt>Rank:</dt> <dd>{{rank}}</dd>
+      <dt>Rank:</dt><dd>{{rank}}</dd>
       {{/if}}
       {{#if family}}
-      <dt>Family:</dt> <dd>{{family}}</dd>
+      <dt>Family:</dt><dd>{{family}}</dd>
       {{/if}}
       {{#if infrafamily}}
-      <dt>InfraFamily:</dt> <dd>{{family}}</dd>
+      <dt>InfraFamily:</dt><dd>{{family}}</dd>
       {{/if}}
       {{#if genus}}
-      <dt>Genus:</dt> <dd>{{genus}}</dd>
+      <dt>Genus:</dt><dd>{{genus}}</dd>
       {{/if}}
       {{#if infragenus}}
-      <dt>Infragenus:</dt> <dd>{{infragenus}}</dd>
+      <dt>Infragenus:</dt><dd>{{infragenus}}</dd>
       {{/if}}
       {{#if species}}
-      <dt>Species:</dt> <dd>{{species}}</dd>
+      <dt>Species:</dt><dd>{{species}}</dd>
       {{/if}}
       {{#if infraspecies}}
-      <dt>Infraspecies:</dt> <dd>{{infraspecies}}</dd>
+      <dt>Infraspecies:</dt><dd>{{infraspecies}}</dd>
       {{/if}}
     </dl>
     {{/if}}
@@ -46,7 +46,7 @@
     {{#if authors}}
     <h4>Bibliography</h4>
     <dl class="dl-horizontal">
-      <dt>Author:</dt> <dd>{{authors}}</dd>
+      <dt>Author:</dt><dd>{{authors}}</dd>
     </dl>
     {{/if}}
 
@@ -59,24 +59,24 @@
 
     {{#if hasOriginalData}}
     <h4>Original Data</h4>
-    <dl class="dl-horizontal">">
+    <dl class="dl-horizontal">
       {{#if originalBasionym}}
-      <dt>Original Basionym:</dt><dd> {{originalBasionym}} {{originalBasionymAuthorTeam}}</dd>
+      <dt>Original Basionym:</dt><dd>{{originalBasionym}} {{originalBasionymAuthorTeam}}</dd>
       {{/if}}
       {{#if originalRemarks}}
-      <dt>Original Remarks:</dt><dd> {{originalRemarks}}</dd>
+      <dt>Original Remarks:</dt><dd>{{originalRemarks}}</dd>
       {{/if}}
       {{#if originalHybridParentage}}
-      <dt>Original Hybrid Parentage:</dt><dd> {{originalHybridParentage}}</dd>
+      <dt>Original Hybrid Parentage:</dt><dd>{{originalHybridParentage}}</dd>
       {{/if}}
       {{#if originalReplacedSynonym}}
-      <dt>Original Replaced Synonym:</dt><dd> {{originalReplacedSynonym}} {{originalReplacedSynonymAuthorTeam}}</dd>
+      <dt>Original Replaced Synonym:</dt><dd>{{originalReplacedSynonym}} {{originalReplacedSynonymAuthorTeam}}</dd>
       {{/if}}
       {{#if originalHybridParentage}}
-      <dt>Original Hybrid Parentage:</dt><dd> {{originalHybridParentage}}</dd>
+      <dt>Original Hybrid Parentage:</dt><dd>{{originalHybridParentage}}</dd>
       {{/if}}
       {{#if originalTaxonDistribution}}
-      <dt>Original Taxon Distribution:</dt><dd> {{originalTaxonDistribution}}</dd>
+      <dt>Original Taxon Distribution:</dt><dd>{{originalTaxonDistribution}}</dd>
       {{/if}}
     </dl>
     {{/if}}
@@ -84,7 +84,7 @@
     {{#if distribution}}
     <h4>Distribution</h4>
     <dl class="dl-horizontal">
-      <dt>Distribution:</dt><dd> {{distribution}}</dd>
+      <dt>Distribution:</dt><dd>{{distribution}}</dd>
     </dl>
     {{/if}}
 
