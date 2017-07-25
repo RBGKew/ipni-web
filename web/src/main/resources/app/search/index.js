@@ -5,8 +5,9 @@ define(function(require) {
 
   var events = require('./events');
   var filters = require('./filters');
-  var results = require('./results');
   var name = require('./name');
+  var results = require('./results');
+
   var initialize = function() {
     filters.initialize();
 
@@ -21,14 +22,17 @@ define(function(require) {
       filters.set(_.pickBy($('#advanced-search').serializeJSON()));
     })
 
-    $('.container').on('click', '.result', function(e) {
-      e.preventDefault();
-      var url = $(this).data("id");
-      name.setName(url);
-    })
-
     window.onpopstate = function(event) {
-      filters.deserialize(window.location.search);
+      switch(event.state.class) {
+        case 'c-search':
+          results.load(event.state.data);
+          $('.container').removeClass('c-name');
+          break;
+        case 'c-name':
+          name.load(event.state.data);
+          $('.container').removeClass('c-search');
+          break;
+      }
     };
   };
 
@@ -42,7 +46,6 @@ define(function(require) {
 
     console.log(filters.serialize());
     results.update(filters.serialize());
-    history.pushState(null, null, '?' + filters.serialize());
   });
 
   $(document).ready(function() {

@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env = {}) => {
 
@@ -50,18 +51,7 @@ module.exports = (env = {}) => {
         },
 
         {
-          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          use: [{
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              mimetype: 'application/font-woff',
-            }
-          }]
-        },
-
-        {
-          test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          test: /\.(ttf|eot|svg|woff2|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           use: 'file-loader',
         },
 
@@ -74,20 +64,21 @@ module.exports = (env = {}) => {
 
     plugins: [
 
-      new ExtractTextPlugin({
-        filename: 'style.css',
-        disable: false,
-        allChunks: true,
-      }),
+      new CleanWebpackPlugin(['static']),
 
-      new HtmlWebpackPlugin({
-        template: 'app/index.hbs',
-      }),
+      new HtmlWebpackPlugin({ template: 'app/index.hbs', }),
 
+      // provide standard libs so they don't have to be required everywhere
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
         _: 'lodash',
+      }),
+
+      new ExtractTextPlugin({
+        filename: 'style.css',
+        disable: false,
+        allChunks: true,
       }),
 
       new webpack.optimize.CommonsChunkPlugin({
@@ -98,14 +89,28 @@ module.exports = (env = {}) => {
         compress: production
       }),
 
-      new CleanWebpackPlugin(['static']),
-
       new webpack.DefinePlugin({
         'API_BASE': (() => {
-          if(production) return JSON.stringify('/api/1/')
-          else return JSON.stringify('http://localhost:18080/api/1/') // allows for running frontend via 'npm start'
+          if(production)
+            return JSON.stringify('/api/1/')
+          else
+            // allows for running frontend through webpack dev server and 'npm start'
+            return JSON.stringify('http://localhost:18080/api/1/')
         })()
       }),
+
+      /*
+       * Export a handlebars template that can be rendered serverside, but which also
+       * has the js/css assets injected via webpack. extra .hbs templates are copied
+       * into the static folder as well
+       */
+      new HtmlWebpackPlugin({ template: 'app/name.html', filename: 'name.hbs' }),
+      new CopyWebpackPlugin([
+        {
+          from: '**/tmpl/*.hbs',
+          context: 'app',
+        }
+      ]),
     ],
 
     resolve: {

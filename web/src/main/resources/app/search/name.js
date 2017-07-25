@@ -1,16 +1,27 @@
-
 define(function(require) {
+
   var Handlebars = require('handlebars');
   var nameTmpl = require('./tmpl/name.hbs');
 
+  var namePageClass = 'c-name';
+
   var setName = function(url) {
     $.getJSON(API_BASE  + url + "?callback=?", function(json) {
-      $('#c-page-body').replaceWith(nameTmpl(json));
+      load(json);
+      history.pushState({
+        class: namePageClass,
+        data: json,
+      }, null, url);
     });
-    $(".container").addClass("name-page")
+  }
+
+  var load = function(data) {
+    $(".container").addClass(namePageClass)
+    $('#c-page-body').replaceWith(nameTmpl(data));
   }
 
   return {
-    setName : setName
+    setName : setName,
+    load: load,
   }
 });

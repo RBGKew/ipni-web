@@ -4,27 +4,32 @@ define(function(require) {
   var pagination = require('pagination');
   var filters = require('./filters');
   var events = require('./events');
+  var name = require('./name');
 
   var resultsTmpl = require('./tmpl/results.hbs');
 
   var update = function(state) {
     $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
-      results['sort'] = filters.getParam('sort');
-      results['f'] = filters.getParam('f');
-      if($('#c-page-body').length) {
-        $('#c-page-body').replaceWith(resultsTmpl(results));
-      } else {
-        $('.content').after(resultsTmpl(results));
-      }
-      paginate(results);
-      filters.refresh();
+      load(results);
+      history.pushState({
+        class: 'c-search',
+        data: results
+      }, null, '/?' + filters.serialize())
     });
   };
 
-  var updateItems = function(state) {
-    $.getJSON(API_BASE + 'search?callback=?&' + state, function(json) {
+  var load = function(data) {
+      data['sort'] = filters.getParam('sort');
+      data['f'] = filters.getParam('f');
+
+      if($('#c-page-body').length) {
+        $('#c-page-body').replaceWith(resultsTmpl(data));
+      } else {
+        $('.content').after(resultsTmpl(data));
+      }
+
+      paginate(data);
       filters.refresh();
-    });
   }
 
   var initialize = function(initialToken) {
@@ -46,13 +51,13 @@ define(function(require) {
     $('body')
       .on('click', '.sort-by a', setSort)
       .on('click', '.filter-by a', toggleFilter)
-      .on('click', '.results a', showDetail);
+      .on('click', '.name-link', showDetail);
   }
 
   function showDetail(e) {
     e.preventDefault();
-    var link = $(this);
-    history.pushState(null, null, link.attr('href'));
+    var link = $(this).attr('href');
+    name.setName(link);
     filters.clear();
   }
 
@@ -88,7 +93,7 @@ define(function(require) {
 
   return {
     initialize: initialize,
-    update : update,
-    updateItems: updateItems
+    load: load,
+    update: update,
   };
 });

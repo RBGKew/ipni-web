@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 public class NameService {
 
 	private Logger logger = LoggerFactory.getLogger(NameService.class);
+
 	@Autowired
 	SolrClient solr;
 
@@ -28,10 +29,10 @@ public class NameService {
 		ModifiableSolrParams params = new ModifiableSolrParams().add("fl", "*");
 		SolrDocument result = solr.getById(id, params);
 		Name name = new Name(result);
-		logger.info("full result: " + result);
+		logger.debug("full result: " + result);
 		Map<String, List<String>> ids = getIds(result);
 		Map<String, List<Name>> names = getNames(ids);
-		logger.info("names:" + names);
+		logger.debug("names:" + names);
 		name.setBasionym(names.get("lookup_basionym_id"));
 		name.setConservedAgainst(names.get("lookup_conserved_against_id"));
 		name.setCorrectionOf(names.get("lookup_correction_of_id"));

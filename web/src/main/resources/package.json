@@ -15,6 +15,7 @@
     "bootstrap-datepicker": "^1.7.0",
     "bootstrap-sass": "^3.3.7",
     "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
