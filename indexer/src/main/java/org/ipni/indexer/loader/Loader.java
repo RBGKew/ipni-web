@@ -12,8 +12,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import javax.annotation.PostConstruct;
 
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
@@ -23,14 +26,13 @@ import org.apache.solr.common.params.ModifiableSolrParams;
 import org.apache.solr.common.util.ContentStreamBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.tukaani.xz.XZInputStream;
 
-@Controller
-@RequestMapping("/test")
+import com.google.common.collect.ImmutableList;
+
+@Component
 public class Loader {
 
 	private static final ModifiableSolrParams params = new ModifiableSolrParams()
@@ -56,109 +58,132 @@ public class Loader {
 			.add("f.lookup_orthographic_variant_of_id.split", "true")
 			.add("f.lookup_orthographic_variant_of_id.separator", ",");
 
-	private SolrClient adminSolrClient = null;
-	private SolrClient oldClient = null;
+	private static final List<String> suggesters = ImmutableList.<String>of("scientific-name", "author", "publication");
+
+	private SolrClient adminClient;
+	private SolrClient buildClient;
 	private Logger logger = LoggerFactory.getLogger(Loader.class);
+
 	private File indexFile = new File("/index.csv");
-	private File coreFile = new File("/currentCore");
 	private File updateFile = new File("/update.csv");
 
-	private static String INDEX_FILE_URL = "http://storage.googleapis.com/kew-dev-backup/ipni_flat_all.csv.xz";
-	private static String UPDATE_FILE_URL = "http://storage.googleapis.com/kew-dev-backup/powo_ipni_ids.txt.xz";
+	@Value("${ipni.flat}")
+	private String INDEX_FILE_URL;
 
-	@Autowired
-	public void setadminSolrClient() {
-		this.adminSolrClient = new HttpSolrClient.Builder("http://solr:8983/solr/").build();
+	@Value("${powo.ids}")
+	private String UPDATE_FILE_URL;
+
+	@Value("${solr.core1}")
+	private String LIVE_CORE;
+
+	@Value("${solr.core2}")
+	private String BUILD_CORE;
+
+	@Value("${solr.url}")
+	private String SOLR_SERVER;
+
+	@PostConstruct
+	public void initializeSolrClients() {
+		adminClient = new HttpSolrClient.Builder(SOLR_SERVER).build();
+		buildClient = new HttpSolrClient.Builder(SOLR_SERVER + BUILD_CORE).build();
 	}
 
-	@Autowired
-	public void setoldClient() {
-		this.oldClient = new HttpSolrClient.Builder("http://solr:8983/solr/ipni_2").build();
-	}
-
-	@GetMapping
-	public void Load() {
+	public void load() {
 		try {
-			getCurrentCore();
 			getFile(indexFile, INDEX_FILE_URL);
 			loadData();
 			getFile(updateFile, UPDATE_FILE_URL);
-			updateData();
+			addPOWOUsage();
+			updateSuggesters();
 			switchCores();
 			clearCore();
 		} catch (SolrServerException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void getCurrentCore() {
+	private void updateSuggesters() {
+		SolrQuery query = new SolrQuery();
+		query.setRequestHandler("/suggest");
+		query.setParam("suggest.build", "true");
+		query.setParam("suggest", "true");
 
+		for(String suggester : suggesters) {
+			query.setParam("suggest.dictionary", suggester);
+
+			try {
+				logger.info("Building {} suggester", suggester);
+				buildClient.query(query);
+			} catch (SolrServerException | IOException e) {
+				logger.error("Error building {} suggester: {}", suggester, e.getMessage());
+			}
+		}
 	}
 
 	public void getFile(File file, String filePathUrl) throws MalformedURLException, IOException {
-		logger.info("Getting file from server..");
+		logger.info("Getting {}..", filePathUrl);
+
 		if (file.exists()) {
 			file.delete();
 		}
-		BufferedInputStream in = new BufferedInputStream(new URL(filePathUrl).openStream());
-		XZInputStream unzip = new XZInputStream(in);
-		FileOutputStream out = new FileOutputStream(file);
-		final byte[] buffer = new byte[8192];
-		int n = 0;
-		while ((n = unzip.read(buffer)) != -1) {
-			out.write(buffer, 0, n);
+
+		try(BufferedInputStream in = new BufferedInputStream(new URL(filePathUrl).openStream());
+				XZInputStream unzip = new XZInputStream(in);
+				FileOutputStream out = new FileOutputStream(file)) {
+			final byte[] buffer = new byte[8192];
+			int n = 0;
+			while ((n = unzip.read(buffer)) != -1) {
+				out.write(buffer, 0, n);
+			}
 		}
-		out.close();
-		unzip.close();
 	}
 
 	public void loadData() throws MalformedURLException, IOException, SolrServerException {
-		logger.info("Loading Data to Solr...");
+		logger.info("Loading Data into {}...", BUILD_CORE);
 		ContentStreamBase.FileStream stream = new ContentStreamBase.FileStream(indexFile);
 		stream.setContentType("application/csv");
-		ContentStreamUpdateRequest request = new ContentStreamUpdateRequest("/ipni_2/update");
+		ContentStreamUpdateRequest request = new ContentStreamUpdateRequest("/" + BUILD_CORE + "/update");
 		request.setParams(params);
 		request.addContentStream(stream);
-		adminSolrClient.request(request);
+		adminClient.request(request);
 		logger.info("Data loaded");
 	}
 
 	public void switchCores() throws SolrServerException, IOException {
 		logger.info("Swapping cores..");
-		CoreAdminRequest.swapCore("ipni_1", "ipni_2", adminSolrClient);
-		logger.info("Cores swapped");
+		CoreAdminRequest.swapCore(LIVE_CORE, BUILD_CORE, adminClient);
+		logger.info("Cores swapped, live core is now {}", LIVE_CORE);
 	}
 
 	public void clearCore() throws SolrServerException, IOException {
 		logger.info("Clearing old core");
-		oldClient.deleteByQuery("*:*");
-		oldClient.commit();
+		buildClient.deleteByQuery("*:*");
+		buildClient.commit();
 		logger.info("Old core cleared");
 	}
 
-	public void updateData() throws MalformedURLException, IOException, SolrServerException {
+	public void addPOWOUsage() throws MalformedURLException, IOException, SolrServerException {
 		logger.info("Updating Solr Data...");
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(updateFile), "UTF8"));
 		String IPNI_URI = "urn:lsid:ipni.org:names:";
-		String sCurrentLine;
-		String recordIdClean = null;
+		String currentLine;
+		String id;
 
-		Collection<SolrInputDocument> solrDocs = new ArrayList<SolrInputDocument>();
+		Collection<SolrInputDocument> solrDocs = new ArrayList<>();
 
-		while ((sCurrentLine = br.readLine()) != null) {
-			recordIdClean = sCurrentLine.replaceFirst(IPNI_URI, "");
-			SolrInputDocument sdoc = new SolrInputDocument();
-			sdoc.addField("id", recordIdClean);
-			sdoc.addField("powo_b", Collections.singletonMap("set", true));
-			solrDocs.add(sdoc);
+		try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(updateFile), "UTF8"))) {
+			while ((currentLine = br.readLine()) != null) {
+				id = currentLine.replaceFirst(IPNI_URI, "");
+				SolrInputDocument sdoc = new SolrInputDocument();
+				sdoc.addField("id", id);
+				sdoc.addField("powo_b", Collections.singletonMap("set", true));
+				solrDocs.add(sdoc);
+			}
 		}
 
-		br.close();
 		logger.info("updating and commiting docs");
-		oldClient.add(solrDocs);
-		oldClient.commit();
+		buildClient.add(solrDocs);
+		buildClient.commit();
 		logger.info("Data updated");
 	}
 }
