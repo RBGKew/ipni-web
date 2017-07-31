@@ -21,7 +21,9 @@ services:
     volumes:
       - solr_data_1:/opt/solr/server/solr/ipni_1/data
       - solr_data_2:/opt/solr/server/solr/ipni_2/data
+      - solr_coreconf:/coreconf
 
 volumes:
   solr_data_1: {}
   solr_data_2: {}
+  solr_coreconf: {}
