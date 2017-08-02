@@ -545,6 +545,7 @@
   <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
   <dynamicField name="*_c" type="currency" indexed="true" stored="true"/>
   <dynamicField name="lookup_*" type="string" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="detail_*" type="string" multiValued="true" indexed="true" stored="true"/>
   <copyField source="taxon_scientific_name_s_lower" dest="sortable"/>
   <copyField source="lookup_*" dest="lookup_all"/>
   <copyField source="*" dest="_text_"/>

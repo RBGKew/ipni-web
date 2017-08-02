@@ -56,7 +56,10 @@ public class Loader {
 			.add("f.lookup_parent_id.split", "true")
 			.add("f.lookup_parent_id.separator", ",")
 			.add("f.lookup_orthographic_variant_of_id.split", "true")
-			.add("f.lookup_orthographic_variant_of_id.separator", ",");
+			.add("f.lookup_orthographic_variant_of_id.separator", ",")
+			.add("f.detail_author_iso_countries.separator","@")
+			.add("f.detail_taxon_groups_flat.separator", ",")
+			.add("f.detail_alternative_names.separator", ",");
 
 	private static final List<String> suggesters = ImmutableList.<String>of("scientific-name", "author", "publication");
 
@@ -64,11 +67,19 @@ public class Loader {
 	private SolrClient buildClient;
 	private Logger logger = LoggerFactory.getLogger(Loader.class);
 
-	private File indexFile = new File("/index.csv");
+	private File namesFile = new File("/indexNames.csv");
+	private File authorsFile = new File("/indexAuthors.csv");
+	private File publicationsFile = new File("/indexPublications.csv");
 	private File updateFile = new File("/update.csv");
 
 	@Value("${ipni.flat}")
-	private String INDEX_FILE_URL;
+	private String NAMES_FILE_URL;
+	
+	@Value("${ipni.authors}")
+	private String AUTHORS_FILE_URL;
+	
+	@Value("${ipni.publications}")
+	private String PUBLICATIONS_FILE_URL;
 
 	@Value("${powo.ids}")
 	private String UPDATE_FILE_URL;
@@ -90,8 +101,12 @@ public class Loader {
 
 	public void load() {
 		try {
-			getFile(indexFile, INDEX_FILE_URL);
-			loadData();
+			getFile(namesFile, NAMES_FILE_URL);
+			loadData(namesFile);
+			getFile(authorsFile, AUTHORS_FILE_URL);
+			loadData(authorsFile);
+			getFile(publicationsFile, PUBLICATIONS_FILE_URL);
+			loadData(publicationsFile);			
 			getFile(updateFile, UPDATE_FILE_URL);
 			addPOWOUsage();
 			updateSuggesters();
@@ -138,7 +153,7 @@ public class Loader {
 		}
 	}
 
-	public void loadData() throws MalformedURLException, IOException, SolrServerException {
+	public void loadData(File indexFile) throws MalformedURLException, IOException, SolrServerException {
 		logger.info("Loading Data into {}...", BUILD_CORE);
 		ContentStreamBase.FileStream stream = new ContentStreamBase.FileStream(indexFile);
 		stream.setContentType("application/csv");
