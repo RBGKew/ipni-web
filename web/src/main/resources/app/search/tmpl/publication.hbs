@@ -1,0 +1,26 @@
+<div id="c-page-body" class="panel panel-default c-publication">
+  <div class="panel-heading">
+    <h2>{{title}}<h2>
+    <div class="pull-right">
+      <button type="button" class="btn btn-xs btn-info" disabled="disabled">Download <span class="glyphicon glyphicon-download"></button>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <dl>
+      <dt>Standard Form</dt><dd>{{abbreviation}}</dd>
+      {{#if isbn}}<dt>ISBN</dt><dd>{{isbn}}</dd>{{/if}}
+      {{#if issn}}<dt>ISSN</dt><dd>{{issn}}</dd>{{/if}}
+      {{#if date}}<dt>Dates</dt><dd>{{date}}</dd>{{/if}}
+      {{#if lcNumber}}<dt>Library of Congress Number</dt><dd>{{lcNumber}}</dd>{{/if}}
+      {{#if bphNumber}}<dt>BPH Number</dt><dd>{{bphNumber}}</dd>{{/if}}
+      {{#if precededBy}}<dt>Preceded By</dt><dd>{{precededBy}}</dd>{{/if}}
+      {{#if supercededBy}}<dt>Superceded By</dt><dd>{{supercededBy}}</dd>{{/if}}
+      {{#if comments}}<dt>Comments</dt><dd>{{comments}}</dd>{{/if}}
+      {{#if remarks}}<dt>Remarks</dt><dd>{{remarks}}</dd>{{/if}}
+      {{#if tl2Author}}<dt>TL2 Author</dt><dd>{{tl2Author}}</dd>{{/if}}
+      {{#if tl2Number}}<dt>TL2 Number</dt><dd>{{tl2Number}}</dd>{{/if}}
+    </dl>
+  </div>
+</div>
+

@@ -104,7 +104,9 @@ module.exports = (env = {}) => {
        * has the js/css assets injected via webpack. extra .hbs templates are copied
        * into the static folder as well
        */
+      new HtmlWebpackPlugin({ template: 'app/author.html', filename: 'author.hbs' }),
       new HtmlWebpackPlugin({ template: 'app/name.html', filename: 'name.hbs' }),
+      new HtmlWebpackPlugin({ template: 'app/publication.html', filename: 'publication.hbs' }),
       new CopyWebpackPlugin([
         {
           from: '**/tmpl/*.hbs',

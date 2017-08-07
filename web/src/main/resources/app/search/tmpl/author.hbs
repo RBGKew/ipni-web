@@ -1,0 +1,22 @@
+<div id="c-page-body" class="panel panel-default c-author">
+  <div class="panel-heading">
+    <h2>{{surname}}, {{forename}} ({{dates}})</h2>
+    <div class="pull-right">
+      <button type="button" class="btn btn-xs btn-info" disabled="disabled">Download <span class="glyphicon glyphicon-download"></button>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <dl>
+      <dt>Standard Form</dt><dd>{{standardForm}}</dd>
+      {{#if alternativeAbbreviations}}<dt>Alternative Abbreviations</dt><dd>{{alternativeAbbreviations}}</dd>{{/if}}
+      {{#if alternativeNames}}<dt>Alternative Names</dt><dd>{{alternativeNames}}</dd>{{/if}}
+      {{#if taxonGroups}}<dt>Area of Interest</dt><dd>{{taxonGroups}}</dd>{{/if}}
+      {{#if source}}<dt>Information Source</dt><dd>{{source}}</dd>{{/if}}
+      {{#if examples}}<dt>Example of Name Published</dt><dd>{{examples}}</dd>{{/if}}
+      {{#if comments}}<dt>Comments</dt><dd>{{comments}}</dd>{{/if}}
+      {{#if notes}}<dt>Name Notes</dt><dd>{{notes}}</dd>{{/if}}
+      {{#if isoCountries}}<dt>Countries</dt><dd>{{isoCountries}}</dd>{{/if}}
+    </dl>
+  </div>
+</div>

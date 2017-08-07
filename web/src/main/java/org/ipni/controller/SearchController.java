@@ -1,6 +1,8 @@
 package org.ipni.controller;
 
+import org.ipni.model.Author;
 import org.ipni.model.Name;
+import org.ipni.model.Publication;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +17,9 @@ import org.apache.solr.client.solrj.response.SuggesterResponse;
 import org.ipni.response.Response;
 import org.ipni.search.AutoCompleteBuilder;
 import org.ipni.search.QueryBuilder;
+import org.ipni.service.AuthorService;
 import org.ipni.service.NameService;
+import org.ipni.service.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +39,13 @@ public class SearchController {
 	private SolrClient solr;
 
 	@Autowired
+	private AuthorService authors;
+
+	@Autowired
 	private NameService names;
+
+	@Autowired
+	private PublicationService publications;
 
 	private static List<String> suggesters = ImmutableList.<String>of(
 			"scientific-name",
@@ -78,5 +88,15 @@ public class SearchController {
 	@GetMapping("urn:lsid:ipni.org:names:{id}")
 	public ResponseEntity<Name> getName(@PathVariable String id) throws SolrServerException, IOException {
 		return new ResponseEntity<Name>(names.load(id), HttpStatus.OK);
+	}
+
+	@GetMapping("urn:lsid:ipni.org:authors:{id}")
+	public ResponseEntity<Author> getAuthor(@PathVariable String id) throws SolrServerException, IOException {
+		return new ResponseEntity<Author>(authors.load(id), HttpStatus.OK);
+	}
+
+	@GetMapping("urn:lsid:ipni.org:publications:{id}")
+	public ResponseEntity<Publication> getPublication(@PathVariable String id) throws SolrServerException, IOException {
+		return new ResponseEntity<Publication>(publications.load(id), HttpStatus.OK);
 	}
 }

@@ -74,10 +74,10 @@ public class Loader {
 
 	@Value("${ipni.flat}")
 	private String NAMES_FILE_URL;
-	
+
 	@Value("${ipni.authors}")
 	private String AUTHORS_FILE_URL;
-	
+
 	@Value("${ipni.publications}")
 	private String PUBLICATIONS_FILE_URL;
 
@@ -106,7 +106,7 @@ public class Loader {
 			getFile(authorsFile, AUTHORS_FILE_URL);
 			loadData(authorsFile);
 			getFile(publicationsFile, PUBLICATIONS_FILE_URL);
-			loadData(publicationsFile);			
+			loadData(publicationsFile);
 			getFile(updateFile, UPDATE_FILE_URL);
 			addPOWOUsage();
 			updateSuggesters();
