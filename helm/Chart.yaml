@@ -1,0 +1,4 @@
+apiVersion: v1
+description: IPNI website
+name: ipni
+version: 0.1.0

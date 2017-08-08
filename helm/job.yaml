@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: indexer-job
+  labels:
+    app: ipni
+    chart: ipni-0.1.0
+    release: invinvible-saola
+    heritage: Tiller
+spec:
+  template:
+    metadata:
+      labels:
+        app: ipni
+        release: invinvible-saola
+    spec:
+      containers:
+        - name: ipni
+          image: "eu.gcr.io/powop-1349/ipni/ipni-indexer:latest"
+          imagePullPolicy: Always
+          env:
+            - name: BUILD_ONSTARTUP
+              value: "true"
+      restartPolicy: Never

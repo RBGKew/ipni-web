@@ -1,0 +1,6 @@
+dependencies:
+- name: solr
+  repository: https://kew-charts.storage.googleapis.com
+  version: 0.1.1
+digest: sha256:4a636ced75844f4a5b97177ac4978561dac51844a0c3f825e0595403395309be
+generated: 2017-08-08T10:20:10.281276681+01:00
