@@ -21,10 +21,12 @@ public class Author {
 	private String id;
 	private String isoCountries;
 	private String notes;
+	private String recordType;
 	private String source;
 	private String standardForm;
 	private String surname;
 	private String taxonGroups;
+	private String url;
 	private String version;
 
 	public Author(SolrDocument author) {
@@ -37,10 +39,12 @@ public class Author {
 		this.id = (String) author.getFirstValue("id");
 		this.isoCountries =  (String) author.getFirstValue(FieldMapping.authorIsoCountries.solrField());
 		this.notes = (String) author.get(FieldMapping.authorNameNotes.solrField());
+		this.recordType = "author";
 		this.source = (String) author.get(FieldMapping.authorNameSource.solrField());
 		this.standardForm = (String) author.get(FieldMapping.authorStandardForm.solrField());
 		this.surname = (String) author.get(FieldMapping.authorSurname.solrField());
 		this.taxonGroups = (String) author.getFirstValue(FieldMapping.authorTaxonGroups.solrField());
+		this.url = "/" + id;
 		this.version = (String) author.get(FieldMapping.version.solrField());
 	}
 }

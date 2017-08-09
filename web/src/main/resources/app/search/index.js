@@ -5,7 +5,6 @@ define(function(require) {
 
   var events = require('./events');
   var filters = require('./filters');
-  var name = require('./name');
   var results = require('./results');
 
   var initialize = function() {
@@ -21,19 +20,6 @@ define(function(require) {
       e.preventDefault();
       filters.set(_.pickBy($('#advanced-search').serializeJSON()));
     })
-
-    window.onpopstate = function(event) {
-      switch(event.state.class) {
-        case 'c-search':
-          results.load(event.state.data);
-          $('.container').removeClass('c-name');
-          break;
-        case 'c-name':
-          name.load(event.state.data);
-          $('.container').removeClass('c-search');
-          break;
-      }
-    };
   };
 
   // event listeners for updating search results based on filters

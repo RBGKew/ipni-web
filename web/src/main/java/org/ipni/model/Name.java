@@ -64,6 +64,7 @@ public class Name {
 	private String originalTaxonDistribution;
 	private String otherLinks;
 	private String publicationId;
+	private String recordType;
 	private String reference;
 	private String remarks;
 	private List<Name> replacedSynonym;
@@ -71,6 +72,7 @@ public class Name {
 	private String speciesAuthor;
 	private List<Name> superfluousNameOf;
 	private boolean suppressed;
+	private boolean topCopy;
 	private Name type;
 	private String typeLocations;
 	private String typeName;
@@ -126,13 +128,16 @@ public class Name {
 		this.originalTaxonDistribution = (String) name.getFirstValue(FieldMapping.originalTaxonDistribution.solrField());
 		this.otherLinks = (String) name.getFirstValue(FieldMapping.otherLinks.solrField());
 		this.publicationId = (String) name.getFirstValue(FieldMapping.publicationId.solrField());
+		this.recordType = "citation";
 		this.reference = (String) name.getFirstValue(FieldMapping.reference.solrField());
 		this.remarks = (String) name.getFirstValue(FieldMapping.remarks.solrField());
 		this.speciesAuthor = (String) name.getFirstValue(FieldMapping.speciesAuthor.solrField());
+		this.suppressed = (Boolean) name.get(FieldMapping.suppressed.solrField());
+		this.topCopy = (Boolean) name.get(FieldMapping.topCopy.solrField());
 		this.typeLocations = (String) name.getFirstValue(FieldMapping.typeLocations.solrField());
 		this.typeName = (String) name.getFirstValue(FieldMapping.typeName.solrField());
 		this.typeRemarks = (String) name.getFirstValue(FieldMapping.typeRemarks.solrField());
-		this.url = url();
+		this.url = "/urn:lsid:ipni.org:names:" + id;
 		this.version = (String) name.getFirstValue(FieldMapping.version.solrField());
 	}
 
@@ -169,9 +174,4 @@ public class Name {
 				|| originalHybridParentage != null
 				|| originalTaxonDistribution != null;
 	}
-
-	private String url(){
-		return "/urn:lsid:ipni.org:names:" + id;
-	}
-
 }

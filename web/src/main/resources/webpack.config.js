@@ -38,7 +38,10 @@ module.exports = (env = {}) => {
           test: /\.hbs$/,
           use: {
             loader: 'handlebars-loader',
-            query: { inlineRequires: '/img/' }
+            query: {
+              inlineRequires: '/img/',
+              helperDirs: [__dirname + "/app/helpers"]
+            }
           }
         },
 

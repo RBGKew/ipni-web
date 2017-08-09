@@ -2,10 +2,9 @@ define(function(require) {
 
   var Handlebars = require('handlebars');
   var nameTmpl = require('./tmpl/name.hbs');
-
   var namePageClass = 'c-name';
 
-  var setName = function(url) {
+  var navigateTo = function(url) {
     $.getJSON(API_BASE  + url + "?callback=?", function(json) {
       load(json);
       history.pushState({
@@ -21,7 +20,7 @@ define(function(require) {
   }
 
   return {
-    setName : setName,
+    navigateTo : navigateTo,
     load: load,
   }
 });

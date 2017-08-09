@@ -31,15 +31,23 @@ define(function(require) {
 
   function transform(res) {
     ret = [];
+    var totalSuggestions = _.reduce(
+      res.suggestedTerms,
+      function(n, sug) { return n + sug.length },
+      0
+    );
+
     _.each(suggesters, function(suggester) {
       if(!(suggester in res.suggestedTerms)) {
         return;
       }
 
       for(i = 0; i < res.suggestedTerms[suggester].length && i < 5; i++) {
+        var val = res.suggestedTerms[suggester][i];
         ret.push({
-          value: res.suggestedTerms[suggester][i],
-          category: humanize(suggester),
+          value: suggester === suggesters[0] ? val : suggester + ":" + val,
+          display: val,
+          category: suggester,
         });
       }
     });
@@ -68,7 +76,7 @@ define(function(require) {
         },
         {
           display: 'value',
-          limit: 8,
+          limit: 6,
           source: engine.ttAdapter(),
           templates: { suggestion: suggestionTmpl }
         }

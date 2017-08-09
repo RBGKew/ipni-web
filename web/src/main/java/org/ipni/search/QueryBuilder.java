@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+
 import static org.ipni.constants.FieldMapping.*;
 
 public class QueryBuilder {
@@ -30,25 +31,42 @@ public class QueryBuilder {
 			.add(rank.solrField())
 			.build();
 
+	private static final ImmutableSet<String> publicationQueryFields = ImmutableSet.of(
+			reference.solrField(),
+			publication.solrField(),
+			abbreviation.solrField());
+
+	private static final ImmutableSet<String> authorQueryFields = ImmutableSet.of(
+			author.solrField(),
+			publishingAuthor.solrField(),
+			authorName.solrField(),
+			authorAlternativeNames.solrField(),
+			authorAlternativeAbbreviations.solrField(),
+			authorStandardForm.solrField());
+
 	private static final Map<String, QueryOption> queryMappings = new ImmutableMap.Builder<String, QueryOption>()
 			.put("any", new MultiFieldQuery(mainQueryFields))
 			.put("name", new MultiFieldQuery(nameQueryFields))
+			.put("publication", new MultiFieldQuery(publicationQueryFields))
+			.put("author", new MultiFieldQuery(authorQueryFields))
 			.put("page", new PageNumberQuery())
 			.put("sort", new SortQuery())
 			.put("page.size", new PageSizeQuery())
 			.put("f", new FilterQuery())
 			.build();
 
-	private SolrQuery query = new SolrQuery().setRequestHandler("/select");
-	private static final QueryOption basicMapper = new  SingleFieldFilterQuery();
+	private SolrQuery query;
+	private static final QueryOption basicMapper = new SingleFieldFilterQuery();
+	private static final DefaultQuery defaultQuery = new DefaultQuery();
 
 	public QueryBuilder() {
-		// set defaults
+		query = new SolrQuery().setRequestHandler("/select");
 		addParam("sort", "name_asc");
-		addParam("suppressed", "false");
+		defaultQuery.add(query);
 	}
 
 	public QueryBuilder addParam(String key, String value) {
+
 		if(key.equals("callback") || key.equals("_")) {
 			// do nothing, jsonp param
 		} else if(key.equals("q")) {

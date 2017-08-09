@@ -745,7 +745,7 @@
          will be overridden by parameters in the request
       -->
     <lst name="defaults">
-      <str name="q">*:*</str>
+      <str name="q">-ipni_record_type_s_lower:(a p)</str>
       <str name="echoParams">all</str>
       <int name="rows">24</int>
       <int name="start">0</int>
@@ -1190,7 +1190,7 @@
       <str name="name">author</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">authors_t</str>
+      <str name="field">standard_form_s_lower</str>
       <str name="indexPath">author_suggest</str>
       <str name="suggestAnalyzerFieldType">text_general</str>
       <str name="highlight">false</str>
@@ -1200,7 +1200,7 @@
       <str name="name">publication</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">publication_s_lower</str>
+      <str name="field">abbreviation_s_lower</str>
       <str name="indexPath">publication_suggest</str>
       <str name="suggestAnalyzerFieldType">text_general</str>
       <str name="highlight">false</str>

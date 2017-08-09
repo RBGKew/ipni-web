@@ -4,7 +4,6 @@ define(function(require) {
   var pagination = require('pagination');
   var filters = require('./filters');
   var events = require('./events');
-  var name = require('./name');
 
   var resultsTmpl = require('./tmpl/results.hbs');
 
@@ -50,15 +49,7 @@ define(function(require) {
 
     $('body')
       .on('click', '.sort-by a', setSort)
-      .on('click', '.filter-by a', toggleFilter)
-      .on('click', '.name-link', showDetail);
-  }
-
-  function showDetail(e) {
-    e.preventDefault();
-    var link = $(this).attr('href');
-    name.setName(link);
-    filters.clear();
+      .on('click', '.filter-by a', toggleFilter);
   }
 
   function toggleFilter(event) {
