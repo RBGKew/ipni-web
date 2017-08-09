@@ -33,7 +33,7 @@
     {{#each this}}
       {{#isType this "citation"}}
       <a href="{{url}}" class="list-group-item result name-link {{#if topCopy}}top-copy{{/if}}">
-        <em>{{showName this}}</em> {{authors}}{{#if reference}}, <small>{{reference}}</small>{{/if}}
+        {{fullName this}}
       </a>
       {{/isType}}
 

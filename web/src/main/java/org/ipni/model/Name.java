@@ -174,4 +174,18 @@ public class Name {
 				|| originalHybridParentage != null
 				|| originalTaxonDistribution != null;
 	}
+
+	@JsonProperty
+	public boolean hasLinks() {
+		return conservedAgainst != null
+				|| correctionOf != null
+				|| isonymOf != null
+				|| laterHomonymOf != null
+				|| nomenclaturalSynonym != null
+				|| replacedSynonym != null
+				|| sameCitationAs != null
+				|| superfluousNameOf != null
+				|| validationOf != null
+				|| orthographicVariantOf != null;
+	}
 }
