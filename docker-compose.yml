@@ -2,20 +2,21 @@ version: '2'
 
 services:
   web:
-    image: ipni/ipni-web:latest
+    build: web/
     ports:
       - "18080:8080"
     volumes:
       - $SOURCE_DIRECTORY/ipni-web/web/target/web-0.0.1-SNAPSHOT.jar:/web.jar
     links:
       - solr
+
   indexer:
-    image: ipni/ipni-indexer:latest
+    build: indexer/
     links:
       - solr
       
   solr:
-    image: ipni/ipni-solr:latest
+    build: solr/
     ports:
       - "18983:8983"
     volumes:
