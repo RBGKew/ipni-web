@@ -27,7 +27,9 @@ public class NameHelper {
 		}
 
 		if(citation.getReference() != null) {
+			name.append(", <small>");
 			name.append(citation.getReference());
+			name.append("</small>");
 		}
 
 		return new Handlebars.SafeString(name);
