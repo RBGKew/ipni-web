@@ -6,7 +6,7 @@ services:
     ports:
       - "18080:8080"
     volumes:
-      - $SOURCE_DIRECTORY/ipni-web/web/target/web-0.0.1-SNAPSHOT.jar:/web.jar
+      - $SOURCE_DIRECTORY/ipni-web/web/target/web.jar:/web.jar
     links:
       - solr
 
