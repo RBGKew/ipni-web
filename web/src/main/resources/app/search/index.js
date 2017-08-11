@@ -9,10 +9,10 @@ define(function(require) {
 
   var initialize = function() {
     filters.initialize();
+    results.initialize();
 
     // populate results based on existing query string
     if(window.location.search.length > 1) {
-      results.initialize();
       filters.deserialize(window.location.search);
     }
 
