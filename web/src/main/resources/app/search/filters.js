@@ -90,11 +90,11 @@ define(function(require) {
     $(window).on('resize', refresh);
   }
 
-  function publishUpdated(e) {
-    pubsub.publish('search.updated');
-  };
+  function createdToken(e) {
+    if(params.has('page')) {
+      params = params.delete('page');
+    }
 
-  function createdToken() {
     publishUpdated();
   };
 
@@ -177,9 +177,9 @@ define(function(require) {
 
     if(_.isString(deserialized['q'])) {
       setTokens(deserialized['q'].split(','), false);
-    } else {
-      publishUpdated();
     }
+
+    publishUpdated();
   }
 
   var refresh = function() {
