@@ -68,18 +68,20 @@ define(function(require) {
   }
 
   function paginate(results) {
-    $('.c-pagination').pagination({
-      items: results.totalResults,
-      itemsOnPage: results.perPage,
-      pages: results.totalPages,
-      listStyle: 'pagination',
-      hrefTextPrefix: '',
-      currentPage: Number(filters.getParam('page'))+1,
-      onPageClick: function(page, e) {
-        filters.setParam('page', page-1);
-        if(e) e.preventDefault();
-      }
-    });
+    if(results.totalPages > 1) {
+      $('.c-pagination').pagination({
+        items: results.totalResults,
+        itemsOnPage: results.perPage,
+        pages: results.totalPages,
+        listStyle: 'pagination',
+        hrefTextPrefix: '',
+        currentPage: Number(filters.getParam('page'))+1,
+        onPageClick: function(page, e) {
+          filters.setParam('page', page-1);
+          if(e) e.preventDefault();
+        }
+      });
+    }
   }
 
   return {
