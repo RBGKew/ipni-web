@@ -98,7 +98,12 @@ define(function(require) {
     publishUpdated();
   };
 
-  var setTokens = function(tokens) {
+  function publishUpdated(e) {
+    pubsub.publish('search.updated');
+  };
+
+  var setTokens = function(tokens, update) {
+    update = _.defaultTo(update, true);
     if(_.isObject(tokens) && !_.isArray(tokens)) {
       tokens = _.map(tokens, function(val, key) {
         return val ? key + ':' + val : key
@@ -106,7 +111,7 @@ define(function(require) {
     }
 
     if(initialized) {
-      tokenfield.tokenfield('setTokens', tokens);
+      tokenfield.tokenfield('setTokens', tokens, false, update);
     } else {
       initialize(tokens);
     }
@@ -160,6 +165,8 @@ define(function(require) {
   var deserialize = function(serialized) {
     if(serialized[0] == '?') {
       serialized = serialized.slice(1);
+    } else {
+      return;
     }
 
     var deserialized = deparam(serialized);
@@ -169,7 +176,7 @@ define(function(require) {
     }
 
     if(_.isString(deserialized['q'])) {
-      setTokens(deserialized['q'].split(','));
+      setTokens(deserialized['q'].split(','), false);
     } else {
       publishUpdated();
     }

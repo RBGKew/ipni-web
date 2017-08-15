@@ -35,6 +35,7 @@ define(function(require) {
     window.onpopstate = function(event) {
       switch(event.state.class) {
         case 'c-search':
+          filters.deserialize(window.location.search, false);
           results.load(event.state.data);
           $('.container').removeClass('c-name');
           break;
