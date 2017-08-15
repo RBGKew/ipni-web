@@ -21,4 +21,6 @@ spec:
           env:
             - name: BUILD_ONSTARTUP
               value: "true"
+            - name: IPNI_FLAT
+              value: "http://storage.googleapis.com/kew-dev-backup/ipni_flat_all.csv.xz"
       restartPolicy: Never
