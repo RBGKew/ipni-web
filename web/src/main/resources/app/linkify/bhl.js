@@ -1,10 +1,10 @@
-const handlebars = require('handlebars');
+var handlebars = require('handlebars');
 
-const TITLE = /\[BHL_title_id:(\d+)\]/g;
-const PAGE = /\[BHL_page_id:(\d+)\]/g;
-const OPENURL = "http://www.biodiversitylibrary.org/openurl?pid=";
+var TITLE = /\[BHL_title_id:(\d+)\]/g;
+var PAGE = /\[BHL_page_id:(\d+)\]/g;
+var OPENURL = "http://www.biodiversitylibrary.org/openurl?pid=";
 
-const extract = function(pattern, queryparam) {
+var extract = function(pattern, queryparam) {
   return function(text, options) {
     var ret = "";
 
@@ -16,7 +16,7 @@ const extract = function(pattern, queryparam) {
   }
 }
 
-const strip = function(text) {
+var strip = function(text) {
   text = text.replace(PAGE, '')
   text = text.replace(TITLE, '')
 
