@@ -17,9 +17,22 @@
       {{#if precededBy}}<dt>Preceded By</dt><dd>{{precededBy}}</dd>{{/if}}
       {{#if supercededBy}}<dt>Superceded By</dt><dd>{{supercededBy}}</dd>{{/if}}
       {{#if comments}}<dt>Comments</dt><dd>{{comments}}</dd>{{/if}}
-      {{#if remarks}}<dt>Remarks</dt><dd>{{remarks}}</dd>{{/if}}
+      {{#if remarks}}<dt>Remarks</dt><dd>{{stripBhlMarkers remarks}}</dd>{{/if}}
       {{#if tl2Author}}<dt>TL2 Author</dt><dd>{{tl2Author}}</dd>{{/if}}
       {{#if tl2Number}}<dt>TL2 Number</dt><dd>{{tl2Number}}</dd>{{/if}}
+      {{#hasBhlMarkers remarks}}
+      <dt>BHL</dt>
+      <dd>
+      <ul>
+        {{#withBhlPage remarks}}
+        <li>Read this <a href="{{link}}" target="_blank">publication</a></li>
+        {{/withBhlPage}}
+        {{#withBhlTitle remarks}}
+        <li>View the <a href="{{link}}" target="_blank">TL-2 metadata</a> for this publication</li>
+        {{/withBhlTitle}}
+        </ul>
+      </dd>
+      {{/hasBhlMarkers}}
     </dl>
   </div>
 </div>
