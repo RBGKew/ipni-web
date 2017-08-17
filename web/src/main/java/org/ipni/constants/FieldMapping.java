@@ -2,6 +2,8 @@ package org.ipni.constants;
 
 public enum FieldMapping {
 
+	created("created", "date_created_s_lower"),
+	updated("updated", "date_last_modified_s_lower"),
 	ipniRecordType("ipni_record_type","ipni_record_type_s_lower"),
 	version("version", "version_s_lower"),
 
@@ -36,6 +38,7 @@ public enum FieldMapping {
 	geographicUnit("geographic unit", "geographic_unit_s_lower"),
 	infrafamily("infrafamily", "infrafamily_s_lower"),
 	infragenus("infragenus", "infragenus_s_lower"),
+	inPowo("in powo", "powo_b"),
 	latitudeDegrees("latitude degrees", "latitude_degrees_s_lower"),
 	latitudeMinutes("latitude minutes", "latitude_minutes_s_lower"),
 	latitudeSeconds("latitude seconds", "latitude_seconds_s_lower"),

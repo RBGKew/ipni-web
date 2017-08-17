@@ -45,6 +45,7 @@ public class Name {
 	private String infragenus;
 	private String infraspecies;
 	private List<Name> isonymOf;
+	private boolean inPowo;
 	private List<Name> laterHomonymOf;
 	private String latitudeDegrees;
 	private String latitudeMinutes;
@@ -111,6 +112,7 @@ public class Name {
 		this.infrafamily = (String) name.getFirstValue(FieldMapping.infrafamily.solrField());
 		this.infragenus = (String) name.getFirstValue(FieldMapping.infragenus.solrField());
 		this.infraspecies = (String) name.getFirstValue(FieldMapping.infraspecies.solrField());
+		this.inPowo = (Boolean) name.getFirstValue(FieldMapping.inPowo.solrField());
 		this.latitudeDegrees = (String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField());
 		this.latitudeMinutes = (String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField());
 		this.latitudeSeconds = (String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField());
@@ -186,6 +188,7 @@ public class Name {
 				|| sameCitationAs != null
 				|| superfluousNameOf != null
 				|| validationOf != null
-				|| orthographicVariantOf != null;
+				|| orthographicVariantOf != null
+				|| inPowo;
 	}
 }
