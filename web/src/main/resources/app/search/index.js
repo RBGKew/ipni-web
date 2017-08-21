@@ -16,10 +16,16 @@ define(function(require) {
       filters.deserialize(window.location.search);
     }
 
-    $('.container').on('click', '#advanced-search button', function(e) {
-      e.preventDefault();
-      filters.set(_.pickBy($('#advanced-search').serializeJSON()));
-    })
+    $('.container')
+      .on('click', '#advanced-search button', function(e) {
+        e.preventDefault();
+        filters.set(_.pickBy($('#advanced-search').serializeJSON()));
+      })
+      .on('click', '#search-button', function(e) {
+        var input = $('.token-input');
+        filters.add(input.val());
+        input.val('');
+      })
   };
 
   // event listeners for updating search results based on filters
