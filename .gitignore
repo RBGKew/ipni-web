@@ -26,3 +26,4 @@ nbdist/
 node/
 node_modules/
 static/
+helm/charts
