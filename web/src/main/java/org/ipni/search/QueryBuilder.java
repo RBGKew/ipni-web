@@ -32,11 +32,14 @@ public class QueryBuilder {
 
 	private static final ImmutableSet<String> publicationQueryFields = ImmutableSet.of(
 			reference.solrField(),
+			title.solrField(),
 			publication.solrField(),
 			abbreviation.solrField());
 
 	private static final ImmutableSet<String> authorQueryFields = ImmutableSet.of(
 			author.solrField(),
+			authorForename.solrField(),
+			authorSurname.solrField(),
 			publishingAuthor.solrField(),
 			authorName.solrField(),
 			authorAlternativeNames.solrField(),
