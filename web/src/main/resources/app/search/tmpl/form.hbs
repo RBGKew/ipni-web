@@ -25,7 +25,12 @@
 
           <b>Author</b>
           <div class="row">
+            <input type="text" class="form-control" id="author-forename" name="author forename" placeholder="Author forename">
+            <input type="text" class="form-control" id="author-surname" name="author surname" placeholder="Author surname">
             <input type="text" class="form-control" id="author" name="author" placeholder="Standard form">
+          </div>
+          <div class="row">
+            <input type="text" class="form-control" id="author-country" name="author country" placeholder="Author country">
             <label class="checkbox-inline">
               <input type="checkbox" id="name-authors" value="name-author" checked/> Taxon Name Authors
             </label>
@@ -36,17 +41,27 @@
 
           <b>Publication</b>
           <div class="row">
-            <input type="text" class="form-control" id="publication" name="publication" placeholder="Standard abbreviation">
-            <input type="text" class="form-control" id="published" name="published" placeholder="Year Published" data-provide="datepicker" data-date-min-view-mode="years" data-date-format="yyyy" >
+            <input type="text" class="form-control" id="publication" name="publication" placeholder="Publication title">
+            <input type="text" class="form-control" id="publication-abbrev" name="publication abbrev" placeholder="Standard abbreviation">
+          </div>
+          <div class="row">
+            <input type="text" class="form-control" id="published" name="published" placeholder="Year published" />
+            <input type="text" class="form-control" id="published-before" name="published before" placeholder="Published before year" />
+            <input type="text" class="form-control" id="published-after" name="published after" placeholder="Published after year" />
           </div>
 
-            <b>Record Date</b>
-            <div class="row">
-              <input type="text" class="form-control" id="added since" name="added since" placeholder="Added since" data-provide="datepicker">
-              <input type="text" class="form-control" id="modified since" name="modified since" placeholder="Modified since" data-provide="datepicker">
-            </div>
+          <b>Record</b>
+          <p class="help-block">Dates must be specified in 'YYYY-MM-DD' format</p>
+          <div class="row">
+            <input type="text" class="form-control date" id="added-before" name="added before" placeholder="Records added before" />
+            <input type="text" class="form-control date" id="added-after" name="added after" placeholder="Records added after" />
+          </div>
+          <div class="row">
+            <input type="text" class="form-control date" id="modified-before" name="modified before" placeholder="Records modified before" />
+            <input type="text" class="form-control date" id="modified-after" name="modified after" placeholder="Records modified after" />
+          </div>
 
-            <button type="submit" class="btn btn-normal">Search</button>
+          <button type="submit" class="btn btn-normal">Search</button>
         </div>
       </form>
     </div>

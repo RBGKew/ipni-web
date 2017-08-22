@@ -3,11 +3,11 @@ package org.ipni.search;
 import org.apache.solr.client.solrj.SolrQuery;
 
 public class RangeFilterQuery extends QueryOption {
-
 	@Override
-	public void addQueryOption(String key, String value, SolrQuery query) {
-		if(value != null && !value.isEmpty()){
-			query.addFilterQuery(String.format("%s:[%s]", key, value));
+	public void addQueryOption(String field, String value, SolrQuery query) {
+		Range range = new Range(field, value);
+		if(range.valid()) {
+			query.addFilterQuery(range.build());
 		}
 	}
 }

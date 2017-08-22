@@ -11,7 +11,6 @@ import static org.ipni.constants.FieldMapping.*;
 
 public class QueryBuilder {
 
-	@SuppressWarnings("unused")
 	private static Logger logger = LoggerFactory.getLogger(QueryBuilder.class);
 
 	private static final ImmutableSet<String> nameQueryFields = new ImmutableSet.Builder<String>()
@@ -44,6 +43,11 @@ public class QueryBuilder {
 			authorAlternativeAbbreviations.solrField(),
 			authorStandardForm.solrField());
 
+	private static final QueryOption basicMapper = new SingleFieldFilterQuery();
+	private static final DefaultQuery defaultQuery = new DefaultQuery();
+	private static final RangeFilterQuery rangeQuery = new RangeFilterQuery();
+	private static final RangeFilterQuery dateRangeQuery = new DateRangeFilterQuery();
+
 	private static final Map<String, QueryOption> queryMappings = new ImmutableMap.Builder<String, QueryOption>()
 			.put("any", new MultiFieldQuery(mainQueryFields))
 			.put("name", new MultiFieldQuery(nameQueryFields))
@@ -52,12 +56,16 @@ public class QueryBuilder {
 			.put("page", new PageNumberQuery())
 			.put("sort", new SortQuery())
 			.put("page.size", new PageSizeQuery())
+			.put("published before", rangeQuery)
+			.put("published after", rangeQuery)
+			.put("added before", dateRangeQuery)
+			.put("added after", dateRangeQuery)
+			.put("modified before", dateRangeQuery)
+			.put("modified after", dateRangeQuery)
 			.put("f", new FilterQuery())
 			.build();
 
 	private SolrQuery query;
-	private static final QueryOption basicMapper = new SingleFieldFilterQuery();
-	private static final DefaultQuery defaultQuery = new DefaultQuery();
 
 	public QueryBuilder() {
 		query = new SolrQuery().setRequestHandler("/select");
@@ -66,7 +74,6 @@ public class QueryBuilder {
 	}
 
 	public QueryBuilder addParam(String key, String value) {
-
 		if(key.equals("callback") || key.equals("_")) {
 			// do nothing, jsonp param
 		} else if(key.equals("q")) {
@@ -102,7 +109,7 @@ public class QueryBuilder {
 		}
 	}
 
-	public SolrQuery build(){
+	public SolrQuery build() {
 		return query;
 	}
 }

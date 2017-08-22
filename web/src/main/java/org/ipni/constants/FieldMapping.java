@@ -2,8 +2,8 @@ package org.ipni.constants;
 
 public enum FieldMapping {
 
-	created("created", "date_created_s_lower"),
-	updated("updated", "date_last_modified_s_lower"),
+	created("added", "date_created_date"),
+	updated("modified", "date_last_modified_date"),
 	ipniRecordType("ipni_record_type","ipni_record_type_s_lower"),
 	version("version", "version_s_lower"),
 
@@ -90,26 +90,26 @@ public enum FieldMapping {
 	authorComments("comments","comments_s_lower"),
 	authorDates("dates","dates_s_lower"),
 	authorExampleOfNamePublished("example_of_name_published","example_of_name_published_s_lower"),
-	authorForename("author_forename","author_forename_s_lower"),
-	authorIsoCountries("detail_author_iso_countries","detail_author_iso_countries"),
+	authorForename("author forename","author_forename_s_lower"),
+	authorIsoCountries("author country","detail_author_iso_countries"),
 	authorName("author_name","author_name_s_lower"),
-	authorNameNotes("name_notes","name_notes_s_lower"),
-	authorNameSource("name_source","name_source_s_lower"),
-	authorStandardForm("standard_form","standard_form_s_lower"),
-	authorSurname("author_surname","author_surname_s_lower"),
+	authorNameNotes("name notes","name_notes_s_lower"),
+	authorNameSource("name source","name_source_s_lower"),
+	authorStandardForm("author","standard_form_s_lower"),
+	authorSurname("author surname","author_surname_s_lower"),
 	authorTaxonGroups("detail_taxon_groups_flat","detail_taxon_groups_flat"),
 
 	// Publication fieldsabbreviation("abbreviation","abbreviation_s_lower"),
 	abbreviation("abbreviation","abbreviation_s_lower"),
-	bphNumber("bph_number","bph_number_s_lower"),
+	bphNumber("bph number","bph_number_s_lower"),
 	date("date","date_s_lower"),
 	isbn("isbn","isbn_s_lower"),
 	issn("issn","issn_s_lower"),
 	lcNumber("lc_number","lc_number_s_lower"),
-	precededBy("preceded_by","preceded_by_s_lower"),
-	supercededBy("superceded_by","superceded_by_s_lower"),
+	precededBy("preceded by","preceded_by_s_lower"),
+	supercededBy("superceded by","superceded_by_s_lower"),
 	tdwgAbbreviation("tdwg_abbreviation","tdwg_abbreviation_s_lower"),
-	title("title","title_s_lower"),
+	title("publication title","title_s_lower"),
 	tl2Author("tl2_author","tl2_author_s_lower"),
 	tl2Number("tl2_number","tl2_number_s_lower")
 	;
