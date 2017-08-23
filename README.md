@@ -4,13 +4,13 @@
 
 The project as a whole can be built using:
 
-```mvn install -Ddocker.registry=ipni/ -Dmaven.test.skip=true```
+```mvn install```
 
 This will build the java code, frontend via webpack, and docker images.
 
 To skip the webpack build, run:
 
-```mvn install -Ddocker.registry=ipni/ -Dmaven.test.skip=true -Dskip.npm```
+```mvn install -Dskip.webpack```
 
 # Development
 
@@ -21,3 +21,27 @@ folder and running
 ```npm start```
 
 this will start a dev server running on port `8080`
+
+# Deployment
+
+Deployments are done to Kubernetes on the Google cloud platform. There are two stages to
+a deployment.
+
+## 1: Build docker images and push to container registry
+
+This is done via ```mvn deploy``` _if_ you have both of the following
+
+* The ```DOCKER_REGISTRY``` environment variable set to the container registry url.
+  e.g., ```DOCKER_REGISTRY=eu.gcr.io/powop-1349/```
+* Authentication credentials for docker. Should be set up during ```gcloud```
+  [setup](https://cloud.google.com/compute/docs/gcloud-compute)
+
+## 2: Update deployment via Helm
+
+Images are tagged with the short git hash of HEAD when ```mvn package``` is run. To
+upgrade to a given version, change the ```tag``` key for the relevant container in
+```helm/values.yaml``` and run
+
+```helm update [release name] ./helm```
+
+from the project root
