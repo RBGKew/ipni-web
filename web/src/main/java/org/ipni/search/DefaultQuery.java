@@ -10,12 +10,11 @@ public class DefaultQuery extends QueryOption {
 	@Override
 	public void addQueryOption(String key, String value, SolrQuery query) {
 		String[] filters = {
-				String.format("%s:\"%s\"", FieldMapping.ipniRecordType.solrField(), "a"),
-				String.format("%s:\"%s\"", FieldMapping.ipniRecordType.solrField(), "p"),
 				String.format("%s:\"%s\"", FieldMapping.suppressed.solrField(), "false"),
+				String.format("%s:\"%s\"", FieldMapping.topCopy.solrField(), "true"),
 		};
 
-		query.addFilterQuery(Joiner.on(" OR ").join(filters));
+		query.addFilterQuery(Joiner.on(" AND ").join(filters));
 	}
 
 	public void add(SolrQuery query) {

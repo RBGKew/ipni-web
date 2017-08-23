@@ -2,6 +2,20 @@
 <!-- Solr managed schema - automatically generated - DO NOT EDIT -->
 <schema name="example-data-driven-schema" version="1.6">
   <uniqueKey>id</uniqueKey>
+  <fieldType name="alphaOnlySort" class="solr.TextField" omitNorms="true" sortMissingLast="true">
+    <analyzer>
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.TrimFilterFactory"/>
+      <filter class="solr.PatternReplaceFilterFactory" pattern="([^a-z])" replace="all" replacement=""/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="alphanumeric_string" class="solr.TextField" positionIncrementGap="100" multiValued="false">
+    <analyzer>
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <filter class="solr.PatternReplaceFilterFactory" pattern="[^A-Za-z0-9]" replace="all" replacement=""/>
+    </analyzer>
+  </fieldType>
   <fieldType name="ancestor_path" class="solr.TextField">
     <analyzer type="index">
       <tokenizer class="solr.KeywordTokenizerFactory"/>
@@ -53,26 +67,18 @@
   <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType" geo="true" maxDistErr="0.001" distErrPct="0.025" distanceUnits="kilometers"/>
   <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
   <fieldType name="longs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
-  <fieldType name="names_suggester" class="solr.TextField" omitNorms="true" sortMissingLast="true">
-    <analyzer>
-      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false" />
-      <filter class="solr.PatternReplaceFilterFactory" pattern="\[.*\]" replacement=""/>
-    </analyzer>
-  </fieldType>
-  <fieldType name="alphaOnlySort" class="solr.TextField" omitNorms="true" sortMissingLast="true">
-    <analyzer>
-      <tokenizer class="solr.KeywordTokenizerFactory"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.TrimFilterFactory"/>
-      <filter class="solr.PatternReplaceFilterFactory" pattern="([^a-z])" replace="all" replacement=""/>
-    </analyzer>
-  </fieldType>
   <fieldType name="lowercase" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
       <tokenizer class="solr.KeywordTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="names_suggester" class="solr.TextField" omitNorms="true" sortMissingLast="true">
+    <analyzer>
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
+      <filter class="solr.PatternReplaceFilterFactory" pattern="\[.*\]" replacement=""/>
     </analyzer>
   </fieldType>
   <fieldType name="pdate" class="solr.DatePointField" docValues="true"/>
@@ -457,12 +463,13 @@
   <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
   <field name="_version_" type="long" indexed="false" stored="false"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
-  <field name="sortable" type="alphaOnlySort" indexed="true" stored="false"/>
   <field name="lookup_all" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="sortable" type="alphaOnlySort" indexed="true" stored="false"/>
   <dynamicField name="*_txt_en_split_tight" type="text_en_splitting_tight" indexed="true" stored="true"/>
   <dynamicField name="*_descendent_path" type="descendent_path" indexed="true" stored="true"/>
   <dynamicField name="*_ancestor_path" type="ancestor_path" indexed="true" stored="true"/>
   <dynamicField name="*_txt_en_split" type="text_en_splitting" indexed="true" stored="true"/>
+  <dynamicField name="*_s_alphanum" type="alphanumeric_string" indexed="true" stored="true"/>
   <dynamicField name="ignored_*" type="ignored" multiValued="true"/>
   <dynamicField name="*_txt_rev" type="text_general_rev" indexed="true" stored="true"/>
   <dynamicField name="*_phon_en" type="phonetic_en" indexed="true" stored="true"/>
@@ -499,6 +506,8 @@
   <dynamicField name="*_txt_sv" type="text_sv" indexed="true" stored="true"/>
   <dynamicField name="*_txt_th" type="text_th" indexed="true" stored="true"/>
   <dynamicField name="*_txt_tr" type="text_tr" indexed="true" stored="true"/>
+  <dynamicField name="lookup_*" type="string" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="detail_*" type="string" multiValued="true" indexed="true" stored="true"/>
   <dynamicField name="*_point" type="point" indexed="true" stored="true"/>
   <dynamicField name="*_srpt" type="location_rpt" indexed="true" stored="true"/>
   <dynamicField name="*_pdts" type="pdates" indexed="true" stored="true"/>
@@ -544,8 +553,6 @@
   <dynamicField name="*_d" type="double" indexed="true" stored="true"/>
   <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
   <dynamicField name="*_c" type="currency" indexed="true" stored="true"/>
-  <dynamicField name="lookup_*" type="string" multiValued="true" indexed="true" stored="true"/>
-  <dynamicField name="detail_*" type="string" multiValued="true" indexed="true" stored="true"/>
   <copyField source="taxon_scientific_name_s_lower" dest="sortable"/>
   <copyField source="lookup_*" dest="lookup_all"/>
   <copyField source="*" dest="_text_"/>
