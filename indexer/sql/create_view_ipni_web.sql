@@ -2,7 +2,7 @@
 
 DROP VIEW ipni_web;
 
-CREATE OR REPLACE VIEW ipni_web AS 
+CREATE OR REPLACE VIEW ipni_web AS
  SELECT ipni_flat_joined.id,
     replace(ipni_flat_joined.authors, '"', '') AS authors_t,
     replace(ipni_flat_joined.basionym, '"', '') AS basionym_s_lower,
@@ -22,8 +22,8 @@ CREATE OR REPLACE VIEW ipni_web AS
     regexp_replace(replace(ipni_flat_joined.collector_team_as_text, '"', ''), '\r|\n', '', 'g') AS collector_team_as_text_t,
     ipni_flat_joined.conserved_against_id AS conserved_against_id_s_lower,
     ipni_flat_joined.correction_of_id AS correction_of_id_s_lower,
-    ipni_flat_joined.date_created AS date_created_s_lower,
-    ipni_flat_joined.date_last_modified AS date_last_modified_s_lower,
+    ipni_flat_joined.date_created AS date_created_date,
+    ipni_flat_joined.date_last_modified AS date_last_modified_date,
     replace(ipni_flat_joined.distribution, '"', '') AS distribution_s_lower,
     ipni_flat_joined.east_or_west AS east_or_west_s_lower,
     ipni_flat_joined.family AS family_s_lower,
@@ -69,7 +69,7 @@ CREATE OR REPLACE VIEW ipni_web AS
     replace(ipni_flat_joined.publication_year_full, '"', '') AS publication_year_full_s_lower,
     replace(ipni_flat_joined.publication_year_note, '"', '') AS publication_year_note_s_lower,
     replace(ipni_flat_joined.publishing_author, '"', '') AS publishing_author_s_lower,
-    ipni_flat_joined.rank AS rank_s_lower,
+    ipni_flat_joined.rank AS rank_s_alphanum,
     replace(ipni_flat_joined.reference, '"', '') AS reference_t,
     replace(ipni_flat_joined.reference_remarks, '"', '') AS reference_remarks_s_lower,
     replace(ipni_flat_joined.remarks, '"', '') AS remarks_s_lower,
