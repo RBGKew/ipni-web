@@ -100,7 +100,7 @@ public enum FieldMapping {
 	authorTaxonGroups("detail_taxon_groups_flat","detail_taxon_groups_flat"),
 
 	// Publication fieldsabbreviation("abbreviation","abbreviation_s_lower"),
-	abbreviation("abbreviation","abbreviation_s_lower"),
+	abbreviation("publication std","abbreviation_s_lower"),
 	bphNumber("bph number","bph_number_s_lower"),
 	date("date","date_s_lower"),
 	isbn("isbn","isbn_s_lower"),
