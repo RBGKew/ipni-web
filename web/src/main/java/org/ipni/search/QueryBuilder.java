@@ -2,16 +2,12 @@ package org.ipni.search;
 
 import java.util.Map;
 import org.apache.solr.client.solrj.SolrQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 import static org.ipni.constants.FieldMapping.*;
 
 public class QueryBuilder {
-
-	private static Logger logger = LoggerFactory.getLogger(QueryBuilder.class);
 
 	private static final ImmutableSet<String> nameQueryFields = new ImmutableSet.Builder<String>()
 			.add(scientificName.solrField())
