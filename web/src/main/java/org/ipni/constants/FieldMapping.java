@@ -95,7 +95,7 @@ public enum FieldMapping {
 	authorName("author_name","author_name_s_lower"),
 	authorNameNotes("name notes","name_notes_s_lower"),
 	authorNameSource("name source","name_source_s_lower"),
-	authorStandardForm("author","standard_form_s_lower"),
+	authorStandardForm("author std","standard_form_s_lower"),
 	authorSurname("author surname","author_surname_s_lower"),
 	authorTaxonGroups("detail_taxon_groups_flat","detail_taxon_groups_flat"),
 

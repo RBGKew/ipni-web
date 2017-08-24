@@ -15,15 +15,7 @@ public class QueryBuilder {
 			.add(genus.solrField())
 			.add(species.solrField())
 			.add(infraspecies.solrField())
-			.add(hybrid.solrField())
 			.add(hybridGenus.solrField())
-			.build();
-
-	private static final ImmutableSet<String> mainQueryFields = new ImmutableSet.Builder<String>()
-			.addAll(nameQueryFields)
-			.add(author.solrField())
-			.add(reference.solrField())
-			.add(rank.solrField())
 			.build();
 
 	private static final ImmutableSet<String> publicationQueryFields = ImmutableSet.of(
@@ -41,6 +33,12 @@ public class QueryBuilder {
 			authorAlternativeNames.solrField(),
 			authorAlternativeAbbreviations.solrField(),
 			authorStandardForm.solrField());
+
+	private static final ImmutableSet<String> mainQueryFields = new ImmutableSet.Builder<String>()
+			.addAll(nameQueryFields)
+			.addAll(publicationQueryFields)
+			.addAll(authorQueryFields)
+			.build();
 
 	private static final QueryOption basicMapper = new SingleFieldFilterQuery();
 	private static final DefaultQuery defaultQuery = new DefaultQuery();
