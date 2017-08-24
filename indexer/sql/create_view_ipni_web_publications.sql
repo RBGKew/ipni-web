@@ -4,6 +4,8 @@ CREATE OR REPLACE VIEW ipni_web_publications AS
  SELECT 'urn:lsid:ipni.org:publications:'||id AS id,
         version AS version_s_lower,
         'p' AS ipni_record_type_s_lower,
+        true AS top_copy_b,
+        false AS suppressed_b,
         REPLACE(abbreviation, '"','') AS abbreviation_s_lower,
         REPLACE(REPLACE(title,'"',''), '|','') AS title_s_lower,
         REPLACE(REPLACE(remarks, '"',''),'|','') AS remarks_s_lower,

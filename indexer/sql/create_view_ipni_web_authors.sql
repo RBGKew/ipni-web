@@ -4,6 +4,8 @@ CREATE OR REPLACE VIEW ipni_web_authors AS
 SELECT 'urn:lsid:ipni.org:authors:'||id AS id,
        version AS version_s_lower,
        'a' AS ipni_record_type_s_lower,
+       true AS top_copy_b,
+       false AS suppressed_b,
        default_author_name AS author_name_s_lower,
        default_author_forename AS author_forename_s_lower,
        default_author_surname AS author_surname_s_lower,
