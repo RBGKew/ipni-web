@@ -110,8 +110,18 @@ public class Loader {
 			getFile(updateFile, UPDATE_FILE_URL);
 			addPOWOUsage();
 			updateSuggesters();
+			optimizeCore();
 			switchCores();
 			clearCore();
+		} catch (SolrServerException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void optimizeCore() {
+		try {
+			logger.info("Optimizing {}", BUILD_CORE);
+			buildClient.optimize();
 		} catch (SolrServerException | IOException e) {
 			e.printStackTrace();
 		}
