@@ -49,10 +49,11 @@ define(function(require) {
 
     $('body')
       .on('click', '.sort-by a', setSort)
-      .on('click', '.filter-by a', toggleFilter);
+      .on('click', '.filter-by .btn', toggleFilter);
   }
 
   function toggleFilter(event) {
+    if($(this).hasClass('disabled')) return;
     event.preventDefault();
     var filter = $(this).attr("id");
     if(filters.getParam('f') === filter) {

@@ -2,8 +2,20 @@
   <div class="panel-heading">
     {{totalResults}} results
     <div class="pull-right">
+
+      <div class="btn-group filter-by">
+        <button class="btn btn-xs btn-default disabled" >Filter by:</button>
+        <button type="button" class="btn btn-xs btn-default{{highlight f "f_familial"}}" id="f_familial">Familial</button>
+        <button type="button" class="btn btn-xs btn-default{{highlight f "f_infrafamilial"}}" id="f_infrafamilial">Infrafamilial</button>
+        <button type="button" class="btn btn-xs btn-default{{highlight f "f_generic"}}" id="f_generic">Generic</button>
+        <button type="button" class="btn btn-xs btn-default{{highlight f "f_infrageneric"}}"  id="f_infrageneric">Infrageneric</button>
+        <button type="button" class="btn btn-xs btn-default{{highlight f "f_specific"}}" id="f_specific">Specific</button>
+        <button type="button" class="btn btn-xs btn-default{{highlight f "f_infraspecific"}}" id="f_infraspecific">Infraspecific</button>
+        <button type="button" class="btn btn-xs btn-default{{highlight f "f_hybrid"}}"  id="f_hybrid"> Hybrid</button>
+      </div>
+
       <div class="btn-group">
-        <button type="button" class="btn btn-xs btn-defualt dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></button>
         <ul class="sort-by dropdown-menu dropdown-menu-right">
           <li class="{{highlight sort "name_asc"}}"><a id="name_asc" href="#">Name A-Z</a></li>
           <li class="{{highlight sort "name_desc"}}"><a id="name_desc" href="#">Name Z-A</a></li>
@@ -12,18 +24,6 @@
         </ul>
       </div>
 
-      <div class="btn-group">
-        <button type="button" class="btn btn-xs btn-defualt dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by <span class="caret"></span></button>
-        <ul class="filter-by dropdown-menu dropdown-menu-right">
-          <li class="{{highlight f "f_familial"}}" ><a id="f_familial" href="#">Familial</a></li>
-          <li class="{{highlight f "f_infrafamilial"}}" ><a id="f_infrafamilial" href="#">Infrafamilial</a></li>
-          <li class="{{highlight f "f_generic"}}" ><a id="f_generic" href="#">Generic</a></li>
-          <li class="{{highlight f "f_infrageneric"}}" ><a id="f_infrageneric" href="#">Infrageneric</a></li>
-          <li class="{{highlight f "f_specific"}}" ><a id="f_specific" href="#">Specific</a></li>
-          <li class="{{highlight f "f_infraspecific"}}" ><a id="f_infraspecific" href="#">InfraSpecific</a></li>
-          <li class="{{highlight f "f_hybrid"}}" ><a id="f_hybrid" href="#">Hybrid</a></li>
-        </ul>
-      </div>
       <button type="button" class="btn btn-xs btn-info" disabled="disabled">Download <span class="glyphicon glyphicon-download"></button>
     </div>
     <div class="clearfix"></div>

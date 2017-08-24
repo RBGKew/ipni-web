@@ -157,3 +157,9 @@ body {
   height: 11px;
 }
 
+.filter-by {
+  .disabled {
+    opacity: 1;
+    cursor: default;
+  }
+}
