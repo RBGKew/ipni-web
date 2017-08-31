@@ -22,6 +22,19 @@ folder and running
 
 this will start a dev server running on port `8080`
 
+## Loading data
+
+The loader task can be run as
+
+```docker-compose run -e BUILD_ONSTARTUP=true indexer```
+
+Other indexer options that can be specified via ```-e``` are:
+
+* ```IPNI_FLAT``` - url for names export file from ipni flat
+* ```IPNI_AUTHORS``` - url for authors export file
+* ```IPNI_PUBLICATIONS``` - url for publications export file
+* ```POWO_IDS``` - url for powo ids mapping file
+
 # Deployment
 
 Deployments are done to Kubernetes on the Google cloud platform. There are two stages to
