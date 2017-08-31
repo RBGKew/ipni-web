@@ -1,4 +1,4 @@
-﻿-- View: ipni_web
+-- View: ipni_web
 
 DROP VIEW ipni_web;
 
@@ -87,6 +87,8 @@ CREATE OR REPLACE VIEW ipni_web AS
     replace(ipni_flat_joined.type_remarks, '"', '') AS type_remarks_s_lower,
     replace(ipni_flat_missing_fields.chosen_by, '"', '') AS type_chosen_by_s_lower,
     replace(ipni_flat_missing_fields.type_specimen_note, '"', '') AS type_note_s_lower,
+    replace(ipni_flat_missing_fields.author_team_ids, '"', '') AS author_team_ids_s_lower,
+    replace(ipni_flat_missing_fields.species_author_team_ids, '"', '') AS species_author_team_ids_s_lower,
     ipni_flat_joined.validation_of_id AS lookup_validation_of_id,
     ipni_flat_joined.version AS version_s_lower,
     false AS powo_b
