@@ -125,6 +125,15 @@
 							<goal>push</goal>
 						</goals>
 					</execution>
+					<execution>
+						<id>tag-image-latest</id>
+						<goals>
+							<goal>tag</goal>
+						</goals>
+						<configuration>
+							<tag>latest</tag>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 

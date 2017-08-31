@@ -43,7 +43,7 @@ Loads solr index from flat files</description>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			</dependency>
+		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-access</artifactId>
@@ -83,6 +83,15 @@ Loads solr index from flat files</description>
 							<goal>build</goal>
 							<goal>push</goal>
 						</goals>
+					</execution>
+					<execution>
+						<id>tag-image-latest</id>
+						<goals>
+							<goal>tag</goal>
+						</goals>
+						<configuration>
+							<tag>latest</tag>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
