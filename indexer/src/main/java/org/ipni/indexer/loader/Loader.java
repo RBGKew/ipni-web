@@ -200,15 +200,13 @@ public class Loader {
 
 		String IPNI_URI = "urn:lsid:ipni.org:names:";
 		String currentLine;
-		String id;
 
 		Collection<SolrInputDocument> solrDocs = new ArrayList<>();
 
 		try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(updateFile), "UTF8"))) {
 			while ((currentLine = br.readLine()) != null) {
-				id = currentLine.replaceFirst(IPNI_URI, "");
 				SolrInputDocument sdoc = new SolrInputDocument();
-				sdoc.addField("id", id);
+				sdoc.addField("id", currentLine);
 				sdoc.addField("powo_b", Collections.singletonMap("set", true));
 				solrDocs.add(sdoc);
 			}
