@@ -57,9 +57,17 @@ public class Loader {
 			.add("f.lookup_parent_id.separator", ",")
 			.add("f.lookup_orthographic_variant_of_id.split", "true")
 			.add("f.lookup_orthographic_variant_of_id.separator", ",")
+			.add("f.detail_author_iso_countries.split","true")
 			.add("f.detail_author_iso_countries.separator","@")
+			.add("f.detail_taxon_groups_flat.split", "true")
 			.add("f.detail_taxon_groups_flat.separator", ",")
-			.add("f.detail_alternative_names.separator", ",");
+			.add("f.detail_alternative_names.split", "true")
+			.add("f.detail_alternative_names.separator", ",")
+			.add("f.detail_author_team_ids.split", "true")
+			.add("f.detail_author_team_ids.separator", "$")
+			.add("f.detail_species_author_team_ids.split", "true")
+			.add("f.detail_species_author_team_ids.separator", "$");
+	
 
 	private static final List<String> suggesters = ImmutableList.<String>of("scientific-name", "author", "publication");
 

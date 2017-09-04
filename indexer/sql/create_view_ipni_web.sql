@@ -1,9 +1,9 @@
--- View: ipni_web
+﻿-- View: ipni_web
 
 DROP VIEW ipni_web;
 
 CREATE OR REPLACE VIEW ipni_web AS
- SELECT ipni_flat_joined.id,
+ SELECT 'urn:lsid:ipni.org:names:'||ipni_flat_joined.id AS id,
     replace(ipni_flat_joined.authors, '"', '') AS authors_t,
     replace(ipni_flat_joined.basionym, '"', '') AS basionym_s_lower,
     ipni_flat_joined.basionym_author AS basionym_author_s_lower,
@@ -64,7 +64,9 @@ CREATE OR REPLACE VIEW ipni_web AS
     ipni_flat_joined.other_links AS other_links_s_lower,
     ipni_flat_joined.parent_id AS lookup_parent_id,
     replace(ipni_flat_joined.publication, '"', '') AS publication_s_lower,
-    ipni_flat_joined.publication_id AS publication_id_s_lower,
+    CASE
+	WHEN ipni_flat_joined.publication_id IS NOT NULL THEN 'urn:lsid:ipni.org:publications:'||ipni_flat_joined.publication_id
+    END AS publication_id,
     ipni_flat_joined.publication_year AS publication_year_i,
     replace(ipni_flat_joined.publication_year_full, '"', '') AS publication_year_full_s_lower,
     replace(ipni_flat_joined.publication_year_note, '"', '') AS publication_year_note_s_lower,
@@ -87,8 +89,8 @@ CREATE OR REPLACE VIEW ipni_web AS
     replace(ipni_flat_joined.type_remarks, '"', '') AS type_remarks_s_lower,
     replace(ipni_flat_missing_fields.chosen_by, '"', '') AS type_chosen_by_s_lower,
     replace(ipni_flat_missing_fields.type_specimen_note, '"', '') AS type_note_s_lower,
-    replace(ipni_flat_missing_fields.author_team_ids, '"', '') AS author_team_ids_s_lower,
-    replace(ipni_flat_missing_fields.species_author_team_ids, '"', '') AS species_author_team_ids_s_lower,
+    replace(ipni_flat_missing_fields.author_team_ids, '"', '') AS detail_author_team_ids,
+    replace(ipni_flat_missing_fields.species_author_team_ids, '"', '') AS detail_species_author_team_ids,
     ipni_flat_joined.validation_of_id AS lookup_validation_of_id,
     ipni_flat_joined.version AS version_s_lower,
     false AS powo_b
