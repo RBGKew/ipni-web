@@ -2,7 +2,7 @@ version: '2'
 
 services:
   web:
-    image: ${DOCKER_REGISTRY}ipni/app
+    image: ${DOCKER_REGISTRY}ipni/app:latest
     ports:
       - "18080:8080"
     volumes:
@@ -11,12 +11,12 @@ services:
       - solr
 
   indexer:
-    image: ${DOCKER_REGISTRY}ipni/indexer
+    image: ${DOCKER_REGISTRY}ipni/indexer:latest
     links:
       - solr
       
   solr:
-    image: ${DOCKER_REGISTRY}ipni/solr
+    image: ${DOCKER_REGISTRY}ipni/solr:latest
     ports:
       - "18983:8983"
     volumes:
