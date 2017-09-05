@@ -1,6 +1,8 @@
 package org.ipni.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,32 +40,31 @@ public class NameService {
 		Name name = new Name(result);
 		Map<String, Name> relatedNames = getRelatedNames(result);
 
-		name.setBasionym(lookup(result.get("lookup_basionym_id"), relatedNames));
-		name.setConservedAgainst(lookup(result.get("lookup_conserved_against_id"), relatedNames));
-		name.setCorrectionOf(lookup(result.get("lookup_correction_of_id"), relatedNames));
-		name.setHybridParents(lookup(result.get("lookup_hybrid_parent_id"), relatedNames));
-		name.setIsonymOf(lookup(result.get("lookup_isonym_of_id"), relatedNames));
-		name.setLaterHomonymOf(lookup(result.get("lookup_later_homonym_of_id"), relatedNames));
-		name.setNomenclaturalSynonym(lookup(result.get("lookup_nomenclatural_synonym_id"), relatedNames));
-		name.setReplacedSynonym(lookup(result.get("lookup_replaced_synonym_id"), relatedNames));
-		name.setSameCitationAs(lookup(result.get("lookup_same_citation_as_id"), relatedNames));
-		name.setSuperfluousNameOf(lookup(result.get("lookup_superfluous_name_of_id"), relatedNames));
-		name.setValidationOf(lookup(result.get("lookup_validation_of_id"), relatedNames));
-		name.setParent(lookup(result.get("lookup_parent_id"), relatedNames));
-		name.setOrthographicVariantOf(lookup(result.get("lookup_orthographic_variant_of_id"), relatedNames));
+		name.setBasionym(lookup(result.getFieldValues("lookup_basionym_id"), relatedNames));
+		name.setConservedAgainst(lookup(result.getFieldValues("lookup_conserved_against_id"), relatedNames));
+		name.setCorrectionOf(lookup(result.getFieldValues("lookup_correction_of_id"), relatedNames));
+		name.setHybridParents(lookup(result.getFieldValues("lookup_hybrid_parent_id"), relatedNames));
+		name.setIsonymOf(lookup(result.getFieldValues("lookup_isonym_of_id"), relatedNames));
+		name.setLaterHomonymOf(lookup(result.getFieldValues("lookup_later_homonym_of_id"), relatedNames));
+		name.setNomenclaturalSynonym(lookup(result.getFieldValues("lookup_nomenclatural_synonym_id"), relatedNames));
+		name.setReplacedSynonym(lookup(result.getFieldValues("lookup_replaced_synonym_id"), relatedNames));
+		name.setSameCitationAs(lookup(result.getFieldValues("lookup_same_citation_as_id"), relatedNames));
+		name.setSuperfluousNameOf(lookup(result.getFieldValues("lookup_superfluous_name_of_id"), relatedNames));
+		name.setValidationOf(lookup(result.getFieldValues("lookup_validation_of_id"), relatedNames));
+		name.setParent(lookup(result.getFieldValues("lookup_parent_id"), relatedNames));
+		name.setOrthographicVariantOf(lookup(result.getFieldValues("lookup_orthographic_variant_of_id"), relatedNames));
 		name.setAuthorTeam(parseAuthorTeam(result));
 
 		return name;
 	}
 
-	@SuppressWarnings("unchecked")
-	private List<Name> lookup(Object lookup, Map<String, Name> relatedNames) {
+	private List<Name> lookup(Collection<Object> lookup, Map<String, Name> relatedNames) {
 		if(lookup == null) {
 			return null;
 		}
 
-		return ((List<String>) lookup).stream()
-				.map(id -> relatedNames.get(id))
+		return lookup.stream()
+				.map(id -> relatedNames.get(IdUtil.fqName(id.toString())))
 				.filter(Objects::nonNull)
 				.collect(Collectors.<Name>toList());
 	}
@@ -79,16 +80,23 @@ public class NameService {
 				.collect(Collectors.<NameAuthor>toList());
 	}
 
-	private Map<String, Name> getRelatedNames(SolrDocument result) throws SolrServerException, IOException {
-		if(!result.containsKey("lookup_all")) {
-			return new HashMap<>();
+	private List<String> getRelatedIds(SolrDocument result) {
+		if(!result.getFieldNames().stream().anyMatch(name -> name.startsWith("lookup_"))) {
+			logger.debug("No lookup_* fields found");
+			return new ArrayList<>();
 		}
 
-		List<String> relatedIds = result.getFieldValues("lookup_all").stream()
+		return result.getFieldNames().stream()
+				.filter(name -> name.startsWith("lookup_"))
+				.map(name -> result.getFieldValues(name))
+				.flatMap(Collection::stream)
 				.map(id -> IdUtil.fqName(id.toString()))
 				.collect(Collectors.<String>toList());
 
-		return solr.getById(relatedIds).stream()
+	}
+
+	private Map<String, Name> getRelatedNames(SolrDocument result) throws SolrServerException, IOException {
+		return solr.getById(getRelatedIds(result)).stream()
 				.map(doc -> new Name(doc))
 				.collect(Collectors.toMap(Name::getId, name -> name));
 	}
