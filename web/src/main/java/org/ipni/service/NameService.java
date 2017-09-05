@@ -1,20 +1,22 @@
 package org.ipni.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Objects;
+import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.ipni.model.Name;
+import org.ipni.model.NameAuthor;
+import org.ipni.util.IdUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import org.slf4j.Logger;
 
 @Service
@@ -23,78 +25,72 @@ public class NameService {
 	private Logger logger = LoggerFactory.getLogger(NameService.class);
 
 	@Autowired
-	SolrClient solr;
+	private SolrClient solr;
 
 	public Name load(String id) throws SolrServerException, IOException {
+
+		if(!id.startsWith("urn:lsid:ipni.org:names")) {
+			id = "urn:lsid:ipni.org:names:" + id;
+		}
+
 		ModifiableSolrParams params = new ModifiableSolrParams().add("fl", "*");
 		SolrDocument result = solr.getById(id, params);
 		Name name = new Name(result);
-		logger.debug("full result: " + result);
-		Map<String, List<String>> ids = getIds(result);
-		Map<String, List<Name>> names = getNames(ids);
-		logger.debug("names:" + names);
-		name.setBasionym(names.get("lookup_basionym_id"));
-		name.setConservedAgainst(names.get("lookup_conserved_against_id"));
-		name.setCorrectionOf(names.get("lookup_correction_of_id"));
-		name.setHybridParents(names.get("lookup_hybrid_parent_id"));
-		name.setIsonymOf(names.get("lookup_isonym_of_id"));
-		name.setLaterHomonymOf(names.get("lookup_later_homonym_of_id"));
-		name.setNomenclaturalSynonym(names.get("lookup_nomenclatural_synonym_id"));
-		name.setReplacedSynonym(names.get("lookup_replaced_synonym_id"));
-		name.setSameCitationAs(names.get("lookup_same_citation_as_id"));
-		name.setSuperfluousNameOf(names.get("lookup_superfluous_name_of_id"));
-		name.setValidationOf(names.get("lookup_validation_of_id"));
-		name.setParent(names.get("lookup_parent_id"));
-		name.setOrthographicVariantOf(names.get("lookup_orthographic_variant_of_id"));
+		Map<String, Name> relatedNames = getRelatedNames(result);
+
+		name.setBasionym(lookup(result.get("lookup_basionym_id"), relatedNames));
+		name.setConservedAgainst(lookup(result.get("lookup_conserved_against_id"), relatedNames));
+		name.setCorrectionOf(lookup(result.get("lookup_correction_of_id"), relatedNames));
+		name.setHybridParents(lookup(result.get("lookup_hybrid_parent_id"), relatedNames));
+		name.setIsonymOf(lookup(result.get("lookup_isonym_of_id"), relatedNames));
+		name.setLaterHomonymOf(lookup(result.get("lookup_later_homonym_of_id"), relatedNames));
+		name.setNomenclaturalSynonym(lookup(result.get("lookup_nomenclatural_synonym_id"), relatedNames));
+		name.setReplacedSynonym(lookup(result.get("lookup_replaced_synonym_id"), relatedNames));
+		name.setSameCitationAs(lookup(result.get("lookup_same_citation_as_id"), relatedNames));
+		name.setSuperfluousNameOf(lookup(result.get("lookup_superfluous_name_of_id"), relatedNames));
+		name.setValidationOf(lookup(result.get("lookup_validation_of_id"), relatedNames));
+		name.setParent(lookup(result.get("lookup_parent_id"), relatedNames));
+		name.setOrthographicVariantOf(lookup(result.get("lookup_orthographic_variant_of_id"), relatedNames));
+		name.setAuthorTeam(parseAuthorTeam(result));
+
 		return name;
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, List<String>> getIds(SolrDocument result) throws SolrServerException, IOException {
-		Map<String, List<String>> idFieldMapping = new HashMap<>();
-		Collection<String> fieldNames = result.getFieldNames();
-		fieldNames.forEach(item -> {
-			if (item.endsWith("_id")) {
-				Collection<String> ids = (Collection<String>) (Collection<?>) result.getFieldValues(item);
-				ids.forEach(id -> {
-					if (idFieldMapping.containsKey(id)) {
-						List<String> fieldList = idFieldMapping.get(id);
-						fieldList.add(item);
-						idFieldMapping.put(id, fieldList);
-					} else {
-						List<String> fieldList = new ArrayList<>();
-						fieldList.add(item);
-						idFieldMapping.put(id, fieldList);
-					}
-				});
-			}
-		});
-		return idFieldMapping;
-	}
-
-	private Map<String, List<Name>> getNames(Map<String, List<String>> ids) throws SolrServerException, IOException {
-		Map<String, List<Name>> names = new HashMap<>();
-
-		if(!ids.isEmpty()) {
-			List<SolrDocument> docs = solr.getById(ids.keySet());
-			for (SolrDocument doc : docs) {
-				List<String> fields = ids.get((String) doc.getFirstValue("id"));
-				Name name = new Name(doc);
-				for (String field : fields) {
-					if (names.containsKey(field)) {
-						List<Name> nameList = names.get(field);
-						nameList.add(name);
-						names.put(field, nameList);
-					} else {
-						List<Name> nameList = new ArrayList<>();
-						nameList.add(name);
-						names.put(field, nameList);
-					}
-				}
-			}
+	private List<Name> lookup(Object lookup, Map<String, Name> relatedNames) {
+		if(lookup == null) {
+			return null;
 		}
 
-		return names;
+		return ((List<String>) lookup).stream()
+				.map(id -> relatedNames.get(id))
+				.filter(Objects::nonNull)
+				.collect(Collectors.<Name>toList());
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<NameAuthor> parseAuthorTeam(SolrDocument result) {
+		if(result.get("detail_author_team_ids") == null) {
+			return null;
+		}
+
+		return ((List<String>) result.get("detail_author_team_ids")).stream()
+				.map(str -> new NameAuthor(str))
+				.collect(Collectors.<NameAuthor>toList());
+	}
+
+	private Map<String, Name> getRelatedNames(SolrDocument result) throws SolrServerException, IOException {
+		if(!result.containsKey("lookup_all")) {
+			return new HashMap<>();
+		}
+
+		List<String> relatedIds = result.getFieldValues("lookup_all").stream()
+				.map(id -> IdUtil.fqName(id.toString()))
+				.collect(Collectors.<String>toList());
+
+		return solr.getById(relatedIds).stream()
+				.map(doc -> new Name(doc))
+				.collect(Collectors.toMap(Name::getId, name -> name));
 	}
 
 }

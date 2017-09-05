@@ -17,6 +17,7 @@ import lombok.Data;
 public class Name {
 	private String name;
 	private String authors;
+	private List<NameAuthor> authorTeam;
 	private String originalRemarks;
 	private String rank;
 	private String url;
@@ -133,7 +134,7 @@ public class Name {
 		this.typeLocations = (String) name.getFirstValue(FieldMapping.typeLocations.solrField());
 		this.typeName = (String) name.getFirstValue(FieldMapping.typeName.solrField());
 		this.typeRemarks = (String) name.getFirstValue(FieldMapping.typeRemarks.solrField());
-		this.url = "/urn:lsid:ipni.org:names:" + id;
+		this.url = "/" + id;
 		this.version = (String) name.getFirstValue(FieldMapping.version.solrField());
 	}
 

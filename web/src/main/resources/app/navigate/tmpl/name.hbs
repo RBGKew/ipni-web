@@ -1,6 +1,6 @@
 <div id="c-page-body" class="panel panel-default c-citation">
   <div class="panel-heading">
-    <h2><i>{{showName this}}</i> {{authors}}</h2>
+    <h2><i>{{showName this}}</i> {{linkAuthor authorTeam}}</h2>
     <div class="pull-right">
       <button type="button" class="btn btn-xs btn-info" disabled="disabled">Download <span class="glyphicon glyphicon-download"></button>
     </div>
@@ -46,7 +46,7 @@
     {{#if authors}}
     <h4>Bibliography</h4>
     <dl class="dl-horizontal">
-      <dt>Author:</dt><dd>{{authors}}</dd>
+      <dt>Author:</dt><dd>{{linkAuthor authorTeam}}</dd>
     </dl>
     {{/if}}
 

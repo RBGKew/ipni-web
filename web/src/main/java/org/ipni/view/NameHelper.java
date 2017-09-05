@@ -9,6 +9,8 @@ import pl.allegro.tech.boot.autoconfigure.handlebars.HandlebarsHelper;
 @HandlebarsHelper
 public class NameHelper {
 	public CharSequence showName(Name citation) {
+		if(citation == null) return null;
+
 		if(citation.getName() != null) {
 			return citation.getName();
 		} else {
@@ -17,6 +19,8 @@ public class NameHelper {
 	}
 
 	public CharSequence fullName(Name citation) {
+		if(citation == null) return null;
+
 		StringBuffer name = new StringBuffer();
 		name.append("<i>");
 		name.append(showName(citation));
