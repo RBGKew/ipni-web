@@ -3,6 +3,7 @@ package org.ipni.view;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.ipni.model.Name;
 import org.ipni.model.NameAuthor;
 
 import com.github.jknack.handlebars.Handlebars;
@@ -48,12 +49,16 @@ public class AuthorHelper {
 		return str.toString();
 	}
 
-	public CharSequence linkAuthor(List<NameAuthor> team) {
-		String basonymStr = authorStr(team, "bas");
-		if(!basonymStr.isEmpty()) {
-			basonymStr = "(" + basonymStr + ") ";
-		}
+	public CharSequence linkAuthor(Name name) {
+		if(name.getAuthorTeam() != null && !name.getAuthorTeam().isEmpty()) {
+			String basonymStr = authorStr(name.getAuthorTeam(), "bas");
+			if(!basonymStr.isEmpty()) {
+				basonymStr = "(" + basonymStr + ") ";
+			}
 
-		return new Handlebars.SafeString(basonymStr + authorStr(team, "aut"));
+			return new Handlebars.SafeString(basonymStr + authorStr(name.getAuthorTeam(), "aut"));
+		} else {
+			return new Handlebars.SafeString(name.getAuthors());
+		}
 	}
 }

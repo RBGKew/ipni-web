@@ -38,13 +38,17 @@ var authorStr = function(team, type) {
 }
 
 
-var build = function(team) {
-  var basonymStr = authorStr(team, 'bas');
-  if(!_.isEmpty(basonymStr)) {
-    basonymStr = '(' + basonymStr + ') ';
-  }
+var build = function(citation) {
+  if(citation.authorTeam) {
+    var basonymStr = authorStr(citation.authorTeam, 'bas');
+    if(!_.isEmpty(basonymStr)) {
+      basonymStr = '(' + basonymStr + ') ';
+    }
 
-  return basonymStr + authorStr(team, 'aut');
+    return basonymStr + authorStr(citation.authorTeam, 'aut');
+  } else {
+    return citation.authors;
+  }
 }
 
 module.exports = {
