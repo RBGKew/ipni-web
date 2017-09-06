@@ -38,6 +38,13 @@ body {
   background-repeat: no-repeat;
   padding-left: 200px;
   padding-top: 55px;
+
+  a {
+    cursor: default;
+    color: $text-color;
+  }
+
+  a:hover, a:active, a:focus { text-decoration: none }
 }
 
 .collaborators {
@@ -128,6 +135,8 @@ body {
     height: auto;
     padding: 6px 85px;
     background-position: 15px 0;
+
+    a { cursor: pointer }
   }
 
   .c-search {
