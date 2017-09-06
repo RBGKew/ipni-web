@@ -96,7 +96,12 @@ public class NameService {
 	}
 
 	private Map<String, Name> getRelatedNames(SolrDocument result) throws SolrServerException, IOException {
-		return solr.getById(getRelatedIds(result)).stream()
+		List<String> relatedIds = getRelatedIds(result);
+		if(relatedIds.isEmpty()) {
+			return new HashMap<>();
+		}
+
+		return solr.getById(relatedIds).stream()
 				.map(doc -> new Name(doc))
 				.collect(Collectors.toMap(Name::getId, name -> name));
 	}
