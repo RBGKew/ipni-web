@@ -49,7 +49,8 @@ define(function(require) {
 
     $('body')
       .on('click', '.sort-by a', setSort)
-      .on('click', '.filter-by .btn', toggleFilter);
+      .on('click', '.filter-by .btn', toggleFilter)
+      .on('change', '.c-per-page', setLimit);
   }
 
   function toggleFilter(event) {
@@ -68,6 +69,11 @@ define(function(require) {
     filters.setParam('sort', $(this).attr("id"));
   }
 
+  function setLimit(limit) {
+    event.preventDefault();
+    filters.setParam('perPage', $(this).val());
+  }
+
   function paginate(results) {
     if(results.totalPages > 1) {
       $('.c-pagination').pagination({
@@ -82,6 +88,10 @@ define(function(require) {
           if(e) e.preventDefault();
         }
       });
+    }
+
+    if(results.totalResults > 50) {
+      $('.c-per-page').removeClass('hidden');
     }
   }
 

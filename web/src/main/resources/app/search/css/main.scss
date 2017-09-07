@@ -184,3 +184,13 @@ body {
     cursor: default;
   }
 }
+
+.c-pagination {
+  display: inline;
+}
+
+.c-per-page {
+  width: 200px;
+  float: right;
+  margin: 20px 0;
+}

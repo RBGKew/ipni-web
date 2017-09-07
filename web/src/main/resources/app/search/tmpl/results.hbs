@@ -55,5 +55,10 @@
   {{/with}}
   <div class="panel-footer">
     <div class="c-pagination"></div>
+    <select class="c-per-page form-control hidden">
+      <option {{selected perPage 50}} value="50">50 results per page</option>
+      <option {{selected perPage 100}} value="100">100 results per page</option>
+      <option {{selected perPage 500}} value="500">500 results per page</option>
+    </select>
   </div>
 </div>

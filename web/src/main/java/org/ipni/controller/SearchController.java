@@ -67,7 +67,7 @@ public class SearchController {
 	@GetMapping("suggest")
 	public ResponseEntity<SuggesterResponse> suggest(
 			@RequestParam(value = "query", required = true) String queryString,
-			@RequestParam(value = "page.size", required = false, defaultValue = "5") Integer pageSize
+			@RequestParam(value = "perPage", required = false, defaultValue = "5") Integer pageSize
 			) throws SolrServerException, IOException {
 
 		SolrQuery query = new AutoCompleteBuilder()

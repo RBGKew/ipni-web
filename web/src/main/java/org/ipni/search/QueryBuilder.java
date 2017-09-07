@@ -52,7 +52,7 @@ public class QueryBuilder {
 			.put("author", new MultiFieldQuery(authorQueryFields))
 			.put("page", new PageNumberQuery())
 			.put("sort", new SortQuery())
-			.put("page.size", new PageSizeQuery())
+			.put("perPage", new PageSizeQuery())
 			.put("published before", rangeQuery)
 			.put("published after", rangeQuery)
 			.put("added before", dateRangeQuery)
