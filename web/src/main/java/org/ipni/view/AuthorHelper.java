@@ -50,6 +50,9 @@ public class AuthorHelper {
 	}
 
 	public CharSequence linkAuthor(Name name) {
+		if(name == null){
+			return null;
+		}
 		if(name.getAuthorTeam() != null && !name.getAuthorTeam().isEmpty()) {
 			String basonymStr = authorStr(name.getAuthorTeam(), "bas");
 			if(!basonymStr.isEmpty()) {

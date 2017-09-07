@@ -69,6 +69,10 @@ public class Name {
 	private String originalReplacedSynonymAuthorTeam;
 	private String originalTaxonDistribution;
 	private String otherLinks;
+	private String publication;
+	private String publicationYear;
+	private String publicationYearNote;
+	private String referenceCollation;
 	private String publicationId;
 	private String recordType;
 	private String reference;
@@ -126,7 +130,11 @@ public class Name {
 		this.originalReplacedSynonymAuthorTeam = (String) name.getFirstValue(FieldMapping.originalReplacedSynonymAuthorTeam.solrField());
 		this.originalTaxonDistribution = (String) name.getFirstValue(FieldMapping.originalTaxonDistribution.solrField());
 		this.otherLinks = (String) name.getFirstValue(FieldMapping.otherLinks.solrField());
+		this.publication = (String) name.getFirstValue(FieldMapping.publication.solrField());
+		this.publicationYear = (String) name.getFirstValue(FieldMapping.publicationYear.solrField());
+		this.publicationYearNote = (String) name.getFirstValue(FieldMapping.publicationYearNote.solrField());
 		this.publicationId = (String) name.getFirstValue(FieldMapping.publicationId.solrField());
+		this.referenceCollation = (String) name.getFirstValue(FieldMapping.referenceCollation.solrField());
 		this.rank = (String) name.getFirstValue(FieldMapping.rank.solrField());
 		this.recordType = "citation";
 		this.reference = (String) name.getFirstValue(FieldMapping.reference.solrField());

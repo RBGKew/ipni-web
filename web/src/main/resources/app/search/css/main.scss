@@ -10,6 +10,18 @@
 
 body {
   background-color: #eee;
+
+}
+
+.ipni-subheading {
+  font-weight: bold;
+}
+.ipni-dl-indented {
+  padding-left: 10px;
+  dd{
+    padding-left: 15px;
+    padding-bottom: 5px;
+ }
 }
 
 .c-name {
