@@ -19,16 +19,12 @@ public class QueryBuilder {
 			.build();
 
 	private static final ImmutableSet<String> publicationQueryFields = ImmutableSet.of(
-			reference.solrField(),
 			title.solrField(),
-			publication.solrField(),
 			abbreviation.solrField());
 
 	private static final ImmutableSet<String> authorQueryFields = ImmutableSet.of(
-			author.solrField(),
 			authorForename.solrField(),
 			authorSurname.solrField(),
-			publishingAuthor.solrField(),
 			authorName.solrField(),
 			authorAlternativeNames.solrField(),
 			authorAlternativeAbbreviations.solrField(),
@@ -36,8 +32,8 @@ public class QueryBuilder {
 
 	private static final ImmutableSet<String> mainQueryFields = new ImmutableSet.Builder<String>()
 			.add(scientificName.solrField())
-			.add(title.solrField())
-			.add(authorName.solrField())
+			.addAll(publicationQueryFields)
+			.addAll(authorQueryFields)
 			.build();
 
 	private static final QueryOption basicMapper = new SingleFieldFilterQuery();

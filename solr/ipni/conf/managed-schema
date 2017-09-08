@@ -6,6 +6,7 @@
     <analyzer>
       <tokenizer class="solr.KeywordTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.PatternReplaceFilterFactory" pattern="([^a-z])" replace="all" replacement=""/>
       <filter class="solr.TrimFilterFactory"/>
     </analyzer>
   </fieldType>

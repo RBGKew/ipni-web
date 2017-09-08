@@ -23,7 +23,7 @@ public enum FieldMapping {
 	publicationId("publication id", "publication_id"),
 
 	originalRemarks("original remarks", "original_remarks_s_lower"),
-	publication("publication", "publication_s_lower"),
+	publication("published in", "publication_s_lower"),
 	infraspecific("infraspecific", "infraspecific_s_lower"),
 	bibliographicReference("bibliographic reference", "bibliographic_reference_s_lower"),
 	bibliographicTypeInfo("bibliographic type info", "bibliographic_type_info_s_lower"),
