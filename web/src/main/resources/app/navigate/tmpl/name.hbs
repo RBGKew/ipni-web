@@ -1,11 +1,8 @@
 <div id="c-page-body" class="panel panel-default c-citation">
   <div class="panel-heading">
     <h2><i>{{showName this}}</i> {{linkAuthor this}} </h2>
-    <div class="pull-right">
-      <button type="button" class="btn btn-xs btn-info" disabled="disabled">Download <span class="glyphicon glyphicon-download"></button>
-    </div>
     {{#if publicationId}}
-      <a href="/{{publicationId}}">{{publication}}</a> {{referenceCollation}} {{publicationYear}}
+      <a href="/{{publicationId}}" class="publication-link">{{publication}}</a> {{referenceCollation}} {{publicationYear}}
     {{else}}
       {{publication}} {{referenceCollation}} {{publicationYear}}
     {{/if}}
@@ -13,144 +10,142 @@
 
   <div class="panel-body">
 
-    <dl class="ipni-dl-indented">
+    <dl>
       <dt>Ipni ID</dt><dd>{{id}}</dd>
       {{#if publication}}
         {{#if publicationId}}
-          <dt>Publication</dt><dd><a href="/{{publicationId}}">{{publication}}</a></dd>
+          <dt>Publication</dt><dd><a href="/{{publicationId}}" class="publication-link">{{publication}}</a></dd>
         {{else}}
           <dt>Publication</dt><dd>{{publication}}</dd>
         {{/if}}
       {{/if}}
-    </dl>
 
       {{#if family}}
-      <dl class="ipni-dl-indented">
         <dt>Family as Entered in Ipni</dt><dd>{{family}}</dd>
-      </dl>
-      {{/if}}
-
-    {{#if hasTypeData}}
-    <h4 class="ipni-subheading">Type Information</h4>
-    <dl class="ipni-dl-indented">
-      {{#if typeName}}
-      <dt>Type Name</dt><dd> {{typeName}}</dd>
-      {{/if}}
-      {{#if bibliographicTypeInfo}}
-      <dt>Type Information</dt><dd> {{bibliographicTypeInfo}}</dd>
-      {{/if}}
-      {{#if typeLocations}}
-      <dt>Type Locations</dt><dd> {{typeLocations}}</dd>
-      {{/if}}
-      {{#if geographicUnit}}
-      <dt>Geographic Unit</dt><dd> {{geographicUnit}}</dd>
-      {{/if}}
-      {{#if locality}}
-      <dt>Type Locality</dt><dd> {{locality}}</dd>
-      {{/if}}
-      {{#if latitudeDegrees}}
-      <dt>Latitude</dt><dd> {{latitudeDegrees}} {{latitudeMinutes}} {{latitudeSeconds}} {{northOrSouth}}</dd>
-      <dt>Longitude</dt><dd> {{longitudeDegrees}} {{longitudeMinutes}} {{longitudeSeconds}} {{eastOrWest}}</dd>
-      {{/if}}
-      {{#if collectorTeam}}
-      <dt>Collector Team</dt><dd> {{collectorTeam}} {{collectorNumber}}</dd>
-      {{/if}}
-      {{#if bibliographicReference}}
-      <dt>Type Published in</dt><dd> {{bibliographicReference}}</dd>
-      {{/if}}
-      {{#if distribution}}
-      <dt>Distribution of Types from Protologue</dt><dd> {{distribution}}</dd>
       {{/if}}
     </dl>
+
+    {{#if hasTypeData}}
+      <h4>Type Information</h4>
+      <dl>
+        {{#if typeName}}
+          <dt>Type Name</dt><dd> {{typeName}}</dd>
+        {{/if}}
+        {{#if bibliographicTypeInfo}}
+          <dt>Type Information</dt><dd> {{bibliographicTypeInfo}}</dd>
+        {{/if}}
+        {{#if typeLocations}}
+          <dt>Type Locations</dt><dd> {{typeLocations}}</dd>
+        {{/if}}
+        {{#if geographicUnit}}
+          <dt>Geographic Unit</dt><dd> {{geographicUnit}}</dd>
+        {{/if}}
+        {{#if locality}}
+          <dt>Type Locality</dt><dd> {{locality}}</dd>
+        {{/if}}
+        {{#if latitudeDegrees}}
+          <dt>Latitude</dt><dd> {{latitudeDegrees}} {{latitudeMinutes}} {{latitudeSeconds}} {{northOrSouth}}</dd>
+          <dt>Longitude</dt><dd> {{longitudeDegrees}} {{longitudeMinutes}} {{longitudeSeconds}} {{eastOrWest}}</dd>
+        {{/if}}
+        {{#if collectorTeam}}
+          <dt>Collector Team</dt><dd> {{collectorTeam}} {{collectorNumber}}</dd>
+        {{/if}}
+        {{#if bibliographicReference}}
+          <dt>Type Published in</dt><dd> {{bibliographicReference}}</dd>
+        {{/if}}
+        {{#if distribution}}
+          <dt>Distribution of Types from Protologue</dt><dd> {{distribution}}</dd>
+        {{/if}}
+      </dl>
     {{/if}}
 
     {{#if hybridParents}}
-    <h4 class="ipni-subheading">Hybrid Information</h4>
-    <dl class="ipni-dl-indented">
-      <dt>Hybrid Parents</dt>
-      <dd>
-      <ul>
-      {{#each hybridParents}}
-      <li><a href="{{this.url}}" class="name-link">{{fullName this}}</a></li>
-      {{/each}}
-      </ul>
-      </dd>
-    </dl>
+      <h4>Hybrid Information</h4>
+      <dl>
+        <dt>Hybrid Parents</dt>
+        <dd>
+        <ul>
+          {{#each hybridParents}}
+            <li><a href="{{this.url}}" class="name-link">{{fullName this}}</a></li>
+          {{/each}}
+        </ul>
+        </dd>
+      </dl>
     {{/if}}
 
     {{#if hasOriginalData}}
-    <h4 class="ipni-subheading">Original Data</h4>
-    <dl class="ipni-dl-indented">
-      {{#if originalBasionym}}
-      <dt>Basionym</dt><dd><a href="{{basionym.[0].url}}" class="name-link">{{fullName basionym.[0]}}</a></dd>
-      {{/if}}
-      {{#if originalRemarks}}
-      <dt>Remarks</dt><dd>{{originalRemarks}}</dd>
-      {{/if}}
-      {{#if originalHybridParentage}}
-      <dt>Hybrid Parentage</dt><dd>{{originalHybridParentage}}</dd>
-      {{/if}}
-      {{#if originalReplacedSynonym}}
-      <dt>Replaced Synonym</dt><dd>{{originalReplacedSynonym}} {{originalReplacedSynonymAuthorTeam}}</dd>
-      {{/if}}
-      {{#if originalTaxonDistribution}}
-      <dt>Distribution</dt><dd>{{originalTaxonDistribution}}</dd>
-      {{/if}}
-    </dl>
+      <h4>Original Data</h4>
+      <dl>
+        {{#if originalBasionym}}
+          <dt>Basionym</dt><dd><a href="{{basionym.[0].url}}" class="name-link">{{fullName basionym.[0]}}</a></dd>
+        {{/if}}
+        {{#if originalRemarks}}
+          <dt>Remarks</dt><dd>{{originalRemarks}}</dd>
+        {{/if}}
+        {{#if originalHybridParentage}}
+          <dt>Hybrid Parentage</dt><dd>{{originalHybridParentage}}</dd>
+        {{/if}}
+        {{#if originalReplacedSynonym}}
+          <dt>Replaced Synonym</dt><dd>{{originalReplacedSynonym}} {{originalReplacedSynonymAuthorTeam}}</dd>
+        {{/if}}
+        {{#if originalTaxonDistribution}}
+          <dt>Distribution</dt><dd>{{originalTaxonDistribution}}</dd>
+        {{/if}}
+      </dl>
     {{/if}}
 
     {{#if nameStatus}}
-    <h4 class="ipni-subheading">Nomeclatural Notes</h4>
-    <dl class="ipni-dl-indented">
-      <dt>Name Status</dt><dd> {{nameStatus}}</dd>
-    </dl>
+      <h4>Nomeclatural Notes</h4>
+      <dl>
+        <dt>Name Status</dt><dd> {{nameStatus}}</dd>
+      </dl>
     {{/if}}
 
     {{#if remarks}}
-    <h4>Remarks</h4>
-    <p>{{linkDoi remarks}}</p>
+      <h4>Remarks</h4>
+      <p>{{linkDoi remarks}}</p>
     {{/if}}
 
     {{#if hasLinks}}
-    <h4 class="ipni-subheading">Links</h4>
-    <dl class="ipni-dl-indented">
-      {{#if conservedAgainst}}
-        <dt>Conserved Against</dt><dd><a href="{{conservedAgainst.[0].url}}" class="name-link">{{fullName conservedAgainst.[0]}}</a></dd>
+      <h4>Links</h4>
+      <dl>
+        {{#if conservedAgainst}}
+          <dt>Conserved Against</dt><dd><a href="{{conservedAgainst.[0].url}}" class="name-link">{{fullName conservedAgainst.[0]}}</a></dd>
+        {{/if}}
+        {{#if correctionOf}}
+          <dt>Correction Of</dt><dd><a href="{{correctionOf.[0].url}}" class="name-link">{{fullName correctionOf.[0]}}</a></dd>
+        {{/if}}
+        {{#if isonymOf}}
+          <dt>Isonym Of</dt><dd><a href="{{isonymOf.[0].url}}" class="name-link">{{fullName isonymOf.[0]}}</a></dd>
+        {{/if}}
+        {{#if laterHomonymOf}}
+          <dt>Later Homonym Of</dt><dd><a href="{{laterHomonymOf.[0].url}}" class="name-link">{{fullName laterHomonymOf.[0]}}</a></dd>
+        {{/if}}
+        {{#if nomenclaturalSynonym}}
+          <dt>Nomenclatural Synonym</dt><dd><a href="{{nomenclaturalSynonym.[0].url}}" class="name-link">{{fullName nomenclaturalSynonym.[0]}}</a></dd>
+        {{/if}}
+        {{#if nomenclaturalSynonym}}
+          <dt>Nomenclatural Synonym</dt><dd><a href="{{nomenclaturalSynonym.[0].url}}" class="name-link">{{fullName nomenclaturalSynonym.[0]}}</a></dd>
+        {{/if}}
+        {{#if replacedSynonym}}
+          <dt>Replaced Synonye</dt><dd><a href="{{replacedSynonym.[0].url}}" class="name-link">{{fullName replacedSynonym.[0]}}</a></dd>
+        {{/if}}
+        {{#if sameCitationAs}}
+          <dt>Same Citation As</dt><dd><a href="{{sameCitationAs.[0].url}}" class="name-link">{{fullName sameCitationAs.[0]}}</a></dd>
+        {{/if}}
+        {{#if superfluousNameOf}}
+          <dt>Superfluous Name Of</dt><dd><a href="{{superfluousNameOf.[0].url}}" class="name-link">{{fullName superfluousNameOf.[0]}}</a></dd>
+        {{/if}}
+        {{#if validationOf}}
+          <dt>Validation Of</dt><dd><a href="{{validationOf.[0].url}}" class="name-link">{{fullName validationOf.[0]}}</a></dd>
+        {{/if}}
+        {{#if orthographicVariantOf}}
+          <dt>Orthographic Variant Of</dt><dd><a href="{{orthographicVariantOf.[0].url}}" class="name-link">{{fullName orthographicVariantOf.[0]}}</a></dd>
+        {{/if}}
       {{/if}}
-      {{#if correctionOf}}
-        <dt>Correction Of</dt><dd><a href="{{correctionOf.[0].url}}" class="name-link">{{fullName correctionOf.[0]}}</a></dd>
+      </dl>
+      {{#if inPowo}}
+        <p>View in <a href="http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:{{id}}">Plants of the World Online</a></p>
       {{/if}}
-      {{#if isonymOf}}
-        <dt>Isonym Of</dt><dd><a href="{{isonymOf.[0].url}}" class="name-link">{{fullName isonymOf.[0]}}</a></dd>
-      {{/if}}
-      {{#if laterHomonymOf}}
-        <dt>Later Homonym Of</dt><dd><a href="{{laterHomonymOf.[0].url}}" class="name-link">{{fullName laterHomonymOf.[0]}}</a></dd>
-      {{/if}}
-      {{#if nomenclaturalSynonym}}
-        <dt>Nomenclatural Synonym</dt><dd><a href="{{nomenclaturalSynonym.[0].url}}" class="name-link">{{fullName nomenclaturalSynonym.[0]}}</a></dd>
-      {{/if}}
-      {{#if nomenclaturalSynonym}}
-        <dt>Nomenclatural Synonym</dt><dd><a href="{{nomenclaturalSynonym.[0].url}}" class="name-link">{{fullName nomenclaturalSynonym.[0]}}</a></dd>
-      {{/if}}
-      {{#if replacedSynonym}}
-        <dt>Replaced Synonye</dt><dd><a href="{{replacedSynonym.[0].url}}" class="name-link">{{fullName replacedSynonym.[0]}}</a></dd>
-      {{/if}}
-      {{#if sameCitationAs}}
-        <dt>Same Citation As</dt><dd><a href="{{sameCitationAs.[0].url}}" class="name-link">{{fullName sameCitationAs.[0]}}</a></dd>
-      {{/if}}
-      {{#if superfluousNameOf}}
-        <dt>Superfluous Name Of</dt><dd><a href="{{superfluousNameOf.[0].url}}" class="name-link">{{fullName superfluousNameOf.[0]}}</a></dd>
-      {{/if}}
-      {{#if validationOf}}
-        <dt>Validation Of</dt><dd><a href="{{validationOf.[0].url}}" class="name-link">{{fullName validationOf.[0]}}</a></dd>
-      {{/if}}
-      {{#if orthographicVariantOf}}
-        <dt>Orthographic Variant Of</dt><dd><a href="{{orthographicVariantOf.[0].url}}" class="name-link">{{fullName orthographicVariantOf.[0]}}</a></dd>
-      {{/if}}
-    {{/if}}
-    </dl>
-    {{#if inPowo}}
-      <p>View in <a href="http://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:{{id}}">Plants of the World Online</a></p>
-    {{/if}}
   </div>
 </div>
