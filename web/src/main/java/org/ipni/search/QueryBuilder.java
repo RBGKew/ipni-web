@@ -35,9 +35,9 @@ public class QueryBuilder {
 			authorStandardForm.solrField());
 
 	private static final ImmutableSet<String> mainQueryFields = new ImmutableSet.Builder<String>()
-			.addAll(nameQueryFields)
-			.addAll(publicationQueryFields)
-			.addAll(authorQueryFields)
+			.add(scientificName.solrField())
+			.add(title.solrField())
+			.add(authorName.solrField())
 			.build();
 
 	private static final QueryOption basicMapper = new SingleFieldFilterQuery();

@@ -7,7 +7,6 @@
       <tokenizer class="solr.KeywordTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.TrimFilterFactory"/>
-      <filter class="solr.PatternReplaceFilterFactory" pattern="([^a-z])" replace="all" replacement=""/>
     </analyzer>
   </fieldType>
   <fieldType name="alphanumeric_string" class="solr.TextField" positionIncrementGap="100" multiValued="false">
@@ -69,7 +68,7 @@
   <fieldType name="longs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
   <fieldType name="lowercase" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
-      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
     </analyzer>
   </fieldType>

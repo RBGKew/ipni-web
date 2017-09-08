@@ -10,12 +10,10 @@ public class SortQuery extends QueryOption {
 	public void addQueryOption(String key, String value, SolrQuery query) {
 		switch(value){
 		case "name_asc":
-			query.setSort(FieldMapping.scientificName.solrField(), ORDER.asc);
-			query.addSort(FieldMapping.family.solrField(), ORDER.asc);
+			query.setSort("sortable", ORDER.asc);
 			break;
 		case "name_desc":
-			query.setSort(FieldMapping.scientificName.solrField(), ORDER.desc);
-			query.addSort(FieldMapping.family.solrField(), ORDER.desc);
+			query.setSort("sortable", ORDER.desc);
 			break;
 		case "published_asc":
 			query.setSort(FieldMapping.yearPublished.solrField(), ORDER.asc);
