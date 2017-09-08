@@ -82,19 +82,16 @@ define(function(require) {
         }
       ]
     })
-      .on('tokenfield:createdtoken', createdToken)
-      .on('tokenfield:removedtoken', publishUpdated);
+      .on('tokenfield:createdtoken', tokenChanged)
+      .on('tokenfield:removedtoken', tokenChanged);
 
     initialized = true;
 
     $(window).on('resize', refresh);
   }
 
-  function createdToken(e) {
-    if(params.has('page')) {
-      params = params.delete('page');
-    }
-
+  function tokenChanged(e) {
+    params = params.clear();
     publishUpdated();
   };
 
