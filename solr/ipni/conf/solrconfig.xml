@@ -747,7 +747,7 @@
     <lst name="defaults">
       <str name="q">-ipni_record_type_s_lower:(a p)</str>
       <str name="echoParams">all</str>
-      <int name="rows">24</int>
+      <int name="rows">50</int>
       <int name="start">0</int>
       <!-- <str name="df">text</str> -->
     </lst>
