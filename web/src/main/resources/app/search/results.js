@@ -6,7 +6,7 @@ define(function(require) {
   var events = require('./events');
 
   var resultsTmpl = require('./tmpl/results.hbs');
-
+  var resultsExpandedTmpl = require('./tmpl/results-list-expanded.hbs')
   var update = function(state) {
     $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
       load(results);
@@ -20,7 +20,7 @@ define(function(require) {
   var load = function(data) {
       data['sort'] = filters.getParam('sort');
       data['f'] = filters.getParam('f');
-
+      data['expanded'] = filters.getParam('expanded');
       if($('#c-page-body').length) {
         $('#c-page-body').replaceWith(resultsTmpl(data));
       } else {
@@ -43,14 +43,15 @@ define(function(require) {
       }
     });
 
-    if($(window).width() < 992) {
-      $(document).scrollTop( $("#search_box").offset().top);
-    }
+    //if($(window).width() < 992) {
+  //    $(document).scrollTop( $("#search_box").offset().top);
+  //  }
 
     $('body')
       .on('click', '.sort-by a', setSort)
       .on('click', '.filter-by .btn', toggleFilter)
-      .on('change', '.c-per-page', setLimit);
+      .on('change', '.c-per-page', setLimit)
+      .on('click', '.show-detailed-record', showDetailedRecords);
   }
 
   function toggleFilter(event) {
@@ -73,6 +74,16 @@ define(function(require) {
     event.preventDefault();
     filters.setParam('perPage', $(this).val());
   }
+
+  function showDetailedRecords(event) {
+    event.preventDefault();
+      if(filters.getParam('expanded')){
+        filters.removeParam('expanded');
+      }else{
+        filters.setParam('expanded', true);
+      }
+  }
+
 
   function paginate(results) {
     if(results.totalPages > 1) {

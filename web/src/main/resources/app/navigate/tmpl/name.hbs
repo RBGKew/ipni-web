@@ -18,10 +18,23 @@
         {{else}}
           <dt>Publication</dt><dd>{{publication}}</dd>
         {{/if}}
+        {{#if referenceCollation}}
+          <dt>Collation</dt><dd>{{referenceCollation}}</dd>
+        {{/if}}
+        {{#if publicationYearNote}}
+          <dt>Publication Year Note</dt><dd>{{publicationYearNote}}</dd>
+        {{/if}}
       {{/if}}
 
       {{#if family}}
-        <dt>Family as Entered in Ipni</dt><dd>{{family}}</dd>
+      <dl class="ipni-dl-indented">
+        <dt>Family as Entered in IPNI
+          <a href="#" data-toggle="tooltip" data-placement="right" title="Families in IPNI do not follow APG IV">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+          </a>
+        </dt>
+        <dd>{{family}}</dd>
+      </dl>
       {{/if}}
     </dl>
 

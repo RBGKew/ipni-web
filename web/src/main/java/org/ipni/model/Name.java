@@ -163,15 +163,8 @@ public class Name {
 	}
 
 	@JsonProperty
-	public boolean hasTaxonomyData() {
-		return parent != null
-				|| rank != null
-				|| family != null
-				|| infrafamily != null
-				|| genus != null
-				|| infragenus != null
-				|| species != null
-				|| infraspecies != null;
+	public boolean hasBHLOrPowoLink(){
+		return inPowo; 
 	}
 
 	@JsonProperty

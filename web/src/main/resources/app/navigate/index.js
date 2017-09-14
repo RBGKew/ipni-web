@@ -5,7 +5,6 @@ define(function(require) {
   var publicationTmpl = require('./tmpl/publication.hbs');
   var filters = require('../search/filters');
   var results = require('../search/results');
-
   var name = new Navigator(nameTmpl, 'c-name')
   var author = new Navigator(authorTmpl, 'c-author')
   var publication = new Navigator(publicationTmpl, 'c-publication')
@@ -31,6 +30,7 @@ define(function(require) {
     filters.clear();
   }
 
+
   function initialize() {
     window.onpopstate = function(event) {
       switch(event.state.class) {
@@ -50,6 +50,8 @@ define(function(require) {
       .on('click', '.name-link', showNameDetail)
       .on('click', '.author-link', showAuthorDetail)
       .on('click', '.publication-link', showPublicationDetail);
+
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
   }
 
   $(document).ready(initialize);

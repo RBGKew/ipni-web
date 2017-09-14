@@ -21,6 +21,11 @@ dd {
   padding-left: 15px;
   padding-bottom: 5px;
 }
+.c-search-results {
+  .panel {
+    margin-bottom: 0px;
+  }
+}
 
 .c-name {
   .c-author,
@@ -71,10 +76,32 @@ dd {
   @include make-md-column-offset(0.8);
 }
 
+.tag {
+  span {
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    height: 22px;
+    padding: 2px;
+    font-size:0.8em;
+  }
+  .powo{
+    background-color: #93b770;
+    color: #fff;
+  }
+  .bhl{
+    background-color: #7093b7;
+    color: #fff;
+  }
+}
+
+
 .c-search {
   @include make-md-column(8);
   @include make-md-column-offset(2);
   position: relative;
+
+
+
 
   .tokenfield {
     background-color: #fff;

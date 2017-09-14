@@ -1,0 +1,13 @@
+{{#with results}}
+  {{#each this}}
+    {{#isType this "citation"}}
+      {{> ../navigate/tmpl/name}}
+    {{/isType}}
+    {{#isType this "author"}}
+      {{> ../navigate/tmpl/author}}
+    {{/isType}}
+    {{#isType this "publication"}}
+      {{> ../navigate/tmpl/publication}}
+    {{/isType}}
+  {{/each}}
+{{/with}}
