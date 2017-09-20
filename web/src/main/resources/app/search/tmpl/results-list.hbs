@@ -1,0 +1,36 @@
+{{#with results}}
+<div class="list-group results">
+
+  {{#each this}}
+    {{#isType this "citation"}}
+    <a href="{{url}}" class="list-group-item result name-link {{#if topCopy}}top-copy{{/if}}">
+      {{fullName this}}
+      <span class="pull-right tag">
+        {{#if inPowo}}
+          <span class="powo">POWO</span>
+        {{/if}}
+      </span>
+    </a>
+    {{/isType}}
+
+    {{#isType this "author"}}
+    <a href="{{url}}" class="list-group-item result author-link top-copy">
+      <span class="glyphicon glyphicon-user"></span>
+      {{surname}}, {{forename}} ({{standardForm}})
+    </a>
+    {{/isType}}
+
+    {{#isType this "publication"}}
+    <a href="{{url}}" class="list-group-item result publication-link top-copy">
+      <span class="glyphicon glyphicon-book"></span>
+      {{title}}
+      <span class="pull-right tag">
+          {{#withBhlTitle remarks}}
+          <span class="bhl">BHL</span>
+          {{/withBhlTitle}}
+      </span>
+    </a>
+    {{/isType}}
+  {{/each}}
+</div>
+{{/with}}

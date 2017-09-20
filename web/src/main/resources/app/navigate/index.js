@@ -21,6 +21,7 @@ define(function(require) {
     var link = $(this).attr('href');
     author.navigateTo(link);
     filters.clear();
+    results.getNamesBy(link, "author")
   }
 
   function showPublicationDetail(e) {

@@ -6,6 +6,9 @@
     {{else}}
       {{publication}} {{referenceCollation}} {{publicationYear}}
     {{/if}}
+    {{#if bhlLink}}
+    <a href="{{bhlLink}}">[view in BHL]</a>
+    {{/if}}
   </div>
 
   <div class="panel-body">
@@ -28,7 +31,7 @@
 
       {{#if family}}
       <dl class="ipni-dl-indented">
-        <dt>Family as Entered in IPNI
+        <dt>Family as entered in IPNI
           <a href="#" data-toggle="tooltip" data-placement="right" title="Families in IPNI do not follow APG IV">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
           </a>
@@ -67,7 +70,7 @@
           <dt>Type Published in</dt><dd> {{bibliographicReference}}</dd>
         {{/if}}
         {{#if distribution}}
-          <dt>Distribution of Types from Protologue</dt><dd> {{distribution}}</dd>
+          <dt>Type Distribution from Protologue</dt><dd> {{distribution}}</dd>
         {{/if}}
       </dl>
     {{/if}}

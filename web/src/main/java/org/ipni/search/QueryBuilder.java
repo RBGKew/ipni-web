@@ -35,6 +35,10 @@ public class QueryBuilder {
 			.addAll(publicationQueryFields)
 			.addAll(authorQueryFields)
 			.build();
+	
+	private static final ImmutableSet<String> namesByAuthor = ImmutableSet.of(
+			authorTeamIds.solrField(),
+			speciesAuthorTeamIds.solrField());
 
 	private static final QueryOption basicMapper = new SingleFieldFilterQuery();
 	private static final DefaultQuery defaultQuery = new DefaultQuery();
@@ -46,6 +50,7 @@ public class QueryBuilder {
 			.put("name", new MultiFieldQuery(nameQueryFields))
 			.put("publication", new MultiFieldQuery(publicationQueryFields))
 			.put("author", new MultiFieldQuery(authorQueryFields))
+			.put("names_by_author", new MultiFieldQuery(namesByAuthor))
 			.put("page", new PageNumberQuery())
 			.put("sort", new SortQuery())
 			.put("perPage", new PageSizeQuery())

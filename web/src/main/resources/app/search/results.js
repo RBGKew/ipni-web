@@ -6,7 +6,7 @@ define(function(require) {
   var events = require('./events');
 
   var resultsTmpl = require('./tmpl/results.hbs');
-  var resultsExpandedTmpl = require('./tmpl/results-list-expanded.hbs')
+  var resultsListTmpl = require('./tmpl/results-list.hbs');
   var update = function(state) {
     $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
       load(results);
@@ -29,6 +29,21 @@ define(function(require) {
 
       paginate(data);
       filters.refresh();
+  }
+
+  var loadInPage = function(results){
+    $('.name-results').html(resultsListTmpl(results))
+  }
+
+  var getNamesBy = function(url, type) {
+    if(type == "author"){
+      url = url.replace("/urn:lsid:ipni.org:authors:", "");
+      $.getJSON(API_BASE + 'search?callback=?&names_by_author=*@' + url + '@*', function(results) {
+        loadInPage(results);
+      });
+    }if(type == "publication"){
+
+    }
   }
 
   var initialize = function(initialToken) {
@@ -110,5 +125,6 @@ define(function(require) {
     initialize: initialize,
     load: load,
     update: update,
+    getNamesBy : getNamesBy,
   };
 });

@@ -21,6 +21,8 @@ public enum FieldMapping {
 	yearPublished("published", "publication_year_i"),
 	publishingAuthor("publishing author", "publishing_author_s_lower"),
 	publicationId("publication id", "publication_id"),
+	authorTeamIds("author team ids", "detail_author_team_ids"),
+	speciesAuthorTeamIds("species author team ids", "detail_species_author_team_ids"),
 
 	originalRemarks("original remarks", "original_remarks_s_lower"),
 	publication("published in", "publication_s_lower"),
