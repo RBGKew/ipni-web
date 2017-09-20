@@ -93,9 +93,13 @@ CREATE OR REPLACE VIEW ipni_web AS
     replace(ipni_flat_missing_fields.species_author_team_ids, '"', '') AS detail_species_author_team_ids,
     ipni_flat_joined.validation_of_id AS lookup_validation_of_id,
     ipni_flat_joined.version AS version_s_lower,
-    false AS powo_b
+    CASE
+        WHEN ipni_ids_in_powo.id IS NOT NULL THEN true
+        ELSE false
+    END AS powo_b    
    FROM ipni_flat_joined
    LEFT JOIN ipni_flat_missing_fields ON ipni_flat_joined.id = ipni_flat_missing_fields.id
+   LEFT JOIN ipni_ids_in_powo ON ipni_flat_joined.id = ipni_ids_in_powo.id
   ORDER BY ipni_flat_joined.id;
 
 ALTER TABLE ipni_web
