@@ -46,6 +46,10 @@ define(function(require) {
     }
   }
 
+  var downloadResults = function(e) {
+    window.location = '/api/1/download?' + filters.serialize();
+  }
+
   var initialize = function(initialToken) {
     $(document).on('keydown', function (event) {
       if($(event.target).is('input')) return;
@@ -58,15 +62,12 @@ define(function(require) {
       }
     });
 
-    //if($(window).width() < 992) {
-  //    $(document).scrollTop( $("#search_box").offset().top);
-  //  }
-
     $('body')
       .on('click', '.sort-by a', setSort)
       .on('click', '.filter-by .btn', toggleFilter)
       .on('change', '.c-per-page', setLimit)
-      .on('click', '.show-detailed-record', showDetailedRecords);
+      .on('click', '.show-detailed-record', showDetailedRecords)
+      .on('click', '.download', downloadResults);
   }
 
   function toggleFilter(event) {

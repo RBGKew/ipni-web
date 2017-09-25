@@ -1,6 +1,8 @@
 package org.ipni.search;
 
 import java.util.Map;
+import java.util.Map.Entry;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -69,6 +71,14 @@ public class QueryBuilder {
 		query = new SolrQuery().setRequestHandler("/select");
 		addParam("sort", "name_asc");
 		defaultQuery.add(query);
+	}
+
+	public QueryBuilder(Map<String, String> params) {
+		this();
+
+		for(Entry<String, String> param : params.entrySet() ){
+			addParam(param.getKey(), param.getValue());
+		}
 	}
 
 	public QueryBuilder addParam(String key, String value) {
