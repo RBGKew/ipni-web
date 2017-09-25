@@ -37,20 +37,6 @@ public class BHLHelper {
 		return ret.toString();
 	}
 
-	public CharSequence hasBhlMarkers(String text, Options options) {
-		StringBuilder ret = new StringBuilder();
-
-		if(TITLE.matcher(text).matches() || PAGE.matcher(text).matches()) {
-			try {
-				ret.append(options.fn());
-			} catch (IOException e) {
-				logger.error(e.getMessage());
-			}
-		}
-
-		return ret.toString();
-	}
-
 	public CharSequence withBhlPage(String text, Options options) {
 		return new SafeString(extract(PAGE, "page", text, options));
 	}
