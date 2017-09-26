@@ -56,7 +56,7 @@ public class Packager {
 	}
 
 	private File toCsv(Entry<String, List<SolrDocument>> entry) {
-		File dest = new File(workspace, entry.getKey() + ".csv");
+		File dest = new File(workspace, entry.getKey() + ".txt");
 		String type = entry.getKey();
 
 		try (FileWriter file = new FileWriter(dest);
