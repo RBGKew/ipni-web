@@ -66,7 +66,7 @@ CREATE OR REPLACE VIEW ipni_web AS
     replace(ipni_flat_joined.publication, '"', '') AS publication_s_lower,
     CASE
 	WHEN ipni_flat_joined.publication_id IS NOT NULL THEN 'urn:lsid:ipni.org:publications:'||ipni_flat_joined.publication_id
-    END AS publication_id,
+    END AS lookup_publication_id,
     ipni_flat_joined.publication_year AS publication_year_i,
     replace(ipni_flat_joined.publication_year_full, '"', '') AS publication_year_full_s_lower,
     replace(ipni_flat_joined.publication_year_note, '"', '') AS publication_year_note_s_lower,
