@@ -25,6 +25,19 @@ dd {
     margin-bottom: 0px;
   }
 }
+.names-by {
+  .section-title {
+    padding-bottom: 10px;
+  }
+  .panel-footer {
+    background-color: inherit;
+    border-top: none;
+    padding: 10px 0px 0px 0px;
+    .pagination {
+      margin: 0px 0px;
+    }
+  }
+}
 
 .c-name {
   .c-author,
@@ -32,9 +45,6 @@ dd {
   .c-publication {
     h2 {
       display: inline-block;
-    }
-    .pull-right {
-      padding-top: 26px;
     }
   }
 }

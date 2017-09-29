@@ -113,6 +113,7 @@ public class NameService {
 		}
 
 		return solr.getById(relatedIds).stream()
+				.filter(doc -> doc.getFieldValue("id").toString().contains("urn:lsid:ipni.org:names:"))
 				.map(doc -> new Name(doc))
 				.collect(Collectors.toMap(Name::getId, name -> name));
 	}

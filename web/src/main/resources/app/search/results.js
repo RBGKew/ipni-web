@@ -31,20 +31,6 @@ define(function(require) {
       filters.refresh();
   }
 
-  var loadInPage = function(results){
-    $('.name-results').html(resultsListTmpl(results))
-  }
-
-  var getNamesBy = function(url, type) {
-    if(type == "author"){
-      url = url.replace("/urn:lsid:ipni.org:authors:", "");
-      $.getJSON(API_BASE + 'search?callback=?&names_by_author=*@' + url + '@*', function(results) {
-        loadInPage(results);
-      });
-    }if(type == "publication"){
-
-    }
-  }
 
   var downloadResults = function(e) {
     window.location = '/api/1/download?' + filters.serialize();
@@ -126,6 +112,5 @@ define(function(require) {
     initialize: initialize,
     load: load,
     update: update,
-    getNamesBy : getNamesBy,
   };
 });

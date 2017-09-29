@@ -2,6 +2,7 @@ package org.ipni.model;
 
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
+import org.ipni.response.Response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,6 +29,7 @@ public class Author {
 	private String taxonGroups;
 	private String url;
 	private String version;
+	private Response namesByAuthor;
 
 	public Author(SolrDocument author) {
 		this.alternativeAbbreviations = (String) author.get(FieldMapping.authorAlternativeAbbreviations.solrField());

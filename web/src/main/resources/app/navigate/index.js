@@ -8,6 +8,7 @@ define(function(require) {
   var name = new Navigator(nameTmpl, 'c-name')
   var author = new Navigator(authorTmpl, 'c-author')
   var publication = new Navigator(publicationTmpl, 'c-publication')
+  var namesInPage = require('./namesInPage')
 
   function showNameDetail(e) {
     e.preventDefault();
@@ -21,7 +22,6 @@ define(function(require) {
     var link = $(this).attr('href');
     author.navigateTo(link);
     filters.clear();
-    results.getNamesBy(link, "author")
   }
 
   function showPublicationDetail(e) {
@@ -53,6 +53,7 @@ define(function(require) {
       .on('click', '.publication-link', showPublicationDetail);
 
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+    namesInPage.initialize();
   }
 
   $(document).ready(initialize);

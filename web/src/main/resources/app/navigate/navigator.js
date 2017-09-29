@@ -1,5 +1,5 @@
 define(function(require) {
-
+  var namesInPage = require('./namesInPage');
   function Navigator(template, pageClass) {
     this.tmpl = template;
     this.pageClass = pageClass;
@@ -12,6 +12,7 @@ define(function(require) {
           class: obj.pageClass,
           data: json,
         }, null, url);
+        namesInPage.initialize();
       });
     }
 
@@ -23,4 +24,3 @@ define(function(require) {
 
   return Navigator;
 });
-

@@ -95,9 +95,9 @@ public class Name {
 	private List<Name> parent;
 	private List<Name> orthographicVariantOf;
 	private String id;
-
 	@JsonIgnore
 	private Collation collation;
+
 
 	public Name(SolrDocument name) {
 		this.authors = (String) name.getFirstValue(FieldMapping.author.solrField());
