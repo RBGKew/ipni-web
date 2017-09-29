@@ -22,9 +22,9 @@
     <a href="{{url}}" class="list-group-item result publication-link top-copy">
       <span class="glyphicon glyphicon-book"></span>
       {{title}}
-      {{#hasBhlMarkers remarks}}
+      {{#if hasBhlLinks}}
         <span class="bhl label label-primary pull-right">BHL</span>
-      {{/hasBhlMarkers }}
+      {{/if }}
     </a>
     {{/isType}}
   {{/each}}

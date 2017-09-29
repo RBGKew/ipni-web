@@ -14,6 +14,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.ipni.model.Name;
 import org.ipni.model.NameAuthor;
+import org.ipni.model.Publication;
 import org.ipni.util.IdUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,18 @@ public class NameService {
 		name.setParent(lookup(result.getFieldValues("lookup_parent_id"), relatedNames));
 		name.setOrthographicVariantOf(lookup(result.getFieldValues("lookup_orthographic_variant_of_id"), relatedNames));
 		name.setAuthorTeam(parseAuthorTeam(result));
+		name.setLinkedPublication(lookupPublication(result.getFieldValue("publication_id")));
 
 		return name;
+	}
+
+	private Publication lookupPublication(Object id) throws SolrServerException, IOException {
+		if(id == null) return null;
+
+		SolrDocument publication = solr.getById(id.toString());
+		if(publication == null) return null;
+
+		return new Publication(publication);
 	}
 
 	private List<Name> lookup(Collection<Object> lookup, Map<String, Name> relatedNames) {

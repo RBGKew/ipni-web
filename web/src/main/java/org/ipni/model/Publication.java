@@ -1,15 +1,27 @@
 package org.ipni.model;
 
+import java.util.List;
+
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
+import org.ipni.view.BHLHelper;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Singular;
+import lombok.ToString;
 
 @Data
 @JsonInclude(Include.NON_NULL)
+@Builder
+@AllArgsConstructor
+@ToString
 public class Publication {
 
 	private String abbreviation;
@@ -30,6 +42,12 @@ public class Publication {
 	private String url;
 	private String version;
 
+	@JsonIgnore
+	private List<String> bhlPageIds;
+
+	@JsonIgnore
+	private List<String> bhlTitleIds;
+
 	public Publication(SolrDocument publication) {
 		this.abbreviation = (String) publication.get(FieldMapping.abbreviation.solrField());
 		this.bphNumber = (String) publication.get(FieldMapping.bphNumber.solrField());
@@ -48,5 +66,21 @@ public class Publication {
 		this.tl2Number = (String) publication.get(FieldMapping.tl2Number.solrField());
 		this.url = "/" + id;
 		this.version = (String) publication.get(FieldMapping.version.solrField());
+		this.bhlPageIds = BHLHelper.extractPageIds(this.remarks);
+		this.bhlTitleIds = BHLHelper.extractTitleIds(this.remarks);
+	}
+
+	@JsonProperty
+	public boolean hasBhlLinks() {
+		return bhlPageIds != null || bhlTitleIds != null;
+	}
+
+	public List<String> getBhlPageLinks() {
+		return BHLHelper.buildPublicationPageLinks(bhlPageIds);
+	}
+
+	public List<String> getBhlTitleLinks() {
+		return BHLHelper.buildPublicationTitleLinks(bhlTitleIds);
 	}
 }
+

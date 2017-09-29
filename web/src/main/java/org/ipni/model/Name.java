@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
+import org.ipni.view.BHLHelper;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -69,8 +71,9 @@ public class Name {
 	private String originalReplacedSynonymAuthorTeam;
 	private String originalTaxonDistribution;
 	private String otherLinks;
+	private Publication linkedPublication;
 	private String publication;
-	private String publicationYear;
+	private Integer publicationYear;
 	private String publicationYearNote;
 	private String referenceCollation;
 	private String publicationId;
@@ -92,6 +95,9 @@ public class Name {
 	private List<Name> parent;
 	private List<Name> orthographicVariantOf;
 	private String id;
+
+	@JsonIgnore
+	private Collation collation;
 
 	public Name(SolrDocument name) {
 		this.authors = (String) name.getFirstValue(FieldMapping.author.solrField());
@@ -131,7 +137,7 @@ public class Name {
 		this.originalTaxonDistribution = (String) name.getFirstValue(FieldMapping.originalTaxonDistribution.solrField());
 		this.otherLinks = (String) name.getFirstValue(FieldMapping.otherLinks.solrField());
 		this.publication = (String) name.getFirstValue(FieldMapping.publication.solrField());
-		this.publicationYear = (String) name.getFirstValue(FieldMapping.publicationYear.solrField());
+		this.publicationYear = (Integer) name.getFirstValue(FieldMapping.yearPublished.solrField());
 		this.publicationYearNote = (String) name.getFirstValue(FieldMapping.publicationYearNote.solrField());
 		this.publicationId = (String) name.getFirstValue(FieldMapping.publicationId.solrField());
 		this.referenceCollation = (String) name.getFirstValue(FieldMapping.referenceCollation.solrField());
@@ -148,6 +154,7 @@ public class Name {
 		this.typeRemarks = (String) name.getFirstValue(FieldMapping.typeRemarks.solrField());
 		this.url = "/" + id;
 		this.version = (String) name.getFirstValue(FieldMapping.version.solrField());
+		this.collation = new Collation(this.referenceCollation);
 	}
 
 	@JsonProperty
@@ -160,11 +167,6 @@ public class Name {
 				|| latitudeDegrees != null
 				|| collectorTeam != null
 				|| bibliographicReference != null;
-	}
-
-	@JsonProperty
-	public boolean hasBHLOrPowoLink(){
-		return inPowo; 
 	}
 
 	@JsonProperty
@@ -191,22 +193,9 @@ public class Name {
 				|| orthographicVariantOf != null
 				|| inPowo;
 	}
-	
-	//@JsonProperty
-	//public String bhlLink(){
-		//String url = "http://www.biodiversitylibrary.org/openurl?url_ver=Z39.88-2004&ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&rft_id%3Dhttp%3A%2F%2Fwww.biodiversitylibrary.org%2Fbibliography%2F%s&rft.spage=%s&rft.volume=%s";
-		//switch(publicationId){
-		//	case "urn:lsid:ipni.org:publications:1071-2":
-		//		if(referenceCollation != null && !referenceCollation.isEmpty()){
-		//			System.out.println("collation has data");
-		//			String[] strings = referenceCollation.split("\\s+");
-		//			System.out.println(strings.toString());
-		//			String volume = strings[0].trim().replace(":", "");
-		//			String pageNumber = strings[1].trim().replace(".", "");
-		//			return String.format(url, "669", volume, pageNumber);
-		//			}
-		//	default:
-		//		break;
-		//}
-		//return null;
+
+	@JsonProperty
+	public String bhlLink() {
+		return BHLHelper.buildNameLink(linkedPublication, collation, publicationYear);
+	}
 }

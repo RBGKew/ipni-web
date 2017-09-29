@@ -2,12 +2,13 @@
   <div class="panel-heading">
     <h2><i>{{showName this}}</i> {{linkAuthor this}} </h2>
     {{#if publicationId}}
-      <a href="/{{publicationId}}" class="publication-link">{{publication}}</a> {{referenceCollation}} {{publicationYear}}
+      <a href="/{{publicationId}}" class="publication-link">{{publication}}</a>
     {{else}}
-      {{publication}} {{referenceCollation}} {{publicationYear}}
+      {{publication}}
     {{/if}}
+    {{referenceCollation}} ({{publicationYear}})
     {{#if bhlLink}}
-    <a href="{{bhlLink}}">[view in BHL]</a>
+      <a href="{{bhlLink}}">[view in BHL]</a>
     {{/if}}
   </div>
 
