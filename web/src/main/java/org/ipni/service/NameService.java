@@ -55,7 +55,7 @@ public class NameService {
 		name.setParent(lookup(result.getFieldValues("lookup_parent_id"), relatedNames));
 		name.setOrthographicVariantOf(lookup(result.getFieldValues("lookup_orthographic_variant_of_id"), relatedNames));
 		name.setAuthorTeam(parseAuthorTeam(result));
-		name.setLinkedPublication(lookupPublication(result.getFieldValue("publication_id")));
+		name.setLinkedPublication(lookupPublication(result.getFirstValue("publication_id")));
 
 		return name;
 	}

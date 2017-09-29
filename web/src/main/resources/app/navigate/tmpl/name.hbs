@@ -6,7 +6,7 @@
     {{else}}
       {{publication}}
     {{/if}}
-    {{referenceCollation}} ({{publicationYear}})
+    {{referenceCollation}} {{#if publicationYear}}({{publicationYear}}){{/if}}
     {{#if bhlLink}}
       <a href="{{bhlLink}}">[view in BHL]</a>
     {{/if}}
