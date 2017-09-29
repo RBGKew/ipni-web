@@ -71,7 +71,7 @@ public class PackagerTest {
 
 	@Test
 	public void createsAuthorsFile() {
-		File file = new File(workspace, "authors.csv");
+		File file = new File(workspace, "authors.txt");
 		String expectedHeader = String.format("%s,%s,%s", authorName.apiField(), authorSurname.apiField(), authorStandardForm.apiField());
 
 		assertTrue("authors.csv file should exist in workspace", file.exists());
@@ -80,7 +80,7 @@ public class PackagerTest {
 
 	@Test
 	public void createsCitationsFile() {
-		File file = new File(workspace, "citations.csv");
+		File file = new File(workspace, "citations.txt");
 		String expectedHeader = String.format("%s,%s,%s", scientificName.apiField(), author.apiField(),publication.apiField());
 
 		assertTrue("citations.csv file should exist in workspace", file.exists());
@@ -89,7 +89,7 @@ public class PackagerTest {
 
 	@Test
 	public void createsPublicationsFile() {
-		File file = new File(workspace, "publications.csv");
+		File file = new File(workspace, "publications.txt");
 		String expectedHeader = String.format("%s,%s,%s", title.apiField(), date.apiField(), abbreviation.apiField());
 
 		assertTrue("publications.csv file should exist in workspace", file.exists());
