@@ -2,11 +2,12 @@ package org.ipni.model;
 
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
-import org.ipni.response.Response;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
+import org.ipni.view.BHLHelper;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -29,7 +30,10 @@ public class Author {
 	private String taxonGroups;
 	private String url;
 	private String version;
-	private Response namesByAuthor;
+	
+	@JsonIgnore
+	private List<String> bhlPageIds;
+
 
 	public Author(SolrDocument author) {
 		this.alternativeAbbreviations = (String) author.get(FieldMapping.authorAlternativeAbbreviations.solrField());
@@ -48,5 +52,15 @@ public class Author {
 		this.taxonGroups = (String) author.getFirstValue(FieldMapping.authorTaxonGroups.solrField());
 		this.url = "/" + id;
 		this.version = (String) author.get(FieldMapping.version.solrField());
+		this.bhlPageIds = BHLHelper.extractPageIds(this.comments);
+	}
+	
+	@JsonProperty
+	public boolean hasBhlLinks() {
+		return bhlPageIds != null;
+	}
+	
+	public List<String> getBhlPageLinks() {
+		return BHLHelper.buildPublicationPageLinks(bhlPageIds);
 	}
 }

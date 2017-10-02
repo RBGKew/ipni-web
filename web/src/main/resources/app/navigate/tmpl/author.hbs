@@ -13,10 +13,9 @@
       {{#if examples}}<dt>Example of Name Published</dt><dd>{{examples}}</dd>{{/if}}
         {{#if comments}}
           <dt>Comments</dt><dd>
-          {{#withBhlPage comments}}
-            View the <a href="{{link}}" target="_blank">TL-2 bibliographical details</a> for this author
-          {{/withBhlPage}}
-          {{stripBhlMarkers comments}}
+            {{#each bhlPageLinks}}
+            <p>View the <a href="{{this}}" target="_blank">TL-2 metadata</a> for this publication</p>
+            {{/each}}
           </dd>
         {{/if}}
       {{#if notes}}<dt>Name Notes</dt><dd>{{notes}}</dd>{{/if}}

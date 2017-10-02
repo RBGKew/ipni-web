@@ -4,17 +4,11 @@ import java.util.List;
 
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
-<<<<<<< Updated upstream
 import org.ipni.view.BHLHelper;
-=======
-import org.ipni.response.Response;
->>>>>>> Stashed changes
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -45,7 +39,6 @@ public class Publication {
 	private String tl2Number;
 	private String url;
 	private String version;
-	private Response namesByPublication;
 
 	@JsonIgnore
 	private List<String> bhlPageIds;
