@@ -40,16 +40,11 @@ public class BHLHelper {
 			return null;
 		}
 
-		if(!publication.hasBhlLinks()) {
-			log.debug("bhlLink: publication does not have bhl links, returning null");
-			return null;
-		}
-
-		BHLLink link = new BHLLink()
-				.withCollation(collation)
-				.withYear(year);
-
 		if(publication.getBhlTitleIds() != null && !publication.getBhlTitleIds().isEmpty()) {
+			BHLLink link = new BHLLink()
+					.withCollation(collation)
+					.withYear(year);
+
 			if(publication.getBhlTitleIds().size() > 1) {
 				log.debug("bhlLink: publication has more than one bhl title link, returning null");
 				return null;
@@ -58,18 +53,11 @@ public class BHLHelper {
 			if(publication.getBhlTitleIds().size() == 1) {
 				link.withTitleId(publication.getBhlTitleIds().get(0));
 			}
-		} else if(publication.getBhlPageIds() != null) {
-			if(publication.getBhlPageIds().size() > 1) {
-				log.debug("bhlLink: publication has more than one bhl page link, returning null");
-				return null;
-			}
 
-			if(publication.getBhlPageIds().size() == 1) {
-				link.withPageId(publication.getBhlPageIds().get(0));
-			}
+			return link.build();
 		}
 
-		return link.build();
+		return null;
 	}
 
 	public static List<String> extractPageIds(String text) {

@@ -69,20 +69,8 @@ public class BHLHelperTest {
 	}
 
 	@Test
-	public void buildNameLinkWithBHLPageId() throws IOException {
+	public void dontBuildNameLinkWithBHLPageId() throws IOException {
 		Publication publication = Publication.builder().bhlPageIds(ImmutableList.<String>of("123")).build();
-		Collation collation = new Collation("1(2): 3");
-		Integer year = 2000;
-
-		String expected = new BHLLink().withPageId("123").withCollation(collation).withYear(year).build();
-		String actual = BHLHelper.buildNameLink(publication, collation, year);
-
-		assertEquals(actual, expected);
-	}
-
-	@Test
-	public void nameLinkWithMoreThanOneBHLPageIdShouldReturnNull() {
-		Publication publication = Publication.builder().bhlPageIds(ImmutableList.<String>of("123", "456")).build();
 		Collation collation = new Collation("1(2): 3");
 		Integer year = 2000;
 
