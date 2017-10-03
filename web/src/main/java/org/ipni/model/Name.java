@@ -190,8 +190,7 @@ public class Name {
 				|| sameCitationAs != null
 				|| superfluousNameOf != null
 				|| validationOf != null
-				|| orthographicVariantOf != null
-				|| inPowo;
+				|| orthographicVariantOf != null;
 	}
 
 	@JsonProperty

@@ -207,20 +207,27 @@ dd {
   margin: 20px 0;
 }
 
-.label { margin-left: .5em }
-
-.label.powo {
+.btn.powo, .label.powo {
+  margin-left: .5em;
   color: rgba(147, 183, 112, 1);
   background: #fff;
   border: 1px solid rgba(147, 183, 112, 0.5);
+  font-weight: bold;
 }
 
-.label.bhl {
+.btn.bhl, .label.bhl {
+  margin-left: .5em;
   color: rgba(112, 147, 183, 1);
   background: #fff;
-  border: 1px solid rgba(112, 147, 183, 0.5)
+  border: 1px solid rgba(112, 147, 183, 0.5);
+  font-weight: bold;
 }
 
 .obscured {
   opacity: .4;
+}
+
+#c-page-body {
+  h2 { margin: 0; }
+  .btn { margin: 5px 0 5px 5px }
 }
