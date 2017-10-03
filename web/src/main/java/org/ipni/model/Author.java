@@ -38,7 +38,8 @@ public class Author {
 	public Author(SolrDocument author) {
 		this.alternativeAbbreviations = (String) author.get(FieldMapping.authorAlternativeAbbreviations.solrField());
 		this.alternativeNames = (String) author.getFirstValue(FieldMapping.authorAlternativeNames.solrField());
-		this.comments = (String) author.get(FieldMapping.authorComments.solrField());
+		String rawComments = (String) author.get(FieldMapping.authorComments.solrField());
+		this.comments = BHLHelper.stripBhlMarkers(rawComments);
 		this.dates = (String) author.get(FieldMapping.authorDates.solrField());
 		this.examples = (String) author.get(FieldMapping.authorExampleOfNamePublished.solrField());
 		this.forename = (String) author.get(FieldMapping.authorForename.solrField());
@@ -52,7 +53,7 @@ public class Author {
 		this.taxonGroups = (String) author.getFirstValue(FieldMapping.authorTaxonGroups.solrField());
 		this.url = "/" + id;
 		this.version = (String) author.get(FieldMapping.version.solrField());
-		this.bhlPageIds = BHLHelper.extractPageIds(this.comments);
+		this.bhlPageIds = BHLHelper.extractPageIds(rawComments);
 	}
 	
 	@JsonProperty

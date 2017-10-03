@@ -55,7 +55,8 @@ public class Publication {
 		this.lcNumber = (String) publication.get(FieldMapping.lcNumber.solrField());
 		this.precededBy = (String) publication.get(FieldMapping.precededBy.solrField());
 		this.recordType = "publication";
-		this.remarks = (String) publication.get(FieldMapping.remarks.solrField());
+		String rawRemarks = (String) publication.get(FieldMapping.remarks.solrField());
+		this.remarks = BHLHelper.stripBhlMarkers(rawRemarks);
 		this.supercededBy = (String) publication.get(FieldMapping.supercededBy.solrField());
 		this.tdwgAbbreviation = (String) publication.get(FieldMapping.tdwgAbbreviation.solrField());
 		this.title = (String) publication.get(FieldMapping.title.solrField());
@@ -63,8 +64,8 @@ public class Publication {
 		this.tl2Number = (String) publication.get(FieldMapping.tl2Number.solrField());
 		this.url = "/" + id;
 		this.version = (String) publication.get(FieldMapping.version.solrField());
-		this.bhlPageIds = BHLHelper.extractPageIds(this.remarks);
-		this.bhlTitleIds = BHLHelper.extractTitleIds(this.remarks);
+		this.bhlPageIds = BHLHelper.extractPageIds(rawRemarks);
+		this.bhlTitleIds = BHLHelper.extractTitleIds(rawRemarks);
 	}
 
 	@JsonProperty

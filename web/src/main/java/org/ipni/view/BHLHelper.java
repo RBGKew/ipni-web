@@ -69,10 +69,16 @@ public class BHLHelper {
 	}
 
 	public static String stripBhlMarkers(String text) {
+		if(text == null) {
+			return null;
+		}
+
 		text = TITLE.matcher(text).replaceAll("");
 		text = PAGE.matcher(text).replaceAll("");
 
-		return text;
+		text = text.trim();
+
+		return text.isEmpty() ? null : text;
 	}
 
 	private static List<String> extractId(String text, Pattern pattern) {
