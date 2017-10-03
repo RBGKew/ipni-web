@@ -207,5 +207,16 @@ dd {
   margin: 20px 0;
 }
 
-.label.powo { background-color: #93b770 }
-.label.bhl { background-color: #7093b7 }
+.label { margin-left: .5em }
+
+.label.powo {
+  color: rgba(147, 183, 112, 1);
+  background: #fff;
+  border: 1px solid rgba(147, 183, 112, 0.5);
+}
+
+.label.bhl {
+  color: rgba(112, 147, 183, 1);
+  background: #fff;
+  border: 1px solid rgba(112, 147, 183, 0.5)
+}

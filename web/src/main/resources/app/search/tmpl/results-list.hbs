@@ -8,6 +8,9 @@
       {{#if inPowo}}
         <span class="powo label label-success pull-right">POWO</span>
       {{/if}}
+      {{#if bhlLink}}
+        <span class="bhl label label-primary pull-right">BHL</span>
+      {{/if }}
     </a>
     {{/isType}}
 
@@ -15,6 +18,9 @@
     <a href="{{url}}" class="list-group-item result author-link top-copy">
       <span class="glyphicon glyphicon-user"></span>
       {{surname}}, {{forename}} ({{standardForm}})
+      {{#if hasBhlLinks}}
+        <span class="bhl label label-primary pull-right">BHL</span>
+      {{/if }}
     </a>
     {{/isType}}
 

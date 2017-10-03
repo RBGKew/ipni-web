@@ -2,6 +2,7 @@ package org.ipni.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -12,13 +13,15 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.params.ModifiableSolrParams;
+import org.ipni.constants.FieldMapping;
 import org.ipni.model.Name;
 import org.ipni.model.NameAuthor;
-import org.ipni.model.Publication;
 import org.ipni.util.IdUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.common.base.Functions;
 
 import org.slf4j.Logger;
 
@@ -30,13 +33,20 @@ public class NameService {
 	@Autowired
 	private SolrClient solr;
 
-	public Name load(String id) throws SolrServerException, IOException {
+	@Autowired
+	private PublicationService publications;
 
-		if(!id.startsWith("urn:lsid:ipni.org:names")) {
-			id = "urn:lsid:ipni.org:names:" + id;
+	public Name load(String id, FieldMapping... fields) throws SolrServerException, IOException {
+		if(id == null) {
+			return null;
 		}
 
-		ModifiableSolrParams params = new ModifiableSolrParams().add("fl", "*");
+		id = IdUtil.fqName(id);
+
+		String fieldList = Arrays.asList(fields).stream()
+				.map(FieldMapping::solrField)
+				.collect(Collectors.joining(","));
+		ModifiableSolrParams params = new ModifiableSolrParams().add("fl", fieldList);
 		SolrDocument result = solr.getById(id, params);
 		Name name = new Name(result);
 		Map<String, Name> relatedNames = getRelatedNames(result);
@@ -55,18 +65,13 @@ public class NameService {
 		name.setParent(lookup(result.getFieldValues("lookup_parent_id"), relatedNames));
 		name.setOrthographicVariantOf(lookup(result.getFieldValues("lookup_orthographic_variant_of_id"), relatedNames));
 		name.setAuthorTeam(parseAuthorTeam(result));
-		name.setLinkedPublication(lookupPublication(result.getFirstValue("publication_id")));
+		name.setLinkedPublication(publications.load((String)result.getFirstValue("lookup_publication_id")));
 
 		return name;
 	}
 
-	private Publication lookupPublication(Object id) throws SolrServerException, IOException {
-		if(id == null) return null;
-
-		SolrDocument publication = solr.getById(id.toString());
-		if(publication == null) return null;
-
-		return new Publication(publication);
+	public Name load(String id) throws SolrServerException, IOException {
+		return load(id, FieldMapping.all);
 	}
 
 	private List<Name> lookup(Collection<Object> lookup, Map<String, Name> relatedNames) {
@@ -77,7 +82,7 @@ public class NameService {
 		return lookup.stream()
 				.map(id -> relatedNames.get(IdUtil.fqName(id.toString())))
 				.filter(Objects::nonNull)
-				.collect(Collectors.<Name>toList());
+				.collect(Collectors.toList());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -87,8 +92,8 @@ public class NameService {
 		}
 
 		return ((List<String>) result.get("detail_author_team_ids")).stream()
-				.map(str -> new NameAuthor(str))
-				.collect(Collectors.<NameAuthor>toList());
+				.map(NameAuthor::new)
+				.collect(Collectors.toList());
 	}
 
 	private List<String> getRelatedIds(SolrDocument result) {
@@ -99,11 +104,10 @@ public class NameService {
 
 		return result.getFieldNames().stream()
 				.filter(name -> name.startsWith("lookup_"))
-				.map(name -> result.getFieldValues(name))
+				.map(result::getFieldValues)
 				.flatMap(Collection::stream)
 				.map(id -> IdUtil.fqName(id.toString()))
-				.collect(Collectors.<String>toList());
-
+				.collect(Collectors.toList());
 	}
 
 	private Map<String, Name> getRelatedNames(SolrDocument result) throws SolrServerException, IOException {
@@ -113,9 +117,9 @@ public class NameService {
 		}
 
 		return solr.getById(relatedIds).stream()
-				.filter(doc -> doc.getFieldValue("id").toString().contains("urn:lsid:ipni.org:names:"))
-				.map(doc -> new Name(doc))
-				.collect(Collectors.toMap(Name::getId, name -> name));
+				.filter(doc -> IdUtil.isNameId(doc.getFieldValue("id").toString()))
+				.map(Name::new)
+				.collect(Collectors.toMap(Name::getId, Functions.identity()));
 	}
 
 }

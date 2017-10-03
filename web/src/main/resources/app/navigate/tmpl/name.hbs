@@ -7,13 +7,9 @@
       {{publication}}
     {{/if}}
     {{referenceCollation}} {{#if publicationYear}}({{publicationYear}}){{/if}}
-    {{#if bhlLink}}
-      <a href="{{bhlLink}}">[view in BHL]</a>
-    {{/if}}
   </div>
 
   <div class="panel-body">
-
     <dl>
       <dt>Ipni ID</dt><dd>{{id}}</dd>
       {{#if publication}}
@@ -162,7 +158,7 @@
       {{/if}}
       </dl>
       {{#if inPowo}}
-        <p>View in <a href="http://powo.science.kew.org/taxon/{{id}}">Plants of the World Online</a></p>
+        <p>For taxonomic data view in <a href="http://powo.science.kew.org/taxon/{{id}}">Plants of the World Online</a></p>
       {{/if}}
   </div>
 </div>

@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 
 public enum FieldMapping {
 
+	all("all", "*"),
 	created("added", "date_created_date"),
 	updated("modified", "date_last_modified_date"),
 	ipniRecordType("ipni_record_type","ipni_record_type_s_lower"),
