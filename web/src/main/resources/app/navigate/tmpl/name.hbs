@@ -1,5 +1,11 @@
 <div id="c-page-body" class="panel panel-default c-citation">
   <div class="panel-heading">
+    {{#if hasBhlLinks}}
+      <span class="bhl label label-primary pull-right">BHL</span>
+    {{/if }}
+    {{#if inPowo}}
+      <span class="powo label label-success pull-right">POWO</span>
+    {{/if}}
     <h2><i>{{showName this}}</i> {{linkAuthor this}} </h2>
     {{#if publicationId}}
       <a href="/{{publicationId}}" class="publication-link">{{publication}}</a>
