@@ -1,11 +1,8 @@
 <div id="c-page-body" class="panel panel-default c-author">
-  <div class="panel-heading">
+  <div class="panel-heading detail-heading">
     {{#if hasBhlLinks}}
-      <span class="bhl label label-primary pull-right">BHL</span>
+      <a class="bhl btn btn-xs btn-default pull-right" href="{{bhlPageLinks}}" target="_blank" data-toggle="tooltip" data-placement="left" title="View TL-2 information for this author in BHL">BHL</a>
     {{/if }}
-    {{#if inPowo}}
-      <span class="powo label label-success pull-right">POWO</span>
-    {{/if}}
     <h2>{{surname}}, {{forename}} ({{dates}})</h2>
   </div>
 
@@ -17,13 +14,7 @@
       {{#if taxonGroups}}<dt>Area of Interest</dt><dd>{{taxonGroups}}</dd>{{/if}}
       {{#if source}}<dt>Information Source</dt><dd>{{source}}</dd>{{/if}}
       {{#if examples}}<dt>Example of Name Published</dt><dd>{{examples}}</dd>{{/if}}
-        {{#if comments}}
-          <dt>Comments</dt><dd>
-            {{#each bhlPageLinks}}
-            <p>View the <a href="{{this}}" target="_blank">TL-2 metadata</a> for this publication</p>
-            {{/each}}
-          </dd>
-        {{/if}}
+      {{#if comments}}<dt>Comments</dt><dd>{{comments}}</dd>{{/if}}
       {{#if notes}}<dt>Name Notes</dt><dd>{{notes}}</dd>{{/if}}
       {{#if isoCountries}}<dt>Countries</dt><dd>{{isoCountries}}</dd>{{/if}}
     </dl>
