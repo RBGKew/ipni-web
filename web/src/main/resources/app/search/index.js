@@ -16,15 +16,29 @@ define(function(require) {
       filters.deserialize(window.location.search);
     }
 
-    $('.container')
-      .on('click', '#advanced-search button', function(e) {
+    $('.c-search')
+      .on('submit', '#advanced-search', function(e) {
         e.preventDefault();
-        filters.set(_.pickBy($('#advanced-search').serializeJSON()));
+        filters.set(_.pickBy($(this).serializeJSON()));
+        $('.c-search .input-group-btn').removeClass('open');
       })
       .on('click', '#search-button', function(e) {
         var input = $('.token-input');
         filters.add(input.val());
         input.val('');
+      })
+      .on('click', '.clear', function(e) {
+        $('#advanced-search input').val('');
+        filters.set({});
+      })
+      .on('click', '.panel-body', function(e) {
+        e.stopPropagation();
+      })
+      .on('shown.bs.dropdown', function() {
+        $('#c-page-body').addClass('obscured');
+      })
+      .on('hidden.bs.dropdown', function() {
+        $('#c-page-body').removeClass('obscured');
       })
   };
 
