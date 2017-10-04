@@ -9,11 +9,12 @@ define(function(require) {
   var author = new Navigator(authorTmpl, 'c-author')
   var publication = new Navigator(publicationTmpl, 'c-publication')
   var namesInPage = require('./namesInPage')
+  var crossref = require('../crossref');
 
   function showNameDetail(e) {
     e.preventDefault();
     var link = $(this).attr('href');
-    name.navigateTo(link);
+    name.navigateTo(link, crossref.initialize);
     filters.clear();
   }
 
@@ -54,6 +55,7 @@ define(function(require) {
 
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     namesInPage.initialize();
+    crossref.initialize();
   }
 
   $(document).ready(initialize);

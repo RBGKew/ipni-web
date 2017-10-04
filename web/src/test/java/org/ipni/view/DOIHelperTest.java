@@ -19,6 +19,6 @@ public class DOIHelperTest extends AbstractHelperTest {
 	public void linkifyDOIs() throws IOException {
 		shouldCompileTo("{{linkDoi}}",
 				"doi:10.3100/hpib.v21iss1.2016.n6 [english]",
-				"<a href=\"https://dx.doi.org/10.3100/hpib.v21iss1.2016.n6\" target=\"_blank\">doi:10.3100/hpib.v21iss1.2016.n6</a> [english]");
+				"<a href=\"https://dx.doi.org/10.3100/hpib.v21iss1.2016.n6\" class=\"doi-link\" data-doi=\"10.3100/hpib.v21iss1.2016.n6\" target=\"_blank\">doi:10.3100/hpib.v21iss1.2016.n6</a> [english]");
 	}
 }

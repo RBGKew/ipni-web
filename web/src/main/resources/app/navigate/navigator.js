@@ -4,7 +4,7 @@ define(function(require) {
     this.tmpl = template;
     this.pageClass = pageClass;
 
-    this.navigateTo = function(url) {
+    this.navigateTo = function(url, cb) {
       var obj = this;
       $.getJSON(API_BASE  + url + "?callback=?", function(json) {
         obj.load(json);
@@ -13,6 +13,10 @@ define(function(require) {
           data: json,
         }, null, url);
         namesInPage.initialize();
+
+        if(cb) {
+          cb();
+        }
       });
     }
 
