@@ -4,6 +4,7 @@ ENV CORE_DIR /opt/solr/server/solr
 
 USER root
 
+COPY conf/jetty.xml /opt/solr/server/etc
 COPY start.sh /opt/docker-solr/scripts
 COPY ipni $CORE_DIR/ipni_1
 COPY ipni $CORE_DIR/ipni_2
