@@ -101,10 +101,12 @@ define(function(require) {
           if(e) e.preventDefault();
         }
       });
+      $('.panel-footer').removeClass('hidden');
     }
 
     if(results.totalResults > 50) {
       $('.c-per-page').removeClass('hidden');
+      $('.panel-footer').removeClass('hidden');
     }
   }
 
