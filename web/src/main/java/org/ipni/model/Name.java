@@ -118,13 +118,13 @@ public class Name {
 		this.infragenus = (String) name.getFirstValue(FieldMapping.infragenus.solrField());
 		this.infraspecies = (String) name.getFirstValue(FieldMapping.infraspecies.solrField());
 		this.infraspecific = (String) name.getFirstValue(FieldMapping.infraspecific.solrField());
-		this.latitudeDegrees = (String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField());
-		this.latitudeMinutes = (String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField());
-		this.latitudeSeconds = (String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField());
+		this.latitudeDegrees = zeroToNull((String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField()));
+		this.latitudeMinutes = zeroToNull((String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField()));
+		this.latitudeSeconds = zeroToNull((String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField()));
 		this.locality = (String) name.getFirstValue(FieldMapping.locality.solrField());
-		this.longitudeDegrees = (String) name.getFirstValue(FieldMapping.longitudeDegrees.solrField());
-		this.longitudeMinutes = (String) name.getFirstValue(FieldMapping.longitudeMinutes.solrField());
-		this.longitudeSeconds = (String) name.getFirstValue(FieldMapping.longitudeSeconds.solrField());
+		this.longitudeDegrees = zeroToNull((String) name.getFirstValue(FieldMapping.longitudeDegrees.solrField()));
+		this.longitudeMinutes = zeroToNull((String) name.getFirstValue(FieldMapping.longitudeMinutes.solrField()));
+		this.longitudeSeconds = zeroToNull((String) name.getFirstValue(FieldMapping.longitudeSeconds.solrField()));
 		this.name = (String) name.get(FieldMapping.scientificName.solrField());
 		this.nameStatus = (String) name.getFirstValue(FieldMapping.nameStatus.solrField());
 		this.northOrSouth = (String) name.getFirstValue(FieldMapping.northOrSouth.solrField());
@@ -196,5 +196,10 @@ public class Name {
 	@JsonProperty
 	public String bhlLink() {
 		return BHLHelper.buildNameLink(linkedPublication, collation, publicationYear);
+	}
+
+	private String zeroToNull(String str) {
+		if(str == null) return null;
+		return str.equals("0") ? null : str;
 	}
 }
