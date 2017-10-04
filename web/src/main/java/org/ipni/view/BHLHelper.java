@@ -40,6 +40,11 @@ public class BHLHelper {
 			return null;
 		}
 
+		if(!collation.isParsed()) {
+			log.debug("bhlLink: collation could not be parsed, no point trying to build link");
+			return null;
+		}
+
 		if(publication.getBhlTitleIds() != null && !publication.getBhlTitleIds().isEmpty()) {
 			BHLLink link = new BHLLink()
 					.withCollation(collation)

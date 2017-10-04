@@ -17,6 +17,7 @@ public class Collation {
 	private String volume;
 	private String issue;
 	private String page;
+	private boolean parsed;
 
 	public Collation(String collation) {
 		this.collation = collation;
@@ -27,6 +28,9 @@ public class Collation {
 				this.issue = matcher.group(2);
 				// group(4) is the page number only variant, group(3) is when it is in a full collation
 				this.page = matcher.group(3) == null ? matcher.group(4) : matcher.group(3);
+				this.parsed = true;
+			} else {
+				this.parsed = false;
 			}
 		}
 	}
@@ -41,6 +45,10 @@ public class Collation {
 
 	public Optional<String> getPage() {
 		return Optional.ofNullable(page);
+	}
+
+	public boolean isParsed() {
+		return parsed;
 	}
 
 	public String toString() {

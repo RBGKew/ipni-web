@@ -48,6 +48,7 @@ public class CollationTest {
 			new Testcase("2: 638 [\"938\"]").hasVolume("2").andPage("638"),
 			new Testcase("2: 652 (errata)").hasVolume("2").andPage("652"),
 			new Testcase("2: 828, errata [1231]").hasVolume("2").andPage("828"),
+			new Testcase("2: 828. errata [1231]").hasVolume("2").andPage("828"),
 			new Testcase("vol 2: 927, 1199, [1230]").hasVolume("2").andPage("927"),
 			new Testcase(" 2: 927, 1199, [add. post indicem]").hasVolume("2").andPage("927"),
 			new Testcase("2(1): 123").hasVolume("2").andIssue("1").andPage("123"),
@@ -70,6 +71,8 @@ public class CollationTest {
 			new Testcase("4, Fam. 117 I: 274, fig. 65"),
 			new Testcase("(1892) 133."),
 			new Testcase("iii. 25"),
+			new Testcase("lxxxix. 396 (1928)"),
+			new Testcase("xi. (1876) 125."),
 			new Testcase(null),
 	};
 
