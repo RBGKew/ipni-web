@@ -23,4 +23,4 @@ spec:
             - name: BUILD_ONSTARTUP
               value: "true"
             - name: IPNI_FLAT
-              value: https://storage.googleapis.com/kew-dev-backup/ipni_flat_all.csv.xz
+              value: http://storage.googleapis.com/kew-dev-backup/ipniWebName.csv.xz

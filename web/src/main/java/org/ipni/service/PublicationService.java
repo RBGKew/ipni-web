@@ -58,7 +58,6 @@ public class PublicationService {
 		if(id == null) return null;
 
 		List<Publication> res = load(ImmutableList.<String>of(id), fields);
-		log.info("results: {}", res);
 		if(res != null && res.size() == 1) {
 			return res.get(0);
 		} else {
