@@ -42,14 +42,8 @@ dd {
   }
 }
 
-.c-name {
-  .c-author,
-  .c-citation,
-  .c-publication {
-    h2 {
-      display: inline-block;
-    }
-  }
+.detail-heading h2 {
+  display: inline;
 }
 
 .glyphicon-in-title {
