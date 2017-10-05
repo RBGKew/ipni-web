@@ -19,8 +19,8 @@
     <dl>
       <dt>Ipni ID</dt><dd>{{id}}</dd>
       {{#if publication}}
-        {{#if publicationId}}
-          <dt>Publication</dt><dd><a href="/{{publicationId}}" class="publication-link">{{publication}}</a></dd>
+        {{#if linkedPublication}}
+          <dt>Publication</dt><dd><a href="/{{linkedPublication.id}}" class="publication-link">{{linkedPublication.title}}</a></dd>
         {{else}}
           <dt>Publication</dt><dd>{{publication}}</dd>
         {{/if}}
