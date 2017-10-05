@@ -123,7 +123,7 @@ define(function(require) {
   }
 
   var setParam = function(key, value, publish) {
-    if(params.has('page')) {
+    if(params.has('page') && key != "expanded") {
       params = params.delete('page');
     }
 
@@ -140,7 +140,7 @@ define(function(require) {
   var removeParam = function(key, publish) {
     params = params.delete(key);
 
-    if(params.has('page')) {
+    if(params.has('page') && key != "expanded") {
       params = params.delete('page');
     }
 
