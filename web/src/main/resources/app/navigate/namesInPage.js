@@ -2,16 +2,32 @@ define(function(require) {
 
   var Handlebars = require('handlebars');
   var pagination = require('pagination');
+  var namesInPageTmpl = require('./tmpl/namesInPage.hbs');
   var resultsListTmpl = require('../search/tmpl/results-list.hbs');
   var currentPage = 0;
   var sort = "name_asc"
+  var pageType;
+  var url;
+
   var initialize = function() {
-    getNames();
+    url = window.location.pathname;
+    var title;
+    if(url.includes("urn:lsid:ipni.org:authors:")){
+      pageType = "author";
+      title = {'section-title': 'Names Published by this Author'}
+      $(".names-in-page").html(namesInPageTmpl(title))
+      getNames();
+    }if(url.includes("urn:lsid:ipni.org:publications:")){
+      pageType = "publication";
+      title = {'section-title': 'Names Published in this Publication'}
+      $(".names-in-page").html(namesInPageTmpl(title))
+      getNames();
+    }
   }
 
 
   var loadInPage = function(results){
-    $('.name-results').html(resultsListTmpl(results))
+    $("body").find('.name-results').html(resultsListTmpl(results))
     $('body')
       .on('click', '.sort-by-in-page a', setSort);
   }
@@ -24,15 +40,13 @@ define(function(require) {
 
   var getNames = function() {
       var apiUrl = "search?callback=?&perPage=20";
-      var url = window.location.pathname;
-      if(url.includes("urn:lsid:ipni.org:authors:")){
+      if(pageType == "author"){
         apiUrl += '&names_by_author=*@' + url.replace("/urn:lsid:ipni.org:authors:", "") + '@*';
         load(apiUrl);
-      }if(url.includes("urn:lsid:ipni.org:publications:")){
+      }if(pageType == "publication"){
         apiUrl += '&publication id=' + url.replace("/", "");
         load(apiUrl);
       }
-
   }
 
   function load(apiUrl){
