@@ -53,8 +53,10 @@ This is done via ```mvn deploy``` _if_ you have both of the following
 
 Images are tagged with the short git hash of HEAD when ```mvn package``` is run. To
 upgrade to a given version, change the ```tag``` key for the relevant container in
-```helm/values.yaml``` and run
+```helm/values.yaml``` (get from ```git rev-parse --short HEAD```) and run
 
 ```helm update [release name] ./helm```
 
-from the project root
+from the project root.
+
+To see what releases are available, do ```helm list```

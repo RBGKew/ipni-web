@@ -10,8 +10,22 @@ module.exports = function(citation) {
     name += citation.authors;
   }
 
-  if(citation.reference) {
-    name += ", <small>" + citation.reference + "</small>";
+  if(citation.publication || citation.referenceCollation || citation.publicationYear) {
+    name += ", <small>";
+
+    if(citation.publication) {
+      name += citation.publication + ' ';
+    }
+
+    if(citation.referenceCollation) {
+      name += citation.referenceCollation + ' ';
+    }
+
+    if(citation.publicationYear) {
+      name += '(' + citation.publicationYear + ')';
+    }
+
+     name += "</small>";
   }
 
   return new Handlebars.SafeString(name);
