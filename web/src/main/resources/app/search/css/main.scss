@@ -28,17 +28,12 @@ dd {
     height: 95px;
   }
 }
-.names-by {
+.names-in-page {
   .section-title {
     padding-bottom: 10px;
   }
-  .panel-footer {
-    background-color: inherit;
-    border-top: none;
-    padding: 10px 0px 0px 0px;
-    .pagination {
-      margin: 0px 0px;
-    }
+  .pagination {
+    margin: 0px 0px;
   }
 }
 
@@ -234,6 +229,9 @@ dd {
 }
 
 #c-page-body {
-  h2 { margin: 0; }
+  h2 {
+    margin: 0;
+    display: inline;
+  }
   .detail-heading .btn { margin: 5px 0 5px 5px }
 }

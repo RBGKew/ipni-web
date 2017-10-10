@@ -18,14 +18,14 @@ module.exports = function(citation) {
     }
 
     if(citation.referenceCollation) {
-      name += citation.referenceCollation + ' ';
+      name += citation.referenceCollation;
     }
 
     if(citation.publicationYear) {
-      name += '(' + citation.publicationYear + ')';
+      name += ' (' + citation.publicationYear + ')';
     }
 
-     name += "</small>";
+     name += ".</small>";
   }
 
   return new Handlebars.SafeString(name);
