@@ -1,4 +1,4 @@
-DROP VIEW ipni_web_authors;
+﻿DROP VIEW ipni_web_authors;
 
 CREATE OR REPLACE VIEW ipni_web_authors AS 
 SELECT 'urn:lsid:ipni.org:authors:'||id AS id,
@@ -19,7 +19,7 @@ SELECT 'urn:lsid:ipni.org:authors:'||id AS id,
        REPLACE(comments,'"','') AS comments_s_lower,
        author_iso_countries AS detail_author_iso_countries,
        taxon_groups_flat AS detail_taxon_groups_flat
- FROM  ipni_authors;
+ FROM  ipni_flat_authors;
 
 ALTER TABLE ipni_web_authors
   OWNER TO ipni_flat_writer;

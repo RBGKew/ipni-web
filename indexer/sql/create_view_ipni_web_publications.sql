@@ -1,4 +1,4 @@
-DROP VIEW ipni_web_publications;
+﻿DROP VIEW ipni_web_publications;
 
 CREATE OR REPLACE VIEW ipni_web_publications AS 
  SELECT 'urn:lsid:ipni.org:publications:'||id AS id,
@@ -19,7 +19,7 @@ CREATE OR REPLACE VIEW ipni_web_publications AS
         REPLACE(REPLACE(tl2_number, '"',''),'|','') AS tl2_number_s_lower,
         REPLACE(tdwg_abbreviation, '"','') AS tdwg_abbreviation_s_lower,
         REPLACE(superceded_by, '"','') AS superceded_by_s_lower
-   FROM ipni_publications; 
+   FROM ipni_flat_publications; 
 
 ALTER TABLE ipni_web_publications
   OWNER TO ipni_flat_writer;
