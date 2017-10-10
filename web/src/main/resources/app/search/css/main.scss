@@ -234,6 +234,9 @@ dd {
 }
 
 #c-page-body {
-  h2 { margin: 0; }
+  h2 {
+    margin: 0;
+    display: inline;
+  }
   .detail-heading .btn { margin: 5px 0 5px 5px }
 }
