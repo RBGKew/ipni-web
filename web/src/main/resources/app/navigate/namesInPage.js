@@ -25,11 +25,9 @@ define(function(require) {
     }
   }
 
-
-  var loadInPage = function(results){
+  function loadInPage(results){
     $("body").find('.name-results').html(resultsListTmpl(results))
-    $('body')
-      .on('click', '.sort-by-in-page a', setSort);
+    $('body').on('click', '.sort-by-in-page a', setSort);
   }
 
   function setSort(event) {
@@ -38,15 +36,15 @@ define(function(require) {
     getNames();
   }
 
-  var getNames = function() {
-      var apiUrl = "search?callback=?&perPage=20";
-      if(pageType == "author"){
-        apiUrl += '&names_by_author=*@' + url.replace("/urn:lsid:ipni.org:authors:", "") + '@*';
-        load(apiUrl);
-      }if(pageType == "publication"){
-        apiUrl += '&publication id=' + url.replace("/", "");
-        load(apiUrl);
-      }
+  function getNames() {
+    var apiUrl = "search?callback=?&perPage=20";
+    if(pageType == "author"){
+      apiUrl += '&author+team+ids=*@' + url.replace("/urn:lsid:ipni.org:authors:", "") + '@*';
+      load(apiUrl);
+    }if(pageType == "publication"){
+      apiUrl += '&publication+id=' + url.replace("/", "");
+      load(apiUrl);
+    }
   }
 
   function load(apiUrl){
