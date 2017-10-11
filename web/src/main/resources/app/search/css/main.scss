@@ -23,7 +23,10 @@ dd {
 .c-search-results {
   .panel {
     margin-bottom: 0px;
+    border: 0;
+    border-top: inherit;
   }
+
   .panel-footer {
     height: 95px;
   }
