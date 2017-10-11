@@ -51,6 +51,8 @@ CREATE OR REPLACE VIEW ipni_web AS
     ipni_flat_joined.longitude_minutes AS longitude_minutes_s_lower,
     ipni_flat_joined.longitude_seconds AS longitude_seconds_s_lower,
     regexp_replace(replace(ipni_flat_joined.name_status, '"', ''), '\r|\n', '', 'g') AS name_status_s_lower,
+    regexp_replace(replace(ipni_flat_joined.name_status_bot_code_type, '"', ''), '\r|\n', '', 'g') AS name_status_bot_code_type_s_lower,
+    regexp_replace(replace(ipni_flat_joined.name_status_editor_type, '"', ''), '\r|\n', '', 'g') AS name_status_editor_type_s_lower,
     replace(ipni_flat_joined.nomenclatural_synonym, '"', '') AS nomenclatural_synonym_s_lower,
     ipni_flat_joined.nomenclatural_synonym_id AS lookup_nomenclatural_synonym_id,
     ipni_flat_joined.north_or_south AS north_or_south_s_lower,
@@ -87,10 +89,11 @@ CREATE OR REPLACE VIEW ipni_web AS
     replace(ipni_flat_joined.type_locations, '"', '') AS type_locations_s_lower,
     replace(ipni_flat_joined.type_name, '"', '') AS type_name_s_lower,
     replace(ipni_flat_joined.type_remarks, '"', '') AS type_remarks_s_lower,
-    replace(ipni_flat_missing_fields.chosen_by, '"', '') AS type_chosen_by_s_lower,
-    replace(ipni_flat_missing_fields.type_specimen_note, '"', '') AS type_note_s_lower,
-    replace(ipni_flat_missing_fields.author_team_ids, '"', '') AS detail_author_team_ids,
-    replace(ipni_flat_missing_fields.species_author_team_ids, '"', '') AS detail_species_author_team_ids,
+    replace(ipni_flat_joined.chosen_by, '"', '') AS type_chosen_by_s_lower,
+    replace(ipni_flat_joined.type_specimen_note, '"', '') AS type_note_s_lower,
+    replace(ipni_flat_joined.author_team_ids, '"', '') AS detail_author_team_ids,
+    replace(ipni_flat_joined.species_author_team_ids, '"', '') AS detail_species_author_team_ids,
+    replace(ipni_flat_joined.page_as_text, '"', '') AS page_as_text_s_lower,
     ipni_flat_joined.validation_of_id AS lookup_validation_of_id,
     ipni_flat_joined.version AS version_s_lower,
     CASE
@@ -98,7 +101,6 @@ CREATE OR REPLACE VIEW ipni_web AS
         ELSE false
     END AS powo_b    
    FROM ipni_flat_joined
-   LEFT JOIN ipni_flat_missing_fields ON ipni_flat_joined.id = ipni_flat_missing_fields.id
    LEFT JOIN ipni_ids_in_powo ON ipni_flat_joined.id = ipni_ids_in_powo.id
   ORDER BY ipni_flat_joined.id;
 
