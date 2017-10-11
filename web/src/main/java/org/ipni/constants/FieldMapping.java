@@ -70,6 +70,7 @@ public enum FieldMapping {
 	originalTaxonName("original taxon name", "original_taxon_name_s_lower"),
 	originalTaxonNameAuthorTeam("original taxon name author team", "original_taxon_name_author_team_s_lower"),
 	otherLinks("other links", "other_links_s_lower"),
+	pageAsText("bhl page", "page_as_text_s_lower"),
 	primaryPagination("primary pagination", "primary_pagination_s_lower"),
 	publicationAuthor("publication author", "publication_author_s_lower"),
 	publicationYearFull("publication year full", "publication_year_full_s_lower"),

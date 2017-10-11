@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.ipni.model.BHLLink;
-import org.ipni.model.Collation;
+import org.ipni.model.Name;
 import org.ipni.model.Publication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,21 +34,30 @@ public class BHLHelper {
 				.collect(Collectors.toList());
 	}
 
-	public static String buildNameLink(Publication publication, Collation collation, Integer year) {
+	public static String buildNameLink(Name name, Publication publication) {
+		if(name == null) {
+			log.debug("bhlLink: name is null, returning null");
+			return null;
+		}
+
+		if(name.getPageAsText() != null) {
+			return new BHLLink().withPageId(name.getPageAsText()).build();
+		}
+
 		if(publication == null) {
 			log.debug("bhlLink: has no linked publication, returning null");
 			return null;
 		}
 
-		if(!collation.isParsed()) {
+		if(!name.getCollation().isParsed()) {
 			log.debug("bhlLink: collation could not be parsed, no point trying to build link");
 			return null;
 		}
 
 		if(publication.getBhlTitleIds() != null && !publication.getBhlTitleIds().isEmpty()) {
 			BHLLink link = new BHLLink()
-					.withCollation(collation)
-					.withYear(year);
+					.withCollation(name.getCollation())
+					.withYear(name.getPublicationYear());
 
 			if(publication.getBhlTitleIds().size() > 1) {
 				log.debug("bhlLink: publication has more than one bhl title link, returning null");

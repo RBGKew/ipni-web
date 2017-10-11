@@ -74,6 +74,7 @@ public class Name {
 	private String originalReplacedSynonymAuthorTeam;
 	private String originalTaxonDistribution;
 	private String otherLinks;
+	private String pageAsText;
 	private Publication linkedPublication;
 	private String publication;
 	private Integer publicationYear;
@@ -141,6 +142,7 @@ public class Name {
 		this.originalReplacedSynonymAuthorTeam = (String) name.getFirstValue(FieldMapping.originalReplacedSynonymAuthorTeam.solrField());
 		this.originalTaxonDistribution = (String) name.getFirstValue(FieldMapping.originalTaxonDistribution.solrField());
 		this.otherLinks = (String) name.getFirstValue(FieldMapping.otherLinks.solrField());
+		this.pageAsText = (String) name.getFirstValue(FieldMapping.pageAsText.solrField());
 		this.publication = (String) name.getFirstValue(FieldMapping.publication.solrField());
 		this.publicationYear = (Integer) name.getFirstValue(FieldMapping.yearPublished.solrField());
 		this.publicationYearNote = CleanUtil.stripBrackets((String) name.getFirstValue(FieldMapping.publicationYearNote.solrField()));
@@ -201,6 +203,6 @@ public class Name {
 
 	@JsonProperty
 	public String bhlLink() {
-		return BHLHelper.buildNameLink(linkedPublication, collation, publicationYear);
+		return BHLHelper.buildNameLink(this, linkedPublication);
 	}
 }

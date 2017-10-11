@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.ipni.model.BHLLink;
 import org.ipni.model.Collation;
+import org.ipni.model.Name;
 import org.ipni.model.Publication;
 import org.junit.Test;
 
@@ -69,37 +70,43 @@ public class BHLHelperTest {
 	}
 
 	@Test
-	public void dontBuildNameLinkWithBHLPageId() throws IOException {
+	public void dontBuildNameLinkWithPublicationPageId() throws IOException {
 		Publication publication = Publication.builder().bhlPageIds(ImmutableList.<String>of("123")).build();
-		Collation collation = new Collation("1(2): 3");
-		Integer year = 2000;
+		Name name = Name.builder()
+				.collation(new Collation("1(2): 3"))
+				.publicationYear(2000)
+				.build();
 
 		String expected = null;
-		String actual = BHLHelper.buildNameLink(publication, collation, year);
+		String actual = BHLHelper.buildNameLink(name, publication);
 
 		assertEquals(actual, expected);
 	}
 
 	@Test
-	public void nameLinkWithNoBHLIdsShoulReturnNull() {
+	public void nameLinkWithNoPublicationBHLIdsShoulReturnNull() {
 		Publication publication = Publication.builder().build();
-		Collation collation = new Collation("1(2): 3");
-		Integer year = 2001;
+		Name name = Name.builder()
+				.collation(new Collation("1(2): 3"))
+				.publicationYear(2000)
+				.build();
 
 		String expected = null;
-		String actual = BHLHelper.buildNameLink(publication, collation, year);
+		String actual = BHLHelper.buildNameLink(name, publication);
 
 		assertEquals(actual, expected);
 	}
 
 	@Test
-	public void buildNameLinkWithBHLTitleId() throws IOException {
+	public void buildNameLinkWithPublicationTitleId() throws IOException {
 		Publication publication = Publication.builder().bhlTitleIds(ImmutableList.<String>of("123")).build();
-		Collation collation = new Collation("1(2): 3");
-		Integer year = 2000;
+		Name name = Name.builder()
+				.collation(new Collation("1(2): 3"))
+				.publicationYear(2000)
+				.build();
 
-		String expected = new BHLLink().withTitleId("123").withCollation(collation).withYear(year).build();
-		String actual = BHLHelper.buildNameLink(publication, collation, year);
+		String expected = new BHLLink().withTitleId("123").withCollation(name.getCollation()).withYear(name.getPublicationYear()).build();
+		String actual = BHLHelper.buildNameLink(name, publication);
 
 		assertEquals(actual, expected);
 	}
@@ -107,11 +114,34 @@ public class BHLHelperTest {
 	@Test
 	public void nameLinkWithMoreThanOneBHLTitleIdShouldReturnNull() {
 		Publication publication = Publication.builder().bhlTitleIds(ImmutableList.<String>of("123", "456")).build();
-		Collation collation = new Collation("1(2): 3");
-		Integer year = 2000;
+		Name name = Name.builder()
+				.collation(new Collation("1(2): 3"))
+				.publicationYear(2000)
+				.build();
 
 		String expected = null;
-		String actual = BHLHelper.buildNameLink(publication, collation, year);
+		String actual = BHLHelper.buildNameLink(name, publication);
+
+		assertEquals(actual, expected);
+	}
+
+	@Test
+	public void nameWithPageAsTextLinksDirectlyToBHLPage() {
+		Name name = Name.builder().pageAsText("1234").build();
+
+		String expected = new BHLLink().withPageId("1234").build();
+		String actual = BHLHelper.buildNameLink(name, null);
+
+		assertEquals(actual, expected);
+	}
+
+	@Test
+	public void nameWithPageAsTextLinksDirectlyToBHLPageAndIgnoresAnyPublicationIds() {
+		Publication publication = Publication.builder().bhlTitleIds(ImmutableList.<String>of("123", "456")).build();
+		Name name = Name.builder().pageAsText("1234").collation(new Collation("1(2): 3")).build();
+
+		String expected = new BHLLink().withPageId("1234").build();
+		String actual = BHLHelper.buildNameLink(name, publication);
 
 		assertEquals(actual, expected);
 	}
