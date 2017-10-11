@@ -45,7 +45,7 @@ define(function(require) {
   // event listeners for updating search results based on filters
   pubsub.subscribe('search.updated', function() {
     if($('.jumbotron')) {
-      $('.jumbotron').addClass('p-search');
+      $('.container').addClass('p-search');
       $('.jumbotron').removeClass('vertically-centred');
       $('.jumbotron').removeClass('jumbotron');
     }

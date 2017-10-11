@@ -1,5 +1,6 @@
 define(function(require) {
-  var namesInPage = require('./namesInPage');
+
+  var startsWith = require('lodash/fp/startsWith');
   function Navigator(template, pageClass) {
     this.tmpl = template;
     this.pageClass = pageClass;
@@ -12,7 +13,6 @@ define(function(require) {
           class: obj.pageClass,
           data: json,
         }, null, url);
-        namesInPage.initialize();
 
         if(cb) {
           cb();
@@ -20,9 +20,17 @@ define(function(require) {
       });
     }
 
-    this.load = function(data) {
-      $(".container").addClass(this.pageClass)
+    this.pageClasses = function(index, classes) {
+      return _.filter(classes.split(' '), startsWith('p-')).toString();
+    }
+
+    this.load = function(data, cb) {
+      $('.container').removeClass(this.pageClasses).addClass(this.pageClass);
       $('#c-page-body').replaceWith(this.tmpl(data));
+
+      if(cb) {
+        cb();
+      }
     }
   }
 

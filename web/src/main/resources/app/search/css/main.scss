@@ -100,7 +100,6 @@ dd {
     }
   }
 
-
   .suggestion-category {
     color: #ccc;
     float: right;
@@ -140,7 +139,7 @@ dd {
   }
 }
 
-.p-search {
+.p-search, .p-name, .p-author, .p-publication  {
   .content { @include make-row(); }
 
   .blurb { display: none };

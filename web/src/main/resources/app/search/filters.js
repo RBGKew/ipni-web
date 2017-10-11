@@ -159,7 +159,7 @@ define(function(require) {
     return($.param(q));
   };
 
-  var deserialize = function(serialized) {
+  var deserialize = function(serialized, publish) {
     if(serialized[0] == '?') {
       serialized = serialized.slice(1);
     } else {
@@ -176,7 +176,9 @@ define(function(require) {
       setTokens(deserialized['q'].split(','), false);
     }
 
-    publishUpdated();
+    if(_.defaultTo(publish, true)) {
+      publishUpdated();
+    }
   }
 
   var refresh = function() {

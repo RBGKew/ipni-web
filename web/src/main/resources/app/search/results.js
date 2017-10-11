@@ -11,7 +11,7 @@ define(function(require) {
     $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
       load(results);
       history.pushState({
-        class: 'c-search',
+        class: 'p-search',
         data: results
       }, null, '/?' + filters.serialize())
     });
