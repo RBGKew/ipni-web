@@ -149,7 +149,7 @@ public class Name {
 		this.rank = (String) name.getFirstValue(FieldMapping.rank.solrField());
 		this.recordType = "citation";
 		this.reference = (String) name.getFirstValue(FieldMapping.reference.solrField());
-		this.remarks = (String) name.getFirstValue(FieldMapping.remarks.solrField());
+		this.remarks = CleanUtil.stripThingsInBrackets((String) name.getFirstValue(FieldMapping.remarks.solrField()));
 		this.species = (String) name.getFirstValue(FieldMapping.species.solrField());
 		this.speciesAuthor = (String) name.getFirstValue(FieldMapping.speciesAuthor.solrField());
 		this.suppressed = (Boolean) name.get(FieldMapping.suppressed.solrField());
