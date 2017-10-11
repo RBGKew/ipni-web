@@ -18,19 +18,18 @@ define(function(require) {
   };
 
   var load = function(data) {
-      data['sort'] = filters.getParam('sort');
-      data['f'] = filters.getParam('f');
-      data['expanded'] = filters.getParam('expanded');
-      if($('#c-page-body').length) {
-        $('#c-page-body').replaceWith(resultsTmpl(data));
-      } else {
-        $('.content').after(resultsTmpl(data));
-      }
+    data['sort'] = filters.getParam('sort');
+    data['f'] = filters.getParam('f');
+    data['expanded'] = filters.getParam('expanded');
+    if($('#c-page-body').length) {
+      $('#c-page-body').replaceWith(resultsTmpl(data));
+    } else {
+      $('.content').after(resultsTmpl(data));
+    }
 
-      paginate(data);
-      filters.refresh();
+    paginate(data);
+    filters.refresh();
   }
-
 
   var downloadResults = function(e) {
     window.location = '/api/1/download?' + filters.serialize();
@@ -79,13 +78,12 @@ define(function(require) {
 
   function showDetailedRecords(event) {
     event.preventDefault();
-      if(filters.getParam('expanded')){
-        filters.removeParam('expanded');
-      }else{
-        filters.setParam('expanded', true);
-      }
+    if(filters.getParam('expanded')) {
+      filters.removeParam('expanded');
+    } else {
+      filters.setParam('expanded', true);
+    }
   }
-
 
   function paginate(results) {
     if(results.totalPages > 1) {
