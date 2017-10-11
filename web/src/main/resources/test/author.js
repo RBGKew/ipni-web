@@ -1,5 +1,5 @@
 const test = require('tape')
-const author = require('../app/linkify/author')
+const linkify = require('../app/linkify/author')
 
 const citation = {
   'authorTeam': [
@@ -46,7 +46,7 @@ test('builds author string from author team', function(t) {
   const expected = '(<a href="/urn:lsid:ipni.org:authors:14556-1" class="author-link">Z.R.Wang</a>) '
     + '<a href="/urn:lsid:ipni.org:authors:13738-1" class="author-link">W.M.Chu</a> & <a href="/urn:lsid:ipni.org:authors:14556-1" class="author-link">Z.R.Wang</a> '
     + 'ex <a href="/urn:lsid:ipni.org:authors:14980-1" class="author-link">P.S.Wang</a> & X.Y.Wang'
-  const actual = author.linkify(citation)
+  const actual = linkify(citation)
 
   t.equal(actual, expected)
   t.end()
