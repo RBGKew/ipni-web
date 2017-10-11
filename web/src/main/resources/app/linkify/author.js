@@ -51,6 +51,4 @@ var build = function(citation) {
   }
 }
 
-module.exports = {
-  linkify: build,
-}
+module.exports = build

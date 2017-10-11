@@ -6,13 +6,7 @@
     {{#if bhlLink}}
       <a class="bhl btn btn-xs btn-default pull-right" href="{{bhlLink}}" target="_blank" data-toggle="tooltip" data-placement="left" title="View the protologue in BHL">BHL</a>
     {{/if }}
-    <h2><i>{{showName this}}</i> {{linkAuthor this}}, </h2>
-    {{#if publicationId}}
-      <a href="/{{publicationId}}" class="publication-link">{{publication}}</a>
-    {{else}}
-      {{publication}}
-    {{/if}}
-    {{referenceCollation}}{{#if publicationYear}} ({{publicationYear}}){{/if}}.
+    {{linkedFullName this}}
   </div>
 
   <div class="panel-body">

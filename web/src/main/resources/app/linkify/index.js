@@ -1,4 +1,5 @@
 module.exports = {
-  bhl: require('./bhl'),
+  author: require('./author'),
   doi: require('./doi'),
+  publication: require('./publication'),
 }
