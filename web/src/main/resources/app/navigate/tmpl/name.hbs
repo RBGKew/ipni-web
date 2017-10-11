@@ -35,7 +35,7 @@
       {{#if family}}
       <dl class="ipni-dl-indented">
         <dt>Family as entered in IPNI
-          <a href="#" data-toggle="tooltip" data-placement="right" title="Families in IPNI do not follow APG IV">
+          <a href="#" data-toggle="tooltip" data-placement="right" title="Families in IPNI do not follow APG IV. For genera published after 1992, IPNI enters the family as given by the authors. Genera published before that date normally follow Brummitt (1992). Vascular Plant Families and Genera.">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
           </a>
         </dt>
@@ -48,32 +48,44 @@
       <h4>Type Information</h4>
       <dl>
         {{#if typeName}}
-          <dt>Type Name</dt><dd> {{typeName}}</dd>
+          <dt>Type Name</dt><dd>{{typeName}}</dd>
         {{/if}}
         {{#if bibliographicTypeInfo}}
-          <dt>Type Information</dt><dd> {{bibliographicTypeInfo}}</dd>
+          <dt>Type Information</dt><dd>{{bibliographicTypeInfo}}</dd>
         {{/if}}
         {{#if typeLocations}}
-          <dt>Type Locations</dt><dd> {{breakLines typeLocations}}</dd>
+          <dt>Type Locations</dt><dd>{{breakLines typeLocations}}</dd>
         {{/if}}
         {{#if geographicUnit}}
-          <dt>Geographic Unit</dt><dd> {{geographicUnit}}</dd>
+          <dt>Geographic Unit</dt><dd>{{geographicUnit}}</dd>
         {{/if}}
         {{#if locality}}
-          <dt>Type Locality</dt><dd> {{locality}}</dd>
+          <dt>Type Locality</dt><dd>{{locality}}</dd>
         {{/if}}
         {{#if latitudeDegrees}}
-          <dt>Latitude</dt><dd> {{latitudeDegrees}} {{latitudeMinutes}} {{latitudeSeconds}} {{northOrSouth}}</dd>
-          <dt>Longitude</dt><dd> {{longitudeDegrees}} {{longitudeMinutes}} {{longitudeSeconds}} {{eastOrWest}}</dd>
+          <dt>Latitude</dt>
+          <dd>
+            {{#if latitudeDegrees}}{{latitudeDegrees}}° {{/if}}
+            {{#if latitudeMinutes}}{{latitudeMinutes}}' {{/if}}
+            {{#if latitudeSeconds}}{{latitudeSeconds}}" {{/if}}
+            {{northOrSouth}}
+          </dd>
+          <dt>Longitude</dt>
+          <dd>
+            {{#if longitudeDegrees}}{{longitudeDegrees}}° {{/if}}
+            {{#if longitudeMinutes}}{{longitudeMinutes}}' {{/if}}
+            {{#if longitudeSeconds}}{{longitudeSeconds}}" {{/if}}
+            {{eastOrWest}}
+          </dd>
         {{/if}}
         {{#if collectorTeam}}
-          <dt>Collector Team</dt><dd> {{collectorTeam}} {{collectorNumber}}</dd>
+          <dt>Collector Team</dt><dd>{{collectorTeam}} {{collectorNumber}}</dd>
         {{/if}}
         {{#if bibliographicReference}}
-          <dt>Type Published in</dt><dd> {{bibliographicReference}}</dd>
+          <dt>Type Published in</dt><dd>{{bibliographicReference}}</dd>
         {{/if}}
         {{#if distribution}}
-          <dt>Type Distribution from Protologue</dt><dd> {{distribution}}</dd>
+          <dt>Protologue Distribution</dt><dd>{{breakLines distribution}}</dd>
         {{/if}}
       </dl>
     {{/if}}
@@ -95,9 +107,6 @@
     {{#if hasOriginalData}}
       <h4>Original Data</h4>
       <dl>
-        {{#if originalBasionym}}
-          <dt>Basionym</dt><dd><a href="{{basionym.[0].url}}" class="name-link">{{fullName basionym.[0]}}</a></dd>
-        {{/if}}
         {{#if originalRemarks}}
           <dt>Remarks</dt><dd>{{originalRemarks}}</dd>
         {{/if}}
@@ -116,7 +125,7 @@
     {{#if nameStatus}}
       <h4>Nomeclatural Notes</h4>
       <dl>
-        <dt>Name Status</dt><dd> {{nameStatus}}</dd>
+        <dt>Name Status</dt><dd>{{nameStatus}}</dd>
       </dl>
     {{/if}}
 
@@ -127,6 +136,9 @@
     {{#if hasLinks}}
       <h4>Links</h4>
       <dl>
+        {{#if basionym}}
+          <dt>Basionym</dt><dd><a href="{{basionym.[0].url}}" class="name-link">{{fullName basionym.[0]}}</a></dd>
+        {{/if}}
         {{#if conservedAgainst}}
           <dt>Conserved Against</dt><dd><a href="{{conservedAgainst.[0].url}}" class="name-link">{{fullName conservedAgainst.[0]}}</a></dd>
         {{/if}}

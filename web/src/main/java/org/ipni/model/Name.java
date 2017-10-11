@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
+import org.ipni.util.CleanUtil;
 import org.ipni.view.BHLHelper;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -62,6 +63,8 @@ public class Name {
 	private String longitudeMinutes;
 	private String longitudeSeconds;
 	private String nameStatus;
+	private String nameStatusType;
+	private String nameStatusBotCode;
 	private List<Name> nomenclaturalSynonym;
 	private String northOrSouth;
 	private String originalBasionym;
@@ -118,27 +121,29 @@ public class Name {
 		this.infragenus = (String) name.getFirstValue(FieldMapping.infragenus.solrField());
 		this.infraspecies = (String) name.getFirstValue(FieldMapping.infraspecies.solrField());
 		this.infraspecific = (String) name.getFirstValue(FieldMapping.infraspecific.solrField());
-		this.latitudeDegrees = zeroToNull((String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField()));
-		this.latitudeMinutes = zeroToNull((String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField()));
-		this.latitudeSeconds = zeroToNull((String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField()));
+		this.latitudeDegrees = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField()));
+		this.latitudeMinutes = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField()));
+		this.latitudeSeconds = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField()));
 		this.locality = (String) name.getFirstValue(FieldMapping.locality.solrField());
-		this.longitudeDegrees = zeroToNull((String) name.getFirstValue(FieldMapping.longitudeDegrees.solrField()));
-		this.longitudeMinutes = zeroToNull((String) name.getFirstValue(FieldMapping.longitudeMinutes.solrField()));
-		this.longitudeSeconds = zeroToNull((String) name.getFirstValue(FieldMapping.longitudeSeconds.solrField()));
+		this.longitudeDegrees = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.longitudeDegrees.solrField()));
+		this.longitudeMinutes = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.longitudeMinutes.solrField()));
+		this.longitudeSeconds = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.longitudeSeconds.solrField()));
 		this.name = (String) name.get(FieldMapping.scientificName.solrField());
 		this.nameStatus = (String) name.getFirstValue(FieldMapping.nameStatus.solrField());
+		this.nameStatusType = (String) name.getFirstValue(FieldMapping.nameStatusEditorType.solrField());
+		this.nameStatusBotCode = (String) name.getFirstValue(FieldMapping.nameStatusBotCodeType.solrField());
 		this.northOrSouth = (String) name.getFirstValue(FieldMapping.northOrSouth.solrField());
 		this.originalBasionym = (String) name.getFirstValue(FieldMapping.originalBasionym.solrField());
 		this.originalBasionymAuthorTeam = (String) name.getFirstValue(FieldMapping.originalBasionymAuthorTeam.solrField());
 		this.originalHybridParentage = (String) name.getFirstValue(FieldMapping.originalHybridParentage.solrField());
-		this.originalRemarks = (String) name.getFirstValue(FieldMapping.originalRemarks.solrField());
+		this.originalRemarks = CleanUtil.equalsPrefixedToNull((String) name.getFirstValue(FieldMapping.originalRemarks.solrField()));
 		this.originalReplacedSynonym = (String) name.getFirstValue(FieldMapping.originalReplacedSynonym.solrField());
 		this.originalReplacedSynonymAuthorTeam = (String) name.getFirstValue(FieldMapping.originalReplacedSynonymAuthorTeam.solrField());
 		this.originalTaxonDistribution = (String) name.getFirstValue(FieldMapping.originalTaxonDistribution.solrField());
 		this.otherLinks = (String) name.getFirstValue(FieldMapping.otherLinks.solrField());
 		this.publication = (String) name.getFirstValue(FieldMapping.publication.solrField());
 		this.publicationYear = (Integer) name.getFirstValue(FieldMapping.yearPublished.solrField());
-		this.publicationYearNote = (String) name.getFirstValue(FieldMapping.publicationYearNote.solrField());
+		this.publicationYearNote = CleanUtil.stripBrackets((String) name.getFirstValue(FieldMapping.publicationYearNote.solrField()));
 		this.publicationId = (String) name.getFirstValue(FieldMapping.publicationId.solrField());
 		this.referenceCollation = (String) name.getFirstValue(FieldMapping.referenceCollation.solrField());
 		this.rank = (String) name.getFirstValue(FieldMapping.rank.solrField());
@@ -181,7 +186,8 @@ public class Name {
 
 	@JsonProperty
 	public boolean hasLinks() {
-		return conservedAgainst != null
+		return basionym != null
+				|| conservedAgainst != null
 				|| correctionOf != null
 				|| isonymOf != null
 				|| laterHomonymOf != null
@@ -196,10 +202,5 @@ public class Name {
 	@JsonProperty
 	public String bhlLink() {
 		return BHLHelper.buildNameLink(linkedPublication, collation, publicationYear);
-	}
-
-	private String zeroToNull(String str) {
-		if(str == null) return null;
-		return str.equals("0") ? null : str;
 	}
 }
