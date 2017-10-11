@@ -30,12 +30,85 @@ public class NameHelper {
 			name.append(citation.getAuthors());
 		}
 
-		if(citation.getReference() != null) {
+		if(hasReference(citation)) {
 			name.append(", <small>");
-			name.append(citation.getReference());
-			name.append("</small>");
+
+			if(citation.getPublication() != null) {
+				name.append(citation.getPublication());
+				name.append(" ");
+			}
+
+			if(citation.getReferenceCollation() != null) {
+				name.append(citation.getReferenceCollation());
+			}
+
+			if(citation.getPublicationYear() != null) {
+				name.append(" (");
+				name.append(citation.getPublicationYear());
+				name.append(")");
+			}
+
+			name.append(".</small>");
 		}
 
 		return new Handlebars.SafeString(name);
+	}
+
+	public CharSequence linkedFullName(Name citation) {
+		if(citation == null) return null;
+		StringBuffer name = new StringBuffer();
+
+		name.append("<h2><i>");
+		name.append(showName(citation));
+		name.append("</i> ");
+
+		if(citation.getAuthors() != null) {
+			AuthorHelper authorHelper = new AuthorHelper();
+			name.append(authorHelper.linkAuthor(citation));
+		}
+
+		if(hasReference(citation)) {
+			name.append(", ");
+		}
+
+		name.append("</h2>");
+
+		if(hasReference(citation)) {
+			if(citation.getPublication() != null) {
+				if(citation.getPublicationId() != null) {
+					name.append("<a href=\"/");
+					name.append(citation.getPublicationId());
+					name.append("\" class=\"publication-link\">");
+					name.append(citation.getPublication());
+					name.append("</a> ");
+				} else {
+					name.append(citation.getPublication());
+					name.append(" ");
+				}
+			}
+
+			if(citation.getReferenceCollation() != null) {
+				name.append(" ");
+				name.append(citation.getReferenceCollation());
+			}
+
+			if(citation.getPublicationYear() != null) {
+				name.append(" (");
+				name.append(citation.getPublicationYear());
+				name.append(")");
+			}
+
+			if(name.charAt(name.length() - 1) != '.') {
+				name.append(".");
+			}
+		}
+
+		return new Handlebars.SafeString(name);
+	}
+
+	private boolean hasReference(Name citation) {
+		return !(citation.getPublication() == null
+				&& citation.getReferenceCollation() == null
+				&& citation.getPublicationYear() == null);
 	}
 }
