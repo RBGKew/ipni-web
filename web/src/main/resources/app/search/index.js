@@ -19,7 +19,14 @@ define(function(require) {
     $('.c-search')
       .on('submit', '#advanced-search', function(e) {
         e.preventDefault();
-        filters.set(_.pickBy($(this).serializeJSON()));
+        var params = _.pickBy($(this).serializeJSON());
+
+        if($('#publishing-author-only').is(':checked')) {
+          params['publishing author'] = params['name author'];
+          delete params['name author'];
+        }
+
+        filters.set(params);
         $('.c-search .input-group-btn').removeClass('open');
       })
       .on('click', '#search-button', function(e) {
