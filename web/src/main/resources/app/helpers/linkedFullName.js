@@ -11,14 +11,10 @@ module.exports = function(citation) {
     name += linkify.author(citation);
   }
 
-  if(citation.publication || citation.referenceCollation || citation.publicationYear) {
-    name += ", ";
-  }
-
   name += '</h2>';
 
   if(citation.publication || citation.referenceCollation || citation.publicationYear) {
-    name += linkify.publication(citation);
+    name += ', ' + linkify.publication(citation);
 
     if(citation.referenceCollation) {
       name += ' ' + citation.referenceCollation;

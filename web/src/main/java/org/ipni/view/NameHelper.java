@@ -67,13 +67,10 @@ public class NameHelper {
 			name.append(authorHelper.linkAuthor(citation));
 		}
 
-		if(hasReference(citation)) {
-			name.append(", ");
-		}
-
 		name.append("</h2>");
 
 		if(hasReference(citation)) {
+			name.append(", ");
 			if(citation.getPublication() != null) {
 				if(citation.getPublicationId() != null) {
 					name.append("<a href=\"/");
