@@ -1,11 +1,7 @@
 replicaCount: 1
 image:
   repository: eu.gcr.io/powop-1349/ipni/app
-<<<<<<< HEAD
-  tag: "2c13fbf"
-=======
-  tag: "20604f4"
->>>>>>> 53d13763a2767127e79df5664554b0f0780ed8f7
+  tag: "ee16e17"
   pullPolicy: Always
 service:
   name: ipni
