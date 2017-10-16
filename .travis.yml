@@ -7,9 +7,10 @@ git:
 services:
   - docker
 env:
-  - DOCKER_GOOGLE_CREDENTIALS=$TRAVIS_BUILD_DIR/travis-sa.json
-  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-  - TAG=`git rev-parse --short HEAD`
+  global:
+    - DOCKER_GOOGLE_CREDENTIALS=$TRAVIS_BUILD_DIR/travis-sa.json
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - TAG=`git rev-parse --short HEAD`
 install: true # This runs the "true" command in the install phase; thus skipping install. Installation done by mvn deploy
 script:
   - mvn deploy
