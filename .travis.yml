@@ -1,21 +1,46 @@
-sudo: required
-services:
-  - docker
 language: java
 jdk:
   - oraclejdk8
+sudo: required
+git: depth: 1
+services:
+  - docker
 env:
   - DOCKER_GOOGLE_CREDENTIALS=$TRAVIS_BUILD_DIR/travis-sa.json
-git:
-  depth: 1
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - TAG=`git rev-parse --short HEAD`
+install: true # This runs the "true" command in the install phase; thus skipping install. Installation done by mvn deploy
 script:
   - mvn deploy
+# deploys the latest tag of the app _only_. If you want to deploy solr or the indexer it
+# must be done manually
+  - helm upgrade invinvible-saola helm/ --set image.tag=$TAG
+before_install:
+# decrypt service-account key for authentication to gcp
+  - openssl aes-256-cbc -K $encrypted_60b5de841810_key -iv $encrypted_60b5de841810_iv -in .travis-sa.json.enc -out travis-sa.json -d
+# install custom version of gcloud so we can use it to install kubernetes. The bundled
+# travis version does not allow adding components
+  - |
+    if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then
+      rm -rf $HOME/google-cloud-sdk
+      curl https://sdk.cloud.google.com | bash
+      source $HOME/google-cloud-sdk/path.bash.inc
+     fi
+# get kubectl and configure gcloud
+  - gcloud components install kubectl
+  - gcloud auth activate-service-account travis@powop-1349.iam.gserviceaccount.com --key-file travis-sa.json
+  - gcloud config set project powop-1349
+  - gcloud config set container/cluster powop-dev
+  - gcloud config set compute/region europe-west1-d
+  - gcloud config set compute/zone europe-west1-d
+  - gcloud container clusters get-credentials powop-dev
+# download and set up helm
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+  - helm init --client-only
+  - helm repo add kew-charts https://kew-charts.storage.googleapis.com
+  - helm dep build helm/
+
 cache:
   directories:
     - "$HOME/.m2"
     - "$HOME/google-cloud-sdk/"
-before_install:
-  - openssl aes-256-cbc -K $encrypted_60b5de841810_key -iv $encrypted_60b5de841810_iv -in .travis-sa.json.enc -out travis-sa.json -d
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
-  - $HOME/google-cloud-sdk/bin/gcloud auth activate-service-account travis@powop-1349.iam.gserviceaccount.com --key-file travis-sa.json
-  - export TAG=`git rev-parse --short HEAD`
