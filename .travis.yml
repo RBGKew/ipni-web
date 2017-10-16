@@ -7,9 +7,10 @@ git:
 services:
   - docker
 env:
-  - DOCKER_GOOGLE_CREDENTIALS=$TRAVIS_BUILD_DIR/travis-sa.json
-  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-  - TAG=`git rev-parse --short HEAD`
+  global:
+    - DOCKER_GOOGLE_CREDENTIALS=$TRAVIS_BUILD_DIR/travis-sa.json
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - TAG=`git rev-parse --short HEAD`
 install: true # This runs the "true" command in the install phase; thus skipping install. Installation done by mvn deploy
 script:
   - mvn deploy
@@ -25,8 +26,8 @@ before_install:
     if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then
       rm -rf $HOME/google-cloud-sdk
       curl https://sdk.cloud.google.com | bash
-      source $HOME/google-cloud-sdk/path.bash.inc
      fi
+     source $HOME/google-cloud-sdk/path.bash.inc
 # get kubectl and configure gcloud
   - gcloud components install kubectl
   - gcloud auth activate-service-account travis@powop-1349.iam.gserviceaccount.com --key-file travis-sa.json
