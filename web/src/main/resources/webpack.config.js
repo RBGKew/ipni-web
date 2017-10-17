@@ -79,7 +79,7 @@ module.exports = (env = {}) => {
       }),
 
       new ExtractTextPlugin({
-        filename: 'style.css',
+        filename: 'style.[chunkhash].css',
         disable: false,
         allChunks: true,
       }),
