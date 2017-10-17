@@ -4,28 +4,38 @@ define(function(require) {
   var pagination = require('pagination');
   var namesInPageTmpl = require('./tmpl/namesInPage.hbs');
   var resultsListTmpl = require('../search/tmpl/results-list.hbs');
-  var currentPage = 0;
+  var currentPage = 1;
   var sort = "name_asc"
-  var pageType;
   var url;
 
   var initialize = function() {
     url = window.location.pathname;
-    var title;
-    if(url.includes("urn:lsid:ipni.org:authors:")){
-      pageType = "author";
-      title = {'section-title': 'Names Published by this Author'}
-      $(".names-in-page").html(namesInPageTmpl(title))
-      getNames();
-    }if(url.includes("urn:lsid:ipni.org:publications:")){
-      pageType = "publication";
-      title = {'section-title': 'Names Published in this Publication'}
-      $(".names-in-page").html(namesInPageTmpl(title))
+    if(shouldLoad()) {
       getNames();
     }
   }
 
+  function shouldLoad() {
+    return $('.container').hasClass('p-author')
+      || $('.container').hasClass('p-publication');
+  }
+
+  function pageType() {
+    if($('.container').hasClass('p-author')) {
+      return 'author';
+    } else if($('.container').hasClass('p-publication')) {
+      return 'publication';
+    }
+  }
+
   function loadInPage(results){
+    if($('.names-in-page').children().size() === 0) {
+      var connector = pageType() === 'author' ? ' by ' : ' in ';
+      $(".names-in-page").html(namesInPageTmpl({
+        'section-title': results.totalResults + ' names published' + connector + $('.stdForm').text()
+      }))
+    }
+
     $("body").find('.name-results').html(resultsListTmpl(results))
     $('body').on('click', '.sort-by-in-page a', setSort);
   }
@@ -38,17 +48,17 @@ define(function(require) {
 
   function getNames() {
     var apiUrl = "search?callback=?&perPage=20";
-    if(pageType == "author"){
-      apiUrl += '&author+team+ids=*@' + url.replace("/urn:lsid:ipni.org:authors:", "") + '@*';
+    if(pageType() == "author") {
+      apiUrl += '&author+team+ids=*@' + url.replace("/urn:lsid:ipni.org:authors:", "") + '@*aut*';
       load(apiUrl);
-    }if(pageType == "publication"){
+    } if(pageType() == "publication") {
       apiUrl += '&publication+id=' + url.replace("/", "");
       load(apiUrl);
     }
   }
 
   function load(apiUrl){
-    apiUrl += "&page=" + currentPage;
+    apiUrl += "&page=" + (currentPage - 1);
     apiUrl += "&sort=" + sort;
     $.getJSON(API_BASE + apiUrl , function(data) {
       if(data.results && data.results.length){
@@ -70,7 +80,7 @@ define(function(require) {
         hrefTextPrefix: '',
         currentPage : currentPage,
         onPageClick: function(page, e) {
-          currentPage = page -1;
+          currentPage = page;
           getNames()
           if(e) e.preventDefault();
         }

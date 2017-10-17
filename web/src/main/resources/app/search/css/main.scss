@@ -142,6 +142,13 @@ dd {
   }
 }
 
+.blurb {
+  font-size: .8rem;
+  padding: 1em 0;
+  display: block;
+  clear: both;
+}
+
 .p-search, .p-name, .p-author, .p-publication  {
   .content { @include make-row(); }
 

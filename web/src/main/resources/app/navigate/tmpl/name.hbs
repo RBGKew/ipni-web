@@ -22,7 +22,7 @@
           <dt>Collation</dt><dd>{{referenceCollation}}</dd>
         {{/if}}
         {{#if publicationYearNote}}
-          <dt>Publication Year Note</dt><dd>{{publicationYearNote}}</dd>
+          <dt>Date of Publication</dt><dd>{{publicationYearNote}}</dd>
         {{/if}}
       {{/if}}
 
@@ -131,39 +131,39 @@
     {{#if hasLinks}}
       <h4>Links</h4>
       <dl>
-        {{#if basionym}}
-          <dt>Basionym</dt><dd><a href="{{basionym.[0].url}}" class="name-link">{{fullName basionym.[0]}}</a></dd>
-        {{/if}}
-        {{#if conservedAgainst}}
-          <dt>Conserved Against</dt><dd><a href="{{conservedAgainst.[0].url}}" class="name-link">{{fullName conservedAgainst.[0]}}</a></dd>
-        {{/if}}
-        {{#if correctionOf}}
-          <dt>Correction Of</dt><dd><a href="{{correctionOf.[0].url}}" class="name-link">{{fullName correctionOf.[0]}}</a></dd>
-        {{/if}}
-        {{#if isonymOf}}
-          <dt>Isonym Of</dt><dd><a href="{{isonymOf.[0].url}}" class="name-link">{{fullName isonymOf.[0]}}</a></dd>
-        {{/if}}
-        {{#if laterHomonymOf}}
-          <dt>Later Homonym Of</dt><dd><a href="{{laterHomonymOf.[0].url}}" class="name-link">{{fullName laterHomonymOf.[0]}}</a></dd>
-        {{/if}}
-        {{#if nomenclaturalSynonym}}
-          <dt>Nomenclatural Synonym</dt><dd><a href="{{nomenclaturalSynonym.[0].url}}" class="name-link">{{fullName nomenclaturalSynonym.[0]}}</a></dd>
-        {{/if}}
-        {{#if replacedSynonym}}
-          <dt>Replaced Synonye</dt><dd><a href="{{replacedSynonym.[0].url}}" class="name-link">{{fullName replacedSynonym.[0]}}</a></dd>
-        {{/if}}
-        {{#if sameCitationAs}}
-          <dt>Same Citation As</dt><dd><a href="{{sameCitationAs.[0].url}}" class="name-link">{{fullName sameCitationAs.[0]}}</a></dd>
-        {{/if}}
-        {{#if superfluousNameOf}}
-          <dt>Superfluous Name Of</dt><dd><a href="{{superfluousNameOf.[0].url}}" class="name-link">{{fullName superfluousNameOf.[0]}}</a></dd>
-        {{/if}}
-        {{#if validationOf}}
-          <dt>Validation Of</dt><dd><a href="{{validationOf.[0].url}}" class="name-link">{{fullName validationOf.[0]}}</a></dd>
-        {{/if}}
-        {{#if orthographicVariantOf}}
-          <dt>Orthographic Variant Of</dt><dd><a href="{{orthographicVariantOf.[0].url}}" class="name-link">{{fullName orthographicVariantOf.[0]}}</a></dd>
-        {{/if}}
+        {{#each basionym}}
+          <dt>Basionym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each conservedAgainst}}
+          <dt>Conserved Against</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each correctionOf}}
+          <dt>Correction Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each isonymOf}}
+          <dt>Isonym Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each laterHomonymOf}}
+          <dt>Later Homonym Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each nomenclaturalSynonym}}
+          <dt>Nomenclatural Synonym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each replacedSynonym}}
+          <dt>Replaced Synonym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each sameCitationAs}}
+          <dt>Same Citation As</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each superfluousNameOf}}
+          <dt>Superfluous Name Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each validationOf}}
+          <dt>Validation Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each orthographicVariantOf}}
+          <dt>Orthographic Variant Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
       {{/if}}
       </dl>
   </div>

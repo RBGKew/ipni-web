@@ -178,8 +178,7 @@ public class Name {
 
 	@JsonProperty
 	public boolean hasOriginalData() {
-		return originalBasionym != null
-				|| originalRemarks != null
+		return originalRemarks != null
 				|| originalHybridParentage != null
 				|| originalReplacedSynonym != null
 				|| originalHybridParentage != null
