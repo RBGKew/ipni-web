@@ -89,9 +89,6 @@ public class Loader {
 	@Value("${ipni.publications}")
 	private String PUBLICATIONS_FILE_URL;
 
-	@Value("${powo.ids}")
-	private String UPDATE_FILE_URL;
-
 	@Value("${solr.core1}")
 	private String LIVE_CORE;
 
@@ -115,8 +112,6 @@ public class Loader {
 			loadData(authorsFile);
 			getFile(publicationsFile, PUBLICATIONS_FILE_URL);
 			loadData(publicationsFile);
-			getFile(updateFile, UPDATE_FILE_URL);
-			addPOWOUsage();
 			updateSuggesters();
 			optimizeCore();
 			switchCores();
@@ -193,28 +188,5 @@ public class Loader {
 		buildClient.deleteByQuery("*:*");
 		buildClient.commit();
 		logger.info("Old core cleared");
-	}
-
-	public void addPOWOUsage() throws MalformedURLException, IOException, SolrServerException {
-		logger.info("Updating Solr Data...");
-
-		String IPNI_URI = "urn:lsid:ipni.org:names:";
-		String currentLine;
-
-		Collection<SolrInputDocument> solrDocs = new ArrayList<>();
-
-		try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(updateFile), "UTF8"))) {
-			while ((currentLine = br.readLine()) != null) {
-				SolrInputDocument sdoc = new SolrInputDocument();
-				sdoc.addField("id", currentLine);
-				sdoc.addField("powo_b", Collections.singletonMap("set", true));
-				solrDocs.add(sdoc);
-			}
-		}
-
-		logger.info("updating and commiting docs");
-		buildClient.add(solrDocs);
-		buildClient.commit();
-		logger.info("Data updated");
 	}
 }
