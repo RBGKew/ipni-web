@@ -7,7 +7,8 @@ define(function(require) {
 
     this.navigateTo = function(url, cb) {
       var obj = this;
-      $.getJSON(API_BASE  + url + "?callback=?", function(json) {
+
+      $.getJSON(this.fq(url), function(json) {
         obj.load(json);
         history.pushState({
           class: obj.pageClass,
@@ -31,6 +32,14 @@ define(function(require) {
       if(cb) {
         cb();
       }
+    }
+
+    this.fq = function(url) {
+      if(url.charAt(0) === '/') {
+        url = url.substring(1);
+      }
+
+      return API_BASE + url;
     }
   }
 

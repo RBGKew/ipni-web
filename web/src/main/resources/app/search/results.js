@@ -8,7 +8,7 @@ define(function(require) {
   var resultsTmpl = require('./tmpl/results.hbs');
   var resultsListTmpl = require('./tmpl/results-list.hbs');
   var update = function(state) {
-    $.getJSON(API_BASE + 'search?callback=?&' + state, function(results) {
+    $.getJSON(API_BASE + 'search?' + state, function(results) {
       load(results);
       history.pushState({
         class: 'p-search',

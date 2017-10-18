@@ -60,7 +60,7 @@ define(function(require) {
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: API_BASE + 'suggest?query=%q&callback=?',
+        url: API_BASE + 'suggest?query=%q',
         wildcard: '%q',
         transform: transform,
       }

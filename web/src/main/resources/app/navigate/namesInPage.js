@@ -47,7 +47,7 @@ define(function(require) {
   }
 
   function getNames() {
-    var apiUrl = "search?callback=?&perPage=20";
+    var apiUrl = "search?perPage=20";
     if(pageType() == "author") {
       apiUrl += '&author+team+ids=*@' + url.replace("/urn:lsid:ipni.org:authors:", "") + '@*aut*';
       load(apiUrl);
