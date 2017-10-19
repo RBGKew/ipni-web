@@ -1,7 +1,6 @@
 <div id="c-page-body" class="panel panel-default c-search-results">
   <div class="panel-heading">
-    <div class="header-buttons">
-      <div class="btn-group filter-by">
+      <div class="btn-group filter-by header-buttons">
         <button class="btn btn-xs btn-default disabled" >Filter by:</button>
         <button type="button" class="btn btn-xs btn-default{{highlight f "f_familial"}}" id="f_familial">Familial</button>
         <button type="button" class="btn btn-xs btn-default{{highlight f "f_infrafamilial"}}" id="f_infrafamilial">Infrafamilial</button>
@@ -12,7 +11,7 @@
         <button type="button" class="btn btn-xs btn-default{{highlight f "f_hybrid"}}"  id="f_hybrid"> Hybrid</button>
       </div>
       <div class="pull-right">
-      <div class="btn-group">
+      <div class="btn-group header-buttons">
         <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></button>
         <ul class="sort-by dropdown-menu dropdown-menu-right">
           <li class="{{highlight sort "name_asc"}}"><a id="name_asc" href="#">Name A-Z</a></li>
@@ -21,12 +20,12 @@
           <li class="{{highlight sort "published_desc"}}"><a id="published_desc" href="#">Date Published - Newest first</a></li>
         </ul>
       </div>
-      <button type="button" class="btn btn-xs btn-info show-detailed-record">{{#if expanded}}Collapse{{else}}Expand{{/if}} Results</button>
-      <button type="button" class="btn btn-xs btn-info download">Download <span class="glyphicon glyphicon-download"></button>
+      <button type="button" class="btn btn-xs btn-info show-detailed-record header-buttons">{{#if expanded}}Collapse{{else}}Expand{{/if}} Results</button>
+      <button type="button" class="btn btn-xs btn-info download header-buttons">Download <span class="glyphicon glyphicon-download"></button>
     </div>
-  </div>
-    <button type="button" class="btn expand-menu" data-toggle="collapse" data-target="#menu"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-    <div id="menu" class="collapse">
+    <button type="button" class="btn expand-menu" data-toggle="collapse" data-target="#menu"><span class="glyphicon glyphicon-menu-hamburger pull-right"></span></button>
+    <div id="menu" class="collapse pull-right">
+
       <div class="btn-group filter-by">
         <button class="btn btn-default disabled" >Filter by:</button>
         <button type="button" class="btn  btn-default{{highlight f "f_familial"}}" id="f_familial">Familial</button>
@@ -48,7 +47,6 @@
       </div>
       <button type="button" class="btn btn-info show-detailed-record">{{#if expanded}}Collapse{{else}}Expand{{/if}} Results</button>
       <button type="button" class="btn btn-info download">Download <span class="glyphicon glyphicon-download"></button>
-    </div>
     </div>
     {{totalResults}} results
     <div class="clearfix"></div>
