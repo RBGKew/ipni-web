@@ -51,6 +51,24 @@ dd {
   margin: 0;
 }
 
+.jumbotron {
+  @media (max-width: $screen-sm-min){
+    padding-top: 0px;
+  }
+}
+
+.header-buttons {
+  @media (max-width: $screen-sm-min){
+    display: none;
+  }
+}
+
+.expand-menu {
+  @media (min-width: $screen-sm-min){
+    display: none;
+  }
+}
+
 .title {
   height: 175px;
   display: block;
@@ -58,7 +76,14 @@ dd {
   background-repeat: no-repeat;
   padding-left: 200px;
   padding-top: 55px;
+  @media (max-width: $screen-sm-min) {
+    font-size: 1.5em;
+    background-size: contain;
+    height: auto;
+    padding:6px 0px 6px 85px;
+    background-position: 15px 0;
 
+  }
   a {
     cursor: default;
     color: $text-color;
