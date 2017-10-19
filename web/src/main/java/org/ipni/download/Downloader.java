@@ -13,7 +13,7 @@ import org.ipni.search.QueryBuilder;
 
 public class Downloader {
 
-	private static final int MAX_DOWNLOAD = 5000;
+	private static final int MAX_DOWNLOAD = 10000;
 
 	private Map<String, String> params;
 

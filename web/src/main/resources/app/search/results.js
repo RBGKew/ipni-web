@@ -27,6 +27,16 @@ define(function(require) {
       $('.content').after(resultsTmpl(data));
     }
 
+    if(data.totalResults > 10000) {
+      $('.download').popover({
+        content: 'Downloads are capped at a total of 10,000 records. ' +
+          ' If you need a more comprehensive dataset, please contact us at ' +
+          'ipnifeedback@kew.org',
+          placement: 'bottom',
+          trigger: 'hover',
+      });
+    }
+
     paginate(data);
     filters.refresh();
   }
