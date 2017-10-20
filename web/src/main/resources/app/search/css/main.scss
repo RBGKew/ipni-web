@@ -51,6 +51,14 @@ dd {
   margin: 0;
 }
 
+.c-page-body {
+  @media (max-width: $screen-sm-min){
+    border-radius: 0px;
+    padding-left: -15px;
+    padding-right: -15px;
+  }
+}
+
 .jumbotron {
   @media (max-width: $screen-sm-min){
     padding-top: 0px;

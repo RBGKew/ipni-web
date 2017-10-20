@@ -9,7 +9,9 @@ define(function(require) {
   var resultsListTmpl = require('./tmpl/results-list.hbs');
   var update = function(state) {
     $.getJSON(API_BASE + 'search?' + state, function(results) {
+
       load(results);
+      $('html, body').animate({scrollTop: '0px'}, 100);
       history.pushState({
         class: 'p-search',
         data: results

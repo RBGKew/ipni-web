@@ -10,6 +10,7 @@ define(function(require) {
 
       $.getJSON(this.fq(url), function(json) {
         obj.load(json);
+        $('html, body').animate({scrollTop: '0px'}, 300);
         history.pushState({
           class: obj.pageClass,
           data: json,
