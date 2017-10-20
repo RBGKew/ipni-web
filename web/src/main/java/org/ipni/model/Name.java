@@ -47,7 +47,7 @@ public class Name {
 	private String eastOrWest;
 	private String geographicUnit;
 	private boolean hybrid;
-	private String hybridGenus;
+	private boolean hybridGenus;
 	private List<Name> hybridParents;
 	private String infrafamily;
 	private String infragenus;
@@ -102,7 +102,6 @@ public class Name {
 	@JsonIgnore
 	private Collation collation;
 
-
 	public Name(SolrDocument name) {
 		this.authors = (String) name.getFirstValue(FieldMapping.author.solrField());
 		this.bibliographicReference = (String) name.getFirstValue(FieldMapping.bibliographicReference.solrField());
@@ -115,7 +114,7 @@ public class Name {
 		this.genus = (String) name.getFirstValue(FieldMapping.genus.solrField());
 		this.geographicUnit = (String) name.getFirstValue(FieldMapping.geographicUnit.solrField());
 		this.hybrid = (Boolean) name.getFirstValue(FieldMapping.hybrid.solrField());
-		this.hybridGenus = (String) name.getFirstValue(FieldMapping.hybridGenus.solrField());
+		this.hybridGenus = (Boolean) name.getFirstValue(FieldMapping.hybridGenus.solrField());
 		this.id = (String) name.getFirstValue("id");
 		this.inPowo = (Boolean) name.getFirstValue(FieldMapping.inPowo.solrField());
 		this.infrafamily = (String) name.getFirstValue(FieldMapping.infrafamily.solrField());

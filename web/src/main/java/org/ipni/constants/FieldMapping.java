@@ -28,7 +28,7 @@ public enum FieldMapping {
 	genus("genus", "genus_s_lower"),
 	geographicUnit("geographic unit", "geographic_unit_s_lower"),
 	hybrid("hybrid", "hybrid_b"),
-	hybridGenus("hybrid genus", "hybrid_genus_s_lower"),
+	hybridGenus("hybrid genus", "hybrid_genus_b"),
 	inPowo("in powo", "powo_b"),
 	infrafamily("infrafamily", "infrafamily_s_lower"),
 	infragenus("infragenus", "infragenus_s_lower"),
