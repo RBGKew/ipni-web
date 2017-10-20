@@ -48,7 +48,29 @@ public class NameHelper {
 				name.append(")");
 			}
 
-			name.append(".</small>");
+			if(citation.getNameStatusType() != null || citation.getNameStatusBotCode() != null) {
+				if(name.charAt(name.length() - 1) == '.') {
+					name.setCharAt(name.length() - 1, ',');
+				} else {
+					name.append(",");
+				}
+
+				if(citation.getNameStatusType() != null) {
+					name.append(" ");
+					name.append(citation.getNameStatusType());
+				}
+
+				if(citation.getNameStatusBotCode() != null) {
+					name.append(" ");
+					name.append(citation.getNameStatusBotCode());
+				}
+			}
+
+			if(name.charAt(name.length() - 1) != '.') {
+				name.append('.');
+			}
+
+			name.append("</small>");
 		}
 
 		return new Handlebars.SafeString(name);
@@ -94,10 +116,28 @@ public class NameHelper {
 				name.append(citation.getPublicationYear());
 				name.append(")");
 			}
+		}
 
-			if(name.charAt(name.length() - 1) != '.') {
-				name.append(".");
+		if(citation.getNameStatusType() != null || citation.getNameStatusBotCode() != null) {
+			if(name.charAt(name.length() - 1) == '.') {
+				name.setCharAt(name.length() - 1, ',');
+			} else {
+				name.append(",");
 			}
+
+			if(citation.getNameStatusType() != null) {
+				name.append(" ");
+				name.append(citation.getNameStatusType());
+			}
+
+			if(citation.getNameStatusBotCode() != null) {
+				name.append(" ");
+				name.append(citation.getNameStatusBotCode());
+			}
+		}
+
+		if(name.charAt(name.length() - 1) != '.') {
+			name.append(".");
 		}
 
 		return new Handlebars.SafeString(name);

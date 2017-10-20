@@ -3,7 +3,7 @@
   {{#each this}}
     {{#isType this "citation"}}
     <a href="{{url}}" class="list-group-item result name-link {{#if topCopy}}top-copy{{/if}}">
-      {{fullName this}} <small>{{nameStatusType}} {{nameStatusBotCode}}</small>
+      {{fullName this}}
       {{#if inPowo}}
         <span class="powo label label-success pull-right">POWO</span>
       {{/if}}

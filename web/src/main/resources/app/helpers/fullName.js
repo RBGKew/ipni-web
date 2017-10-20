@@ -25,7 +25,27 @@ module.exports = function(citation) {
       name += ' (' + citation.publicationYear + ')';
     }
 
-     name += ".</small>";
+    if(citation.nameStatusType || citation.nameStatusBotCode) {
+      if(name.endsWith() == '.') {
+        name = name.substring(0, name.length - 1) + ',';
+      } else {
+        name += ',';
+      }
+
+      if(citation.nameStatusType) {
+        name += ' ' + citation.nameStatusType;
+      }
+
+      if(citation.nameStatusBotCode) {
+        name += ' ' + citation.nameStatusBotCode;
+      }
+    }
+
+    if(!name.endsWith('.')) {
+      name += '.';
+    }
+
+    name += "</small>";
   }
 
   return new Handlebars.SafeString(name);

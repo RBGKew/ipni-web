@@ -23,10 +23,26 @@ module.exports = function(citation) {
     if(citation.publicationYear) {
       name += ' (' + citation.publicationYear + ')';
     }
+  }
 
-    if(!_.endsWith(name, '.')) {
-      name += '.';
+  if(citation.nameStatusType || citation.nameStatusBotCode) {
+    if(name.endsWith() == '.') {
+      name = name.substring(0, name.length - 1) + ',';
+    } else {
+      name += ',';
     }
+
+    if(citation.nameStatusType) {
+      name += ' ' + citation.nameStatusType;
+    }
+
+    if(citation.nameStatusBotCode) {
+      name += ' ' + citation.nameStatusBotCode;
+    }
+  }
+
+  if(!name.endsWith('.')) {
+    name += '.';
   }
 
   return new Handlebars.SafeString(name);
