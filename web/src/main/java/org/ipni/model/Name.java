@@ -173,9 +173,7 @@ public class Name {
 		}
 		return null;
 	}
-	
-	
-	
+
 	@JsonProperty
 	public boolean hasTypeData() {
 		return typeName != null
