@@ -1,17 +1,11 @@
 package org.ipni.indexer.loader;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
@@ -21,7 +15,6 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.client.solrj.request.CoreAdminRequest;
-import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.apache.solr.common.util.ContentStreamBase;
 import org.slf4j.Logger;
@@ -33,7 +26,7 @@ import org.tukaani.xz.XZInputStream;
 import com.google.common.collect.ImmutableList;
 
 @Component
-public class Loader {
+public class Loader implements Runnable {
 
 	private static final ModifiableSolrParams params = new ModifiableSolrParams()
 			.add("commit", "true")
@@ -67,7 +60,6 @@ public class Loader {
 			.add("f.detail_author_team_ids.separator", "$")
 			.add("f.detail_species_author_team_ids.split", "true")
 			.add("f.detail_species_author_team_ids.separator", "$");
-	
 
 	private static final List<String> suggesters = ImmutableList.<String>of("scientific-name", "author", "publication");
 
@@ -78,7 +70,6 @@ public class Loader {
 	private File namesFile = new File("/indexNames.csv");
 	private File authorsFile = new File("/indexAuthors.csv");
 	private File publicationsFile = new File("/indexPublications.csv");
-	private File updateFile = new File("/update.csv");
 
 	@Value("${ipni.flat}")
 	private String NAMES_FILE_URL;
@@ -104,7 +95,8 @@ public class Loader {
 		buildClient = new HttpSolrClient.Builder(SOLR_SERVER + BUILD_CORE).build();
 	}
 
-	public void load() {
+	@Override
+	public void run() {
 		try {
 			getFile(namesFile, NAMES_FILE_URL);
 			loadData(namesFile);
