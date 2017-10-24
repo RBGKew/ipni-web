@@ -5,7 +5,7 @@ var showName = require('./showName.js');
 module.exports = function(citation) {
   if(!citation) return;
 
-  var name = "<h2><i>" + showName(citation) + "</i> ";
+  var name = "<h2>" + showName(citation);
 
   if(citation.authors) {
     name += linkify.author(citation);

@@ -4,7 +4,7 @@ var Handlebars = require('handlebars');
 module.exports = function(citation) {
   if(!citation) return;
 
-  var name = "<i>" + showName(citation) + "</i> ";
+  var name = showName(citation);
 
   if(citation.authors) {
     name += citation.authors;

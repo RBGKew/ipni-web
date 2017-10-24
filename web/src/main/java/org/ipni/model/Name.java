@@ -120,7 +120,6 @@ public class Name {
 		this.infrafamily = (String) name.getFirstValue(FieldMapping.infrafamily.solrField());
 		this.infragenus = (String) name.getFirstValue(FieldMapping.infragenus.solrField());
 		this.infraspecies = (String) name.getFirstValue(FieldMapping.infraspecies.solrField());
-		this.infraspecific = (String) name.getFirstValue(FieldMapping.infraspecific.solrField());
 		this.latitudeDegrees = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField()));
 		this.latitudeMinutes = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField()));
 		this.latitudeSeconds = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField()));
