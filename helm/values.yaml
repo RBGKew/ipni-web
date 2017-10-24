@@ -10,9 +10,9 @@ service:
   internalPort: 8080
 indexer:
   repository: eu.gcr.io/powop-1349/ipni/indexer
-  tag: "21a58df"
+  tag: "2f99d9b"
   pullPolicy: Always
-  replicas: 0
+  replicas: 1
 solr:
   cores:
     - ipni_1
