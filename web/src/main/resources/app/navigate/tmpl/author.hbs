@@ -3,7 +3,8 @@
     {{#if hasBhlLinks}}
       <a class="bhl btn btn-xs btn-default pull-right" href="{{bhlPageLinks}}" target="_blank" data-toggle="tooltip" data-placement="left" title="View TL-2 information for this author in BHL">BHL</a>
     {{/if }}
-    <h2> <span class="glyphicon glyphicon-user glyphicon-in-title"></span> {{surname}}, {{forename}} ({{dates}})</h2>
+    <h2><span class="glyphicon glyphicon-user glyphicon-in-title"></span> {{surname}}{{#if forename}}, {{forename}}{{/if}}{{#if dates}} ({{dates}}){{/if}}
+    </h2>
   </div>
 
   <div class="panel-body">
