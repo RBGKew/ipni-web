@@ -81,7 +81,13 @@
           </dd>
         {{/if}}
         {{#if collectorTeam}}
-          <dt>Collector Team</dt><dd>{{collectorTeam}} {{collectorNumber}}</dd>
+          <dt>Collector Team</dt><dd>{{{collectorTeam}}} {{collectionNumber}}</dd>
+        {{/if}}
+        {{#if collectionDate1}}
+          <dt>Collection Date</dt><dd>{{collectionDate1}}</dd>
+        {{/if}}
+        {{#if collectionDate2}}
+            <dt>Second Collection Date</dt><dd>{{collectionDate2}}</dd>
         {{/if}}
         {{#if bibliographicReference}}
           <dt>Type Published in</dt><dd>{{bibliographicReference}}</dd>

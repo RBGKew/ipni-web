@@ -35,10 +35,10 @@ public class Name {
 	private List<Name> basionym;
 	private String bibliographicReference;
 	private String bibliographicTypeInfo;
-	private LocalDate collectionDate1;
-	private LocalDate collectionDate2;
 	private String collectionNumber;
 	private String collectorTeam;
+	private String collectionDate1;
+	private String collectionDate2;
 	private List<Name> conservedAgainst;
 	private List<Name> correctionOf;
 	private LocalDate dateCreated;
@@ -108,6 +108,8 @@ public class Name {
 		this.bibliographicTypeInfo = (String) name.getFirstValue(FieldMapping.bibliographicTypeInfo.solrField());
 		this.collectionNumber = (String) name.getFirstValue(FieldMapping.collectionNumber.solrField());
 		this.collectorTeam = (String) name.getFirstValue(FieldMapping.collectorTeam.solrField());
+		this.collectionDate1 = collectionDate(name, FieldMapping.collectionDay1.solrField(), FieldMapping.collectionMonth1.solrField(), FieldMapping.collectionYear1.solrField());
+		this.collectionDate2 = collectionDate(name, FieldMapping.collectionDay2.solrField(), FieldMapping.collectionMonth2.solrField(), FieldMapping.collectionYear2.solrField());
 		this.distribution = (String) name.getFirstValue(FieldMapping.distribution.solrField());
 		this.eastOrWest = (String) name.getFirstValue(FieldMapping.eastOrWest.solrField());
 		this.family = (String) name.getFirstValue(FieldMapping.family.solrField());
@@ -162,6 +164,18 @@ public class Name {
 		this.collation = new Collation(this.referenceCollation);
 	}
 
+	private String collectionDate(SolrDocument name, String dayField, String monthField, String yearField) {
+		String day = (String) name.getFirstValue(dayField);
+		String month = (String) name.getFirstValue(monthField);
+		String year = (String) name.getFirstValue(yearField);
+		if(day != null && month != null && year != null){
+			return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)).toString();
+		}
+		return null;
+	}
+	
+	
+	
 	@JsonProperty
 	public boolean hasTypeData() {
 		return typeName != null

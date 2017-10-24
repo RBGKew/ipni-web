@@ -8,10 +8,15 @@ define(function(require) {
   var resultsTmpl = require('./tmpl/results.hbs');
   var resultsListTmpl = require('./tmpl/results-list.hbs');
   var update = function(state) {
+    $('.resultsBox').addClass('loadingScreen')
+    $('html, body').animate({scrollTop: '0px'}, 100);
+    $('.totalResults').addClass('hidden');
+    $('.loadingResults').removeClass('hidden');
     $.getJSON(API_BASE + 'search?' + state, function(results) {
-
       load(results);
-      $('html, body').animate({scrollTop: '0px'}, 100);
+      $('resultsBox').removeClass('loadingScreen')
+      $('.totalResults').removeClass('hidden');
+      $('.loadingResults').addClass('hidden');
       history.pushState({
         class: 'p-search',
         data: results
