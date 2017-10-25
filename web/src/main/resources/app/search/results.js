@@ -8,13 +8,20 @@ define(function(require) {
   var resultsTmpl = require('./tmpl/results.hbs');
   var resultsListTmpl = require('./tmpl/results-list.hbs');
   var update = function(state) {
-    $('.results').addClass('loadingScreen')
     $('html, body').animate({scrollTop: '0px'}, 100);
-    $('.totalResults').addClass('hidden');
-    $('.loadingResults').removeClass('hidden');
+
+    var indicateProgress = _.debounce(function() {
+      $('.totalResults').addClass('hidden');
+      $('.loadingResults').removeClass('hidden');
+      $('.results').addClass('obscured')
+    }, 100);
+    indicateProgress();
+
     $.getJSON(API_BASE + 'search?' + state, function(results) {
+      indicateProgress.cancel();
+
       load(results);
-      $('results').removeClass('loadingScreen')
+      $('results').removeClass('obscured')
       $('.totalResults').removeClass('hidden');
       $('.loadingResults').addClass('hidden');
       history.pushState({
