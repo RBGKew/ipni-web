@@ -47,12 +47,23 @@ define(function(require) {
         ret.push({
           value: suggester === suggesters[0] ? val : suggester + ":" + val,
           display: val,
-          category: suggester,
+          category: suggesterToGlyphicon(suggester),
         });
       }
     });
 
     return ret;
+  }
+
+  function suggesterToGlyphicon(category) {
+    switch(category) {
+      case 'scientific-name':
+        return '';
+      case 'author':
+        return 'glyphicon-user';
+      case 'publication':
+        return 'glyphicon-book';
+    }
   }
 
   var initialize = function(initial) {
