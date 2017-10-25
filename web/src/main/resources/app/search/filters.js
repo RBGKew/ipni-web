@@ -80,6 +80,7 @@ define(function(require) {
 
     tokenfield = $('#search').tokenfield({
       tokens: initial,
+      allowPasting: false,
       typeahead: [
         {
           hint: false,
