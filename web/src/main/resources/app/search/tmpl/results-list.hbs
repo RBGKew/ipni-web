@@ -1,6 +1,6 @@
-{{#with results}}
+{{#if results}}
 <div class="list-group results">
-  {{#each this}}
+  {{#each results}}
     {{#isType this "citation"}}
     <a href="{{url}}" class="list-group-item result name-link {{#if topCopy}}top-copy{{/if}}">
       {{fullName this}}
@@ -34,4 +34,6 @@
     {{/isType}}
   {{/each}}
 </div>
-{{/with}}
+{{else}}
+  <div class="no-results">No results. Please try a different search.</div>
+{{/if}}
