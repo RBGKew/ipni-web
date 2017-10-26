@@ -83,6 +83,7 @@ public class Name {
 	private String publicationId;
 	private String recordType;
 	private String reference;
+	private String referenceRemarks;
 	private String remarks;
 	private List<Name> replacedSynonym;
 	private List<Name> sameCitationAs;
@@ -152,6 +153,7 @@ public class Name {
 		this.recordType = "citation";
 		this.reference = (String) name.getFirstValue(FieldMapping.reference.solrField());
 		this.remarks = CleanUtil.stripThingsInBrackets((String) name.getFirstValue(FieldMapping.remarks.solrField()));
+		this.referenceRemarks = CleanUtil.stripLeadingPunctuation((String) name.getFirstValue(FieldMapping.referenceRemarks.solrField()));
 		this.species = (String) name.getFirstValue(FieldMapping.species.solrField());
 		this.speciesAuthor = (String) name.getFirstValue(FieldMapping.speciesAuthor.solrField());
 		this.suppressed = (Boolean) name.get(FieldMapping.suppressed.solrField());
@@ -172,6 +174,11 @@ public class Name {
 			return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)).toString();
 		}
 		return null;
+	}
+
+	@JsonProperty
+	public boolean hasNomenclaturalNotes() {
+		return nameStatus != null || referenceRemarks != null;
 	}
 
 	@JsonProperty

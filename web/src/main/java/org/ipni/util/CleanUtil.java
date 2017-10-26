@@ -32,4 +32,9 @@ public class CleanUtil {
 		if(str == null) return null;
 		return str.replaceAll("\\[.*\\]", "");
 	}
+
+	public static String stripLeadingPunctuation(String str) {
+		if(str == null) return null;
+		return str.replaceFirst("[,.;]", "");
+	}
 }

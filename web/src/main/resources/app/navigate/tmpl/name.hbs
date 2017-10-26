@@ -130,11 +130,10 @@
       </dl>
     {{/if}}
 
-    {{#if nameStatus}}
+    {{#if hasNomenclaturalNotes}}
       <h4>Nomeclatural Notes</h4>
-      <dl>
-        <dt>Name Status</dt><dd>{{nameStatus}}</dd>
-      </dl>
+      {{#if nameStatus}}<p>Status: {{nameStatus}}</p>{{/if}}
+      {{#if referenceRemarks}}<p>{{referenceRemarks}}</p>{{/if}}
     {{/if}}
 
     {{#if remarks}}
