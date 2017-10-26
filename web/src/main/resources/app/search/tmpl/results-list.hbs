@@ -16,7 +16,7 @@
     {{#isType this "author"}}
     <a href="{{url}}" class="list-group-item result author-link top-copy">
       <span class="glyphicon glyphicon-user"></span>
-      {{surname}}, {{forename}} ({{standardForm}})
+      {{standardForm}} &ndash; {{forename}} {{surname}} {{#if dates}}({{dates}}){{/if}}
       {{#if hasBhlLinks}}
         <span class="bhl label label-primary pull-right">BHL</span>
       {{/if }}
