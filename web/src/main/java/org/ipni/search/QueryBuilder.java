@@ -44,6 +44,7 @@ public class QueryBuilder {
 	private static final DefaultQuery defaultQuery = new DefaultQuery();
 	private static final RangeFilterQuery rangeQuery = new RangeFilterQuery();
 	private static final RangeFilterQuery dateRangeQuery = new DateRangeFilterQuery();
+	private static final IDQuery idQuery = new IDQuery();
 
 	private static final Map<String, QueryOption> queryMappings = new ImmutableMap.Builder<String, QueryOption>()
 			.put("any", new MultiFieldQuery(mainQueryFields))
@@ -59,6 +60,9 @@ public class QueryBuilder {
 			.put("added after", dateRangeQuery)
 			.put("modified before", dateRangeQuery)
 			.put("modified after", dateRangeQuery)
+			.put("name id", idQuery)
+			.put("author id", idQuery)
+			.put("publication id", idQuery)
 			.put("f", new FilterQuery())
 			.build();
 
