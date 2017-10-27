@@ -81,6 +81,8 @@ dd {
   display: inline-block;
 }
 
+
+
 .title {
   height: 175px;
   display: block;
@@ -272,6 +274,10 @@ dd {
 
 .obscured {
   opacity: .4;
+}
+
+.invisible {
+  opacity: 0
 }
 
 #c-page-body {

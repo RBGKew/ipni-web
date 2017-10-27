@@ -14,6 +14,8 @@ define(function(require) {
     // populate results based on existing query string
     if(window.location.pathname === '/' && window.location.search.length > 1) {
       filters.deserialize(window.location.search);
+    }else{
+      $('body').removeClass('invisible')
     }
 
     $('.c-search')

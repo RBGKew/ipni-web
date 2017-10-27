@@ -9,7 +9,11 @@ define(function(require) {
   var resultsListTmpl = require('./tmpl/results-list.hbs');
   var update = function(state) {
     $('html, body').animate({scrollTop: '0px'}, 100);
-
+    if(!$('#c-page-body').length) {
+      $('.content').after(resultsTmpl());
+      $('.no-results').addClass('hidden')
+    }
+    $('body').removeClass('invisible')
     var indicateProgress = _.debounce(function() {
       $('.totalResults').addClass('hidden');
       $('.loadingResults').removeClass('hidden');
@@ -57,6 +61,10 @@ define(function(require) {
 
   var downloadResults = function(e) {
     window.location = '/api/1/download?' + filters.serialize();
+  }
+
+  var loadResultBar = function() {
+    $('.content').after(resultsTmpl());
   }
 
   var initialize = function(initialToken) {
@@ -136,5 +144,6 @@ define(function(require) {
     initialize: initialize,
     load: load,
     update: update,
+    loadResultBar: loadResultBar,
   };
 });
