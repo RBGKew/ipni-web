@@ -23,11 +23,7 @@ define(function(require) {
 
     $.getJSON(API_BASE + 'search?' + state, function(results) {
       indicateProgress.cancel();
-
       load(results);
-      $('results').removeClass('obscured')
-      $('.totalResults').removeClass('hidden');
-      $('.loadingResults').addClass('hidden');
       history.pushState({
         class: 'p-search',
         data: results
@@ -44,7 +40,9 @@ define(function(require) {
     } else {
       $('.content').after(resultsTmpl(data));
     }
-
+    $('.results').removeClass('obscured')
+    $('.totalResults').removeClass('hidden');
+    $('.loadingResults').addClass('hidden');
     if(data.totalResults > 10000) {
       $('.download').popover({
         content: 'Downloads are capped at a total of 10,000 records. ' +
