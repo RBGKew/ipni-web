@@ -22,6 +22,7 @@ public class Author {
 	private String dates;
 	private String examples;
 	private String forename;
+	private String fqId;
 	private String id;
 	private String isoCountries;
 	private String notes;
@@ -45,7 +46,8 @@ public class Author {
 		this.dates = (String) author.get(FieldMapping.authorDates.solrField());
 		this.examples = (String) author.get(FieldMapping.authorExampleOfNamePublished.solrField());
 		this.forename = (String) author.get(FieldMapping.authorForename.solrField());
-		this.id = IdUtil.idPart((String) author.getFirstValue("id"));
+		this.fqId = (String) author.getFirstValue("id");
+		this.id = IdUtil.idPart(fqId);
 		this.isoCountries =  (String) author.getFirstValue(FieldMapping.authorIsoCountries.solrField());
 		this.notes = (String) author.get(FieldMapping.authorNameNotes.solrField());
 		this.recordType = "author";

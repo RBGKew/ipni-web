@@ -25,6 +25,7 @@ public class Publication {
 	private String abbreviation;
 	private String bphNumber;
 	private String date;
+	private String fqId;
 	private String id;
 	private String isbn;
 	private String issn;
@@ -50,7 +51,8 @@ public class Publication {
 		this.abbreviation = (String) publication.get(FieldMapping.abbreviation.solrField());
 		this.bphNumber = (String) publication.get(FieldMapping.bphNumber.solrField());
 		this.date = (String) publication.get(FieldMapping.date.solrField());
-		this.id = IdUtil.idPart((String) publication.getFirstValue("id"));
+		this.fqId = (String) publication.getFirstValue("id");
+		this.id = IdUtil.idPart(fqId);
 		this.isbn = (String) publication.get(FieldMapping.isbn.solrField());
 		this.issn = (String) publication.get(FieldMapping.issn.solrField());
 		this.lcNumber = (String) publication.get(FieldMapping.lcNumber.solrField());

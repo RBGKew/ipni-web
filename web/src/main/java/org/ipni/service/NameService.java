@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Functions;
-
 import org.slf4j.Logger;
 
 @Service
@@ -119,7 +118,7 @@ public class NameService {
 		return solr.getById(relatedIds).stream()
 				.filter(doc -> IdUtil.isNameId(doc.getFieldValue("id").toString()))
 				.map(Name::new)
-				.collect(Collectors.toMap(Name::getId, Functions.identity()));
+				.collect(Collectors.toMap(Name::getFqId, Functions.identity()));
 	}
 
 }
