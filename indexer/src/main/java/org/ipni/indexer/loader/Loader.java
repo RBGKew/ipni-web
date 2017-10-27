@@ -55,7 +55,7 @@ public class Loader implements Runnable {
 			.add("f.detail_taxon_groups_flat.split", "true")
 			.add("f.detail_taxon_groups_flat.separator", ",")
 			.add("f.detail_alternative_names.split", "true")
-			.add("f.detail_alternative_names.separator", ",")
+			.add("f.detail_alternative_names.separator", ";")
 			.add("f.detail_author_team_ids.split", "true")
 			.add("f.detail_author_team_ids.separator", "$")
 			.add("f.detail_species_author_team_ids.split", "true")

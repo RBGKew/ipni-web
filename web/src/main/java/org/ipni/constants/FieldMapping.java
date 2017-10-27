@@ -97,7 +97,7 @@ public enum FieldMapping {
 
 	// Author fields
 	authorAlternativeAbbreviations("alternative abbreviations","alternative_abbreviations_s_lower"),
-	authorAlternativeNames("detail alternative names","detail_alternative_names_s_lower"),
+	authorAlternativeNames("detail alternative names","detail_alternative_names"),
 	authorComments("comments","comments_s_lower"),
 	authorDates("dates","dates_s_lower"),
 	authorExampleOfNamePublished("example of name published","example_of_name_published_s_lower"),
