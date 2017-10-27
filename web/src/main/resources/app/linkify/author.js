@@ -2,7 +2,7 @@ var _ = require('lodash/fp');
 
 var link = function(author) {
   if(!_.isEmpty(author.id)) {
-    return '<a href="/' + author.fullyQualifiedId + '" class="author-link">' + author.name + '</a>';
+    return '<a href="' + author.url + '" class="author-link">' + author.name + '</a>';
   } else {
     return author.name;
   }

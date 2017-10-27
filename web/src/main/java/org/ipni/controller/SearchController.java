@@ -56,17 +56,17 @@ public class SearchController {
 		return new ResponseEntity<SuggesterResponse>(suggestions.load(query), HttpStatus.OK);
 	}
 
-	@GetMapping("urn:lsid:ipni.org:names:{id}")
+	@GetMapping(path = {"urn:lsid:ipni.org:names:{id}", "n/{id}"})
 	public ResponseEntity<Name> getName(@PathVariable String id) throws SolrServerException, IOException {
 		return new ResponseEntity<Name>(names.load(id), HttpStatus.OK);
 	}
 
-	@GetMapping("urn:lsid:ipni.org:authors:{id}")
+	@GetMapping(path = {"urn:lsid:ipni.org:authors:{id}", "a/{id}"})
 	public ResponseEntity<Author> getAuthor(@PathVariable String id) throws SolrServerException, IOException {
 		return new ResponseEntity<Author>(authors.load(id), HttpStatus.OK);
 	}
 
-	@GetMapping("urn:lsid:ipni.org:publications:{id}")
+	@GetMapping(path = {"urn:lsid:ipni.org:publications:{id}", "p/{id}"})
 	public ResponseEntity<Publication> getPublication(@PathVariable String id) throws SolrServerException, IOException {
 		return new ResponseEntity<Publication>(publications.load(id), HttpStatus.OK);
 	}

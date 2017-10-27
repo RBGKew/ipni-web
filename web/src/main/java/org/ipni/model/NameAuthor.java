@@ -31,11 +31,11 @@ public class NameAuthor {
 		type = token[3];
 	}
 
-	public String getFullyQualifiedId() {
+	public String getUrl() {
 		if(id == null) {
 			return null;
 		} else {
-			return "urn:lsid:ipni.org:authors:" + id;
+			return "/a/" + id;
 		}
 	}
 

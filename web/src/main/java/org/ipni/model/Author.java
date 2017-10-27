@@ -2,6 +2,8 @@ package org.ipni.model;
 
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
+import org.ipni.util.IdUtil;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -43,7 +45,7 @@ public class Author {
 		this.dates = (String) author.get(FieldMapping.authorDates.solrField());
 		this.examples = (String) author.get(FieldMapping.authorExampleOfNamePublished.solrField());
 		this.forename = (String) author.get(FieldMapping.authorForename.solrField());
-		this.id = (String) author.getFirstValue("id");
+		this.id = IdUtil.idPart((String) author.getFirstValue("id"));
 		this.isoCountries =  (String) author.getFirstValue(FieldMapping.authorIsoCountries.solrField());
 		this.notes = (String) author.get(FieldMapping.authorNameNotes.solrField());
 		this.recordType = "author";
@@ -51,7 +53,7 @@ public class Author {
 		this.standardForm = (String) author.get(FieldMapping.authorStandardForm.solrField());
 		this.surname = (String) author.get(FieldMapping.authorSurname.solrField());
 		this.taxonGroups = (String) author.getFirstValue(FieldMapping.authorTaxonGroups.solrField());
-		this.url = "/" + id;
+		this.url = "/a/" + id;
 		this.version = (String) author.get(FieldMapping.version.solrField());
 		this.bhlPageIds = BHLHelper.extractPageIds(rawComments);
 	}

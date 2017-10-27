@@ -68,7 +68,7 @@ public enum FieldMapping {
 	primaryPagination("primary pagination", "primary_pagination_s_lower"),
 	publication("published in", "publication_s_lower"),
 	publicationAuthor("publication author", "publication_author_s_lower"),
-	publicationId("publication id", "lookup_publication_id"),
+	publicationId("published in id", "lookup_publication_id"),
 	publicationYearFull("publication year full", "publication_year_full_s_lower"),
 	publicationYearNote("publication year note", "publication_year_note_s_lower"),
 	publicationYearText("publication year text", "publication_year_text_s_lower"),

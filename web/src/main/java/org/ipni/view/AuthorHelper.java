@@ -15,7 +15,7 @@ public class AuthorHelper {
 
 	private String link(NameAuthor author) {
 		if(author.getId() != null) {
-			return "<a href=\"/" + author.getFullyQualifiedId() + "\" class=\"author-link\">" + author.getName() + "</a>";
+			return "<a href=\"" + author.getUrl() + "\" class=\"author-link\">" + author.getName() + "</a>";
 		} else {
 			return author.getName();
 		}

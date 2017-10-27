@@ -18,6 +18,11 @@ public class IdUtil {
 		return fq(id, Type.Publications);
 	}
 
+	public static String idPart(String id) {
+		if(id == null) return null;
+		return id.startsWith(urnPrefix) ? id.replaceAll(".*:", "") : id;
+	}
+
 	public static boolean isAuthorId(String id) {
 		return id.startsWith(fq("", Type.Authors));
 	}

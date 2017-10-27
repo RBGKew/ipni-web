@@ -29,6 +29,7 @@ module.exports = (env = {}) => {
 
     output: {
       path: path.resolve(__dirname, 'static'),
+      publicPath: '/',
       filename: '[name].[chunkhash].js',
     },
 

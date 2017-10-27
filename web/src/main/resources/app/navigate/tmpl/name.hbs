@@ -11,7 +11,7 @@
 
   <div class="panel-body">
     <dl>
-      <dt>Ipni ID</dt><dd>{{id}}</dd>
+      <dt>Ipni ID</dt><dd>{{fqId}}</dd>
       {{#if infraspecies }}
         {{#each parent }}
           <dt>Species Name</dt>
@@ -22,7 +22,7 @@
       {{/if}}
       {{#if publication}}
         {{#if linkedPublication}}
-          <dt>Publication</dt><dd><a href="/{{linkedPublication.id}}" class="publication-link">{{linkedPublication.title}}</a></dd>
+          <dt>Publication</dt><dd><a href="{{linkedPublication.url}}" class="publication-link">{{linkedPublication.title}}</a></dd>
         {{else}}
           <dt>Publication</dt><dd>{{publication}}</dd>
         {{/if}}

@@ -49,10 +49,10 @@ define(function(require) {
   function getNames() {
     var apiUrl = "search?perPage=20";
     if(pageType() == "author") {
-      apiUrl += '&author+team+ids=*@' + url.replace("/urn:lsid:ipni.org:authors:", "") + '@*aut*';
+      apiUrl += '&author+team+ids=*@' + url.replace("/a/", "") + '@*aut*';
       load(apiUrl);
     } if(pageType() == "publication") {
-      apiUrl += '&publication+id=' + url.replace("/", "");
+      apiUrl += '&published+in+id=' + url.replace("/p/", "urn:lsid:ipni.org:publications:");
       load(apiUrl);
     }
   }

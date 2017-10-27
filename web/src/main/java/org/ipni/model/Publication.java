@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
+import org.ipni.util.IdUtil;
 import org.ipni.view.BHLHelper;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -49,7 +50,7 @@ public class Publication {
 		this.abbreviation = (String) publication.get(FieldMapping.abbreviation.solrField());
 		this.bphNumber = (String) publication.get(FieldMapping.bphNumber.solrField());
 		this.date = (String) publication.get(FieldMapping.date.solrField());
-		this.id = (String) publication.getFirstValue("id");
+		this.id = IdUtil.idPart((String) publication.getFirstValue("id"));
 		this.isbn = (String) publication.get(FieldMapping.isbn.solrField());
 		this.issn = (String) publication.get(FieldMapping.issn.solrField());
 		this.lcNumber = (String) publication.get(FieldMapping.lcNumber.solrField());
@@ -62,7 +63,7 @@ public class Publication {
 		this.title = (String) publication.get(FieldMapping.title.solrField());
 		this.tl2Author = (String) publication.get(FieldMapping.tl2Author.solrField());
 		this.tl2Number = (String) publication.get(FieldMapping.tl2Number.solrField());
-		this.url = "/" + id;
+		this.url = "/p/" + id;
 		this.version = (String) publication.get(FieldMapping.version.solrField());
 		this.bhlPageIds = BHLHelper.extractPageIds(rawRemarks);
 		this.bhlTitleIds = BHLHelper.extractTitleIds(rawRemarks);

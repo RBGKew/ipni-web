@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
 import org.ipni.util.CleanUtil;
+import org.ipni.util.IdUtil;
 import org.ipni.view.BHLHelper;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -100,6 +101,7 @@ public class Name {
 	private List<Name> parent;
 	private List<Name> orthographicVariantOf;
 	private String id;
+	private String fqId;
 	@JsonIgnore
 	private Collation collation;
 
@@ -118,7 +120,8 @@ public class Name {
 		this.geographicUnit = (String) name.getFirstValue(FieldMapping.geographicUnit.solrField());
 		this.hybrid = (Boolean) name.getFirstValue(FieldMapping.hybrid.solrField());
 		this.hybridGenus = (Boolean) name.getFirstValue(FieldMapping.hybridGenus.solrField());
-		this.id = (String) name.getFirstValue("id");
+		this.fqId = (String) name.getFirstValue("id");
+		this.id = IdUtil.idPart(fqId);
 		this.inPowo = (Boolean) name.getFirstValue(FieldMapping.inPowo.solrField());
 		this.infrafamily = (String) name.getFirstValue(FieldMapping.infrafamily.solrField());
 		this.infragenus = (String) name.getFirstValue(FieldMapping.infragenus.solrField());
@@ -147,7 +150,7 @@ public class Name {
 		this.publication = (String) name.getFirstValue(FieldMapping.publication.solrField());
 		this.publicationYear = (Integer) name.getFirstValue(FieldMapping.yearPublished.solrField());
 		this.publicationYearNote = CleanUtil.stripBrackets((String) name.getFirstValue(FieldMapping.publicationYearNote.solrField()));
-		this.publicationId = (String) name.getFirstValue(FieldMapping.publicationId.solrField());
+		this.publicationId = IdUtil.idPart((String) name.getFirstValue(FieldMapping.publicationId.solrField()));
 		this.referenceCollation = (String) name.getFirstValue(FieldMapping.referenceCollation.solrField());
 		this.rank = (String) name.getFirstValue(FieldMapping.rank.solrField());
 		this.recordType = "citation";
@@ -161,7 +164,7 @@ public class Name {
 		this.typeLocations = (String) name.getFirstValue(FieldMapping.typeLocations.solrField());
 		this.typeName = (String) name.getFirstValue(FieldMapping.typeName.solrField());
 		this.typeRemarks = (String) name.getFirstValue(FieldMapping.typeRemarks.solrField());
-		this.url = "/" + id;
+		this.url = "/n/" + id;
 		this.version = (String) name.getFirstValue(FieldMapping.version.solrField());
 		this.collation = new Collation(this.referenceCollation);
 	}

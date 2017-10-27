@@ -29,9 +29,9 @@ public class AuthorHelperTest extends AbstractHelperTest {
 	@Test
 	public void buildLinkedAuthorString() throws IOException {
 		Name name = Name.builder().authorTeam(team).build();
-		String expected = "(<a href=\"/urn:lsid:ipni.org:authors:14556-1\" class=\"author-link\">Z.R.Wang</a>) "
-				+ "<a href=\"/urn:lsid:ipni.org:authors:13738-1\" class=\"author-link\">W.M.Chu</a> & <a href=\"/urn:lsid:ipni.org:authors:14556-1\" class=\"author-link\">Z.R.Wang</a> "
-				+ "ex <a href=\"/urn:lsid:ipni.org:authors:14980-1\" class=\"author-link\">P.S.Wang</a> & X.Y.Wang";
+		String expected = "(<a href=\"/a/14556-1\" class=\"author-link\">Z.R.Wang</a>) "
+				+ "<a href=\"/a/13738-1\" class=\"author-link\">W.M.Chu</a> & <a href=\"/a/14556-1\" class=\"author-link\">Z.R.Wang</a> "
+				+ "ex <a href=\"/a/14980-1\" class=\"author-link\">P.S.Wang</a> & X.Y.Wang";
 
 		shouldCompileTo("{{linkAuthor}}", name, expected);
 	}
