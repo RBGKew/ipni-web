@@ -109,6 +109,7 @@ public enum FieldMapping {
 	authorStandardForm("author std","standard_form_s_lower"),
 	authorSurname("author surname","author_surname_s_lower"),
 	authorTaxonGroups("detail taxon groups flat","detail_taxon_groups_flat"),
+	authorDateType("author date type", "date_type_string_s_lower"),
 
 	// Publication fieldsabbreviation("abbreviation","abbreviation_s_lower"),
 	abbreviation("publication std","abbreviation_s_lower"),

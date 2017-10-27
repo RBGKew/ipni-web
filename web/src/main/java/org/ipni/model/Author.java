@@ -48,7 +48,7 @@ public class Author {
 		this.alternativeNames = formatAlternateNames(author.getFieldValues(FieldMapping.authorAlternativeNames.solrField()));
 		String rawComments = (String) author.get(FieldMapping.authorComments.solrField());
 		this.comments = BHLHelper.stripBhlMarkers(rawComments);
-		this.dates = (String) author.get(FieldMapping.authorDates.solrField());
+		this.dates = formatDates(author);
 		this.examples = (String) author.get(FieldMapping.authorExampleOfNamePublished.solrField());
 		this.forename = (String) author.get(FieldMapping.authorForename.solrField());
 		this.fqId = (String) author.getFirstValue("id");
@@ -63,6 +63,18 @@ public class Author {
 		this.url = "/a/" + id;
 		this.version = (String) author.get(FieldMapping.version.solrField());
 		this.bhlPageIds = BHLHelper.extractPageIds(rawComments);
+	}
+
+	private String formatDates(SolrDocument author) {
+		String dates = (String) author.get(FieldMapping.authorDates.solrField());
+		String dateType = (String) author.get(FieldMapping.authorDateType.solrField());
+		if(dates == null) return null;
+		if(dateType == null) return dates;
+		if(dateType.equals("FLOURISHED") && !dates.contains("fl.")) {
+			dates = "fl. " + dates;
+		}
+
+		return dates;
 	}
 
 	private String formatAlternateNames(Collection<Object> fieldValues) {
