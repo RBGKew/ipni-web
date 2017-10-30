@@ -94,6 +94,7 @@ CREATE OR REPLACE VIEW ipni_web AS
     replace(ipni_flat_joined.author_team_ids, '"', '') AS detail_author_team_ids,
     replace(ipni_flat_joined.species_author_team_ids, '"', '') AS detail_species_author_team_ids,
     replace(ipni_flat_joined.page_as_text, '"', '') AS page_as_text_s_lower,
+    replace(ipni_flat_joined.citation_type, '"', '') AS citation_type_s_lower,
     ipni_flat_joined.validation_of_id AS lookup_validation_of_id,
     ipni_flat_joined.version AS version_s_lower,
     CASE
