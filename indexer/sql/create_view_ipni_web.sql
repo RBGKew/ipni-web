@@ -100,7 +100,8 @@ CREATE OR REPLACE VIEW ipni_web AS
     CASE
         WHEN ipni_ids_in_powo.id IS NOT NULL THEN true
         ELSE false
-    END AS powo_b    
+    END AS powo_b,
+    replace(coalesce(ipni_flat_joined.family,null,'')||coalesce(ipni_flat_joined.infra_family,null,'')||coalesce(ipni_flat_joined.genus,null,'')||coalesce(ipni_flat_joined.infra_genus,null,'')||coalesce(ipni_flat_joined.species,null,'')||coalesce(ipni_flat_joined.infraspecies,null,''), '"', '') AS sortable
    FROM ipni_flat_joined
    LEFT JOIN ipni_ids_in_powo ON ipni_flat_joined.id = ipni_ids_in_powo.id
   ORDER BY ipni_flat_joined.id;
