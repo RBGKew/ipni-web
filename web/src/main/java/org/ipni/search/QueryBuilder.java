@@ -34,6 +34,7 @@ public class QueryBuilder {
 
 	private static final ImmutableSet<String> mainQueryFields = new ImmutableSet.Builder<String>()
 			.add(scientificName.solrField())
+			.add(family.solrField())
 			.add(author.solrField())
 			.add(publication.solrField())
 			.addAll(publicationQueryFields)
