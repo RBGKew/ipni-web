@@ -47,7 +47,7 @@ dd {
 
 .vertically-centred {
   min-height: 100%;
-  min-height: 100vh;
+  min-height: 95vh;
   margin: 0;
 }
 
@@ -81,7 +81,14 @@ dd {
   display: inline-block;
 }
 
+.footer {
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+}
 
+.static {
+}
 
 .title {
   height: 175px;
@@ -188,7 +195,7 @@ dd {
   clear: both;
 }
 
-.p-search, .p-name, .p-author, .p-publication  {
+.p-search, .p-name, .p-author, .p-publication, .p-contact  {
   .content { @include make-row(); }
 
   .blurb { display: none };

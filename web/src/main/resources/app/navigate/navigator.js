@@ -33,7 +33,7 @@ define(function(require) {
       if(cb) {
         cb();
       }
-    }
+    };
 
     this.fq = function(url) {
       if(url.charAt(0) === '/') {
@@ -42,7 +42,24 @@ define(function(require) {
 
       return API_BASE + url;
     }
+
+    this.staticNavigateTo = function(url){
+      $('html, body').animate({scrollTop: '0px'}, 300);
+
+      history.pushState({
+        class: this.pageClass,
+      }, null, url)
+      $('.container').removeClass(this.pageClasses).addClass(this.pageClass);
+      if($('#c-page-body').length) {
+        $('#c-page-body').replaceWith(this.tmpl());
+      } else {
+        $('.content').after(this.tmpl());
+      }
+
+    }
+
   }
+
 
   return Navigator;
 });

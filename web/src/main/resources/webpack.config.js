@@ -111,9 +111,11 @@ module.exports = (env = {}) => {
       new HtmlWebpackPlugin({ template: 'app/author.html', filename: 'author.hbs' }),
       new HtmlWebpackPlugin({ template: 'app/name.html', filename: 'name.hbs' }),
       new HtmlWebpackPlugin({ template: 'app/publication.html', filename: 'publication.hbs' }),
+      new HtmlWebpackPlugin({ template: 'app/static.html', filename: 'static.hbs' }),
       new CopyWebpackPlugin([
         { from: '**/tmpl/*.hbs', context: 'app' },
-        { from: 'app/gtm.hbs' }
+        { from: 'app/gtm.hbs' },
+        { from: 'app/footer.hbs' }
       ]),
     ],
 
