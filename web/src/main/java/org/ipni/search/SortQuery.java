@@ -11,20 +11,10 @@ public class SortQuery extends QueryOption {
 	public void addQueryOption(String key, String value, SolrQuery query) {
 		switch(value){
 		case "name_asc":
-			query.setSort(family.solrField(), ORDER.asc)
-					.addSort(infrafamily.solrField(), ORDER.asc)
-					.addSort(genus.solrField(), ORDER.asc)
-					.addSort(infragenus.solrField(), ORDER.asc)
-					.addSort(species.solrField(), ORDER.asc)
-					.addSort(infraspecies.solrField(), ORDER.asc);
+			query.setSort("sortable", ORDER.asc);
 			break;
 		case "name_desc":
-			query.setSort(family.solrField(), ORDER.desc)
-					.addSort(infrafamily.solrField(), ORDER.desc)
-					.addSort(genus.solrField(), ORDER.desc)
-					.addSort(infragenus.solrField(), ORDER.desc)
-					.addSort(species.solrField(), ORDER.desc)
-					.addSort(infraspecies.solrField(), ORDER.desc);
+			query.setSort("sortable", ORDER.desc);
 			break;
 		case "published_asc":
 			query.setSort(yearPublished.solrField(), ORDER.asc);

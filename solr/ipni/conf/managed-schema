@@ -2,14 +2,6 @@
 <!-- Solr managed schema - automatically generated - DO NOT EDIT -->
 <schema name="example-data-driven-schema" version="1.6">
   <uniqueKey>id</uniqueKey>
-  <fieldType name="alphaOnlySort" class="solr.TextField" omitNorms="true" sortMissingLast="true">
-    <analyzer>
-      <tokenizer class="solr.KeywordTokenizerFactory"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.PatternReplaceFilterFactory" pattern="([^a-z])" replace="all" replacement=""/>
-      <filter class="solr.TrimFilterFactory"/>
-    </analyzer>
-  </fieldType>
   <fieldType name="alphanumeric_string" class="solr.TextField" positionIncrementGap="100" multiValued="false">
     <analyzer>
       <tokenizer class="solr.KeywordTokenizerFactory"/>
@@ -464,7 +456,7 @@
   <field name="_version_" type="long" indexed="false" stored="false"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
   <field name="lookup_all" type="string" multiValued="true" indexed="true" stored="true"/>
-  <field name="sortable" type="alphaOnlySort" indexed="true" stored="false"/>
+  <field name="sortable" type="string" />
   <dynamicField name="*_txt_en_split_tight" type="text_en_splitting_tight" indexed="true" stored="true"/>
   <dynamicField name="*_descendent_path" type="descendent_path" indexed="true" stored="true"/>
   <dynamicField name="*_ancestor_path" type="ancestor_path" indexed="true" stored="true"/>
@@ -553,7 +545,6 @@
   <dynamicField name="*_d" type="double" indexed="true" stored="true"/>
   <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
   <dynamicField name="*_c" type="currency" indexed="true" stored="true"/>
-  <copyField source="taxon_scientific_name_s_lower" dest="sortable"/>
   <copyField source="lookup_*" dest="lookup_all"/>
   <copyField source="*" dest="_text_"/>
 </schema>
