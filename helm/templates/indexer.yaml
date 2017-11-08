@@ -17,5 +17,5 @@ spec:
     spec:
       containers:
         - name: indexer
-          image: "{{ .Values.indexer.repository }}:{{ .Values.indexer.tag }}"
+          image: {{ .Values.indexer.repository }}:{{ .Values.indexer.tag }}
           imagePullPolicy: {{ .Values.indexer.pullPolicy }}

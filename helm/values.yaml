@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: eu.gcr.io/powop-1349/ipni/app
-  tag: "21a58df"
+  tag: "3213841"
   pullPolicy: Always
 service:
   name: ipni
@@ -10,7 +10,7 @@ service:
   internalPort: 8080
 indexer:
   repository: eu.gcr.io/powop-1349/ipni/indexer
-  tag: "2f99d9b"
+  tag: "3213841"
   pullPolicy: Always
   replicas: 1
 solr:
@@ -19,7 +19,7 @@ solr:
     - ipni_2
   image:
     repository: eu.gcr.io/powop-1349/ipni/solr
-    tag: "21a58df"
+    tag: "3213841"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious 
