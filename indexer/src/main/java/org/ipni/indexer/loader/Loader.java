@@ -67,10 +67,6 @@ public class Loader implements Runnable {
 	private SolrClient buildClient;
 	private Logger logger = LoggerFactory.getLogger(Loader.class);
 
-	private File namesFile = new File("/indexNames.csv");
-	private File authorsFile = new File("/indexAuthors.csv");
-	private File publicationsFile = new File("/indexPublications.csv");
-
 	@Value("${ipni.flat}")
 	private String NAMES_FILE_URL;
 
@@ -89,6 +85,12 @@ public class Loader implements Runnable {
 	@Value("${solr.url}")
 	private String SOLR_SERVER;
 
+	@Value("${ipni.stats.names_published}")
+	private String STATS_NAMES_PUBLISHED;
+
+	@Value("${ipni.stats.record_activity}")
+	private String STATS_RECORD_ACTIVITY;
+
 	@PostConstruct
 	public void initializeSolrClients() {
 		adminClient = new HttpSolrClient.Builder(SOLR_SERVER).build();
@@ -98,19 +100,39 @@ public class Loader implements Runnable {
 	@Override
 	public void run() {
 		try {
-			getFile(namesFile, NAMES_FILE_URL);
+			File namesFile = getFile(NAMES_FILE_URL);
+			File authorsFile = getFile(AUTHORS_FILE_URL);
+			File publicationsFile = getFile(PUBLICATIONS_FILE_URL);
+			File statsPublishedFile = getFile(STATS_NAMES_PUBLISHED);
+			File statsActivityFile = getFile(STATS_RECORD_ACTIVITY);
+
 			loadData(namesFile);
-			getFile(authorsFile, AUTHORS_FILE_URL);
 			loadData(authorsFile);
-			getFile(publicationsFile, PUBLICATIONS_FILE_URL);
 			loadData(publicationsFile);
+			loadStats(statsPublishedFile, statsActivityFile);
+
 			updateSuggesters();
 			optimizeCore();
 			switchCores();
 			clearCore();
+
+			namesFile.delete();
+			authorsFile.delete();
+			publicationsFile.delete();
+			statsPublishedFile.delete();
+			statsActivityFile.delete();
 		} catch (SolrServerException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void loadStats(File statsPublishedFile, File statsActivityFile) throws SolrServerException, IOException {
+		StatsLoader loader = new StatsLoader(statsPublishedFile, statsActivityFile);
+		logger.info("Loading stats data");
+		buildClient.add(loader.getNamesPublishedStats());
+		buildClient.add(loader.getRecordActivityStats());
+		logger.info("Commiting stats data");
+		buildClient.commit();
 	}
 
 	private void optimizeCore() {
@@ -140,12 +162,8 @@ public class Loader implements Runnable {
 		}
 	}
 
-	public void getFile(File file, String filePathUrl) throws MalformedURLException, IOException {
-		logger.info("Getting {}..", filePathUrl);
-
-		if (file.exists()) {
-			file.delete();
-		}
+	public File getFile(String filePathUrl) throws MalformedURLException, IOException {
+		File file = File.createTempFile(filePathUrl, null);
 
 		try(BufferedInputStream in = new BufferedInputStream(new URL(filePathUrl).openStream());
 				XZInputStream unzip = new XZInputStream(in);
@@ -156,17 +174,19 @@ public class Loader implements Runnable {
 				out.write(buffer, 0, n);
 			}
 		}
+
+		return file;
 	}
 
 	public void loadData(File indexFile) throws MalformedURLException, IOException, SolrServerException {
-		logger.info("Loading Data into {}...", BUILD_CORE);
+		logger.info("Loading {} into {}...", indexFile.getName(), BUILD_CORE);
 		ContentStreamBase.FileStream stream = new ContentStreamBase.FileStream(indexFile);
 		stream.setContentType("application/csv");
 		ContentStreamUpdateRequest request = new ContentStreamUpdateRequest("/" + BUILD_CORE + "/update");
 		request.setParams(params);
 		request.addContentStream(stream);
 		adminClient.request(request);
-		logger.info("Data loaded");
+		logger.info("{} loaded", indexFile.getName());
 	}
 
 	public void switchCores() throws SolrServerException, IOException {
