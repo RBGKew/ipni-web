@@ -1,0 +1,54 @@
+<h4>Records {{action}}</h4>
+In <select id="{{id}}">
+  {{#each years}}
+  <option value="{{this}}" {{selected this ../current}}>{{this}}</option>
+  {{/each}}
+</select>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Jan</th>
+      <th>Feb</th>
+      <th>March</th>
+      <th>April</th>
+      <th>May</th>
+      <th>June</th>
+      <th>July</th>
+      <th>Aug</th>
+      <th>Sept</th>
+      <th>Oct</th>
+      <th>Nov</th>
+      <th>Dec</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each data}}
+    <tr>
+      <th scope="row">{{@key}}</th>
+      {{#each this}}
+      <td>{{this}}</td>
+      {{/each}}
+      <td>{{lookup ../totals @key}}</td>
+    </tr>
+    {{/each}}
+    <tr>
+      <th>Total</th>
+      <td>{{ lookup totals 0 }}</td>
+      <td>{{ lookup totals 1 }}</td>
+      <td>{{ lookup totals 2 }}</td>
+      <td>{{ lookup totals 3 }}</td>
+      <td>{{ lookup totals 4 }}</td>
+      <td>{{ lookup totals 5 }}</td>
+      <td>{{ lookup totals 6 }}</td>
+      <td>{{ lookup totals 7 }}</td>
+      <td>{{ lookup totals 8 }}</td>
+      <td>{{ lookup totals 9 }}</td>
+      <td>{{ lookup totals 10 }}</td>
+      <td>{{ lookup totals 11 }}</td>
+      <td>{{ totals.total }}</th>
+    </tr>
+  </tbody>
+</table>
+
