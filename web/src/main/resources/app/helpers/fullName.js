@@ -7,7 +7,7 @@ module.exports = function(citation) {
   var name = showName(citation);
 
   if(citation.authors) {
-    name += citation.authors;
+    name += ' ' + citation.authors;
   }
 
   if(citation.publication || citation.referenceCollation || citation.publicationYear) {

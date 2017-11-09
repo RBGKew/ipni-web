@@ -101,7 +101,7 @@ public class NameHelper {
 		if(citation == null) return null;
 
 		if(citation.getName() != null) {
-			String formatted = "<i>" + citation.getName() + "</i> ";
+			String formatted = "<i>" + citation.getName() + "</i>";
 			// It's too complicated trying to reconstruct a full name from the data we have from ipni flat,
 			// so we just look for the rank part of a name string and de-italicise it
 			for(String rank : ranks) {
@@ -125,6 +125,7 @@ public class NameHelper {
 		name.append(showName(citation));
 
 		if(citation.getAuthors() != null) {
+			name.append(" ");
 			name.append(citation.getAuthors());
 		}
 
@@ -164,8 +165,8 @@ public class NameHelper {
 				}
 			}
 
-			if(name.charAt(name.length() - 1) != '.') {
-				name.append('.');
+			if(name.charAt(name.length() - 1) != '.' && name.lastIndexOf("</h2>") != name.length() - 5) {
+				name.append(".");
 			}
 
 			name.append("</small>");
@@ -183,6 +184,7 @@ public class NameHelper {
 
 		if(citation.getAuthors() != null) {
 			AuthorHelper authorHelper = new AuthorHelper();
+			name.append(" ");
 			name.append(authorHelper.linkAuthor(citation));
 		}
 
@@ -192,7 +194,7 @@ public class NameHelper {
 			name.append(", ");
 			if(citation.getPublication() != null) {
 				if(citation.getPublicationId() != null) {
-					name.append("<a href=\"/");
+					name.append("<a href=\"/p/");
 					name.append(citation.getPublicationId());
 					name.append("\" class=\"publication-link\">");
 					name.append(citation.getPublication());
@@ -233,7 +235,7 @@ public class NameHelper {
 			}
 		}
 
-		if(name.charAt(name.length() - 1) != '.') {
+		if(name.charAt(name.length() - 1) != '.' && name.lastIndexOf("</h2>") != name.length() - 5) {
 			name.append(".");
 		}
 

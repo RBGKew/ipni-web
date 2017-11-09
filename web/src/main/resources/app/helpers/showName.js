@@ -91,7 +91,7 @@ var ranks = [
 
 module.exports = function(citation) {
   if(citation.name) {
-    var formatted = '<i>' + citation.name + '</i> ';
+    var formatted = '<i>' + citation.name + '</i>';
     _.each(ranks, function(rank) {
       if(formatted.indexOf(rank) !== -1) {
         formatted = formatted.replace(rank + ' ', '</i> ' + rank + ' <i>');
@@ -105,7 +105,7 @@ module.exports = function(citation) {
 
     return formatted;
   } else {
-    return '<i>' + citation.family + '</i> ';
+    return '<i>' + citation.family + '</i>';
   }
 };
 

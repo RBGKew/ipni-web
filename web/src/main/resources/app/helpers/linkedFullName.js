@@ -8,7 +8,7 @@ module.exports = function(citation) {
   var name = "<h2>" + showName(citation);
 
   if(citation.authors) {
-    name += linkify.author(citation);
+    name += ' ' + linkify.author(citation);
   }
 
   name += '</h2>';
@@ -41,7 +41,7 @@ module.exports = function(citation) {
     }
   }
 
-  if(!name.endsWith('.')) {
+  if(!name.endsWith('.') && !name.endsWith('</h2>')) {
     name += '.';
   }
 
