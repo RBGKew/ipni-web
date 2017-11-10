@@ -118,7 +118,7 @@ public class NameService {
 		return solr.getById(relatedIds).stream()
 				.filter(doc -> IdUtil.isNameId(doc.getFieldValue("id").toString()))
 				.map(Name::new)
-				.collect(Collectors.toMap(Name::getFqId, Functions.identity()));
+				.collect(Collectors.toMap(Name::getFqId, Functions.identity(), (a,b) -> a));
 	}
 
 }
