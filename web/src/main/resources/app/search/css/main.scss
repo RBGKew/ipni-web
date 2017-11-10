@@ -8,6 +8,11 @@
 @import 'search/css/tokenfield-typeahead.scss';
 @import 'search/css/bootstrap-tokenfield.scss';
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
   background-color: #eee;
 }
@@ -21,8 +26,8 @@ dd {
   padding-bottom: 5px;
 }
 .c-search-results {
+  margin-bottom: 5em;
   .panel {
-    margin-bottom: 0px;
     border: 0;
     border-top: inherit;
   }
@@ -82,9 +87,12 @@ dd {
 }
 
 .footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   height: 60px;
-  line-height: 60px;
   width: 100%;
+  overflow:hidden;
 }
 
 .static {
@@ -195,7 +203,7 @@ dd {
   clear: both;
 }
 
-.p-search, .p-name, .p-author, .p-publication, .p-contact  {
+.p-search, .p-name, .p-author, .p-publication, .p-static  {
   .content { @include make-row(); }
 
   .blurb { display: none };
