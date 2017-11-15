@@ -11,6 +11,7 @@ define(function(require) {
   var staticNavigator = require('./staticNavigator');
   var namesInPage = require('./namesInPage');
   var crossref = require('../crossref');
+  var statistics = require('../stats/index')
 
   function showNameDetail(e) {
     e.preventDefault();
@@ -37,11 +38,15 @@ define(function(require) {
     e.preventDefault();
     var link = $(this).attr('href');
     if(window.location.pathname != link){
-      staticNavigator.navigateTo(link);
+      if(link == "/statistics"){
+        staticNavigator.navigateTo(link, statistics.initialize);
+      }
+      else{
+        staticNavigator.navigateTo(link);
+      }
       filters.clear();
     }
   }
-
 
   function initialize() {
     window.onpopstate = function(event) {
@@ -66,12 +71,17 @@ define(function(require) {
             filters.clear();
             break;
           case 'p-static':
-           staticNavigator.load(window.location.pathname)
-           filters.clear();
-           break;
+            if(window.location.pathname == "/statistics"){
+              staticNavigator.navigateTo(window.location.pathname, statistics.initialize);
+            }
+            else{
+              staticNavigator.navigateTo(link);
+            }
+            filters.clear();
+            break;
           default:
-              window.location.reload(true);
-              break;
+            window.location.reload(true);
+            break;
         }
       }
     };
@@ -80,8 +90,7 @@ define(function(require) {
       .on('click', '.name-link', showNameDetail)
       .on('click', '.author-link', showAuthorDetail)
       .on('click', '.publication-link', showPublicationDetail)
-      .on('click', '.contact-link', showStatic)
-      .on('click', '.help-link', showStatic);
+      .on('click', '.static-link', showStatic);
 
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     namesInPage.initialize();

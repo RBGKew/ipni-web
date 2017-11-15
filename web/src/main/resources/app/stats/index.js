@@ -94,7 +94,7 @@ define(function(require) {
     }
   }
 
-  $(document).ready(function() {
+  var initialize = function() {
     published(currentYear);
     added(currentYear);
     updated(currentYear);
@@ -103,5 +103,13 @@ define(function(require) {
       .on('change', '#npi-year', show(published))
       .on('change', '#record-additions', show(added))
       .on('change', '#record-updates', show(updated));
+  }
+
+  $(document).ready(function() {
+    initialize()
   });
-})
+
+  return {
+    initialize: initialize,
+  };
+});

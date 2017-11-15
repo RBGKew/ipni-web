@@ -26,7 +26,6 @@ dd {
   padding-bottom: 5px;
 }
 .c-search-results {
-  margin-bottom: 5em;
   .panel {
     border: 0;
     border-top: inherit;
@@ -87,12 +86,16 @@ dd {
 }
 
 .footer {
+  padding-top: 3em;
   position: absolute;
   left: 0;
   bottom: 0;
   height: 60px;
   width: 100%;
   overflow:hidden;
+  a {
+    padding-right: 15px;
+  }
 }
 
 .static {

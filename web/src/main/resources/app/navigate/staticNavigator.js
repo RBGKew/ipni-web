@@ -6,7 +6,7 @@ define(function(require) {
     return _.filter(classes.split(' '), startsWith('p-')).toString();
   }
 
-  function load(url) {
+  function load(url, cb) {
     $('.container').removeClass(pageClasses).addClass('p-static');
     template = staticPages('./' + stripSlash(url) + '.hbs');
     if($('#c-page-body').length) {
@@ -16,15 +16,18 @@ define(function(require) {
       $('#jumbotron').removeClass('jumbotron');
       $('.content').after(template);
     }
+    if(cb) {
+      cb();
+    }
   }
 
-  function navigateTo(url) {
+  function navigateTo(url, cb) {
     $('html, body').animate({scrollTop: '0px'}, 300);
     history.pushState({
       class: 'p-static',
     }, null, url)
 
-    load(url)
+    load(url, cb)
   }
 
   function stripSlash(url) {
