@@ -34,6 +34,7 @@ public class Name {
 	private String species;
 	private String infraspecific;
 	private List<Name> basionym;
+	private List<Name> basionymOf;
 	private String bibliographicReference;
 	private String bibliographicTypeInfo;
 	private String collectionNumber;
@@ -41,7 +42,9 @@ public class Name {
 	private String collectionDate1;
 	private String collectionDate2;
 	private List<Name> conservedAgainst;
+	private List<Name> rejectedInFavorOf;
 	private List<Name> correctionOf;
+	private List<Name> correctedBy;
 	private LocalDate dateCreated;
 	private LocalDate dateLastModified;
 	private String distribution;
@@ -53,9 +56,11 @@ public class Name {
 	private String infrafamily;
 	private String infragenus;
 	private String infraspecies;
+	private List<Name> isonym;
 	private List<Name> isonymOf;
 	private boolean inPowo;
 	private List<Name> laterHomonymOf;
+	private List<Name> hasLaterHomonym;
 	private String latitudeDegrees;
 	private String latitudeMinutes;
 	private String latitudeSeconds;
@@ -88,8 +93,10 @@ public class Name {
 	private String remarks;
 	private List<Name> replacedSynonym;
 	private List<Name> sameCitationAs;
+	private List<Name> duplicateCitationOf;
 	private String speciesAuthor;
 	private List<Name> superfluousNameOf;
+	private List<Name> hasSuperfluousName;
 	private boolean suppressed;
 	private boolean topCopy;
 	private Name type;
@@ -97,9 +104,12 @@ public class Name {
 	private String typeName;
 	private String typeRemarks;
 	private List<Name> validationOf;
+	private List<Name> validatedBy;
 	private String version;
 	private List<Name> parent;
+	private List<Name> child;
 	private List<Name> orthographicVariantOf;
+	private List<Name> hasOrthographicVariant;
 	private String id;
 	private String fqId;
 	@JsonIgnore

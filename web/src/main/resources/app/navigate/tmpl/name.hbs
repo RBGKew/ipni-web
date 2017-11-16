@@ -150,35 +150,59 @@
         {{#each basionym}}
           <dt>Basionym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
+        {{#each basionymOf}}
+          <dt>Basionym of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
         {{#each conservedAgainst}}
-          <dt>Conserved Against</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Conserved against</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each rejectedInFavorOf}}
+          <dt>Rejected in favor of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each correctionOf}}
-          <dt>Correction Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Correction of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each correctedBy}}
+          <dt>Corrected by</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each isonymOf}}
-          <dt>Isonym Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Isonym of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each laterHomonymOf}}
-          <dt>Later Homonym Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Later homonym of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each hasLaterHomonym}}
+          <dt>Has later homonym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each nomenclaturalSynonym}}
-          <dt>Nomenclatural Synonym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Nomenclatural synonym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each replacedSynonym}}
-          <dt>Replaced Synonym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Replaced synonym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each sameCitationAs}}
-          <dt>Same Citation As</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Same citation as</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each duplicateCitationOf}}
+          <dt>Duplicate citation of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each superfluousNameOf}}
-          <dt>Superfluous Name Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Superfluous name of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each hasSuperfluousName}}
+          <dt>Has superfluous name</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each validationOf}}
-          <dt>Validation Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Validation of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each validatedBy}}
+          <dt>Validated by</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
         {{#each orthographicVariantOf}}
-          <dt>Orthographic Variant Of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+          <dt>Orthographic variant of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each hasOrthographicVariant}}
+          <dt>Has orthographic variant</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
       {{/if}}
       </dl>

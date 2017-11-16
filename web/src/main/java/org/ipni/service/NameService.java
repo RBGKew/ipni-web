@@ -10,10 +10,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.ipni.constants.FieldMapping;
+import org.ipni.constants.LinkType;
 import org.ipni.model.Name;
 import org.ipni.model.NameAuthor;
 import org.ipni.util.IdUtil;
@@ -35,6 +38,7 @@ public class NameService {
 	@Autowired
 	private PublicationService publications;
 
+
 	public Name load(String id, FieldMapping... fields) throws SolrServerException, IOException {
 		if(id == null) {
 			return null;
@@ -42,27 +46,25 @@ public class NameService {
 
 		id = IdUtil.fqName(id);
 
-		String fieldList = Arrays.asList(fields).stream()
-				.map(FieldMapping::solrField)
-				.collect(Collectors.joining(","));
+		String fieldList = Arrays.asList(fields).stream().map(FieldMapping::solrField).collect(Collectors.joining(","));
 		ModifiableSolrParams params = new ModifiableSolrParams().add("fl", fieldList);
 		SolrDocument result = solr.getById(id, params);
 		Name name = new Name(result);
 		Map<String, Name> relatedNames = getRelatedNames(result);
+		Map<String, List<Name>> inboundLinks = getInboundNames(result);
 
-		name.setBasionym(lookup(result.getFieldValues("lookup_basionym_id"), relatedNames));
-		name.setConservedAgainst(lookup(result.getFieldValues("lookup_conserved_against_id"), relatedNames));
-		name.setCorrectionOf(lookup(result.getFieldValues("lookup_correction_of_id"), relatedNames));
-		name.setHybridParents(lookup(result.getFieldValues("lookup_hybrid_parent_id"), relatedNames));
-		name.setIsonymOf(lookup(result.getFieldValues("lookup_isonym_of_id"), relatedNames));
-		name.setLaterHomonymOf(lookup(result.getFieldValues("lookup_later_homonym_of_id"), relatedNames));
-		name.setNomenclaturalSynonym(lookup(result.getFieldValues("lookup_nomenclatural_synonym_id"), relatedNames));
-		name.setReplacedSynonym(lookup(result.getFieldValues("lookup_replaced_synonym_id"), relatedNames));
-		name.setSameCitationAs(lookup(result.getFieldValues("lookup_same_citation_as_id"), relatedNames));
-		name.setSuperfluousNameOf(lookup(result.getFieldValues("lookup_superfluous_name_of_id"), relatedNames));
-		name.setValidationOf(lookup(result.getFieldValues("lookup_validation_of_id"), relatedNames));
-		name.setParent(lookup(result.getFieldValues("lookup_parent_id"), relatedNames));
-		name.setOrthographicVariantOf(lookup(result.getFieldValues("lookup_orthographic_variant_of_id"), relatedNames));
+		for(LinkType link : LinkType.values()) {
+			link.getForwardSetter()
+			.andThen((n, l) -> logger.debug("Setting: {} = {}", link.getForwardField(), l))
+			.accept(name, lookup(result.getFieldValues(link.getForwardField()), relatedNames));
+
+			if(inboundLinks.containsKey(link.getReverseField())) {
+				link.getReverseSetter()
+				.andThen((n, l) -> logger.debug("Setting: {} = {}", link.getReverseField(), l))
+				.accept(name, inboundLinks.get(link.getReverseField()));
+			}
+		}
+
 		name.setAuthorTeam(parseAuthorTeam(result));
 		name.setLinkedPublication(publications.load((String)result.getFirstValue("lookup_publication_id")));
 
@@ -95,7 +97,7 @@ public class NameService {
 				.collect(Collectors.toList());
 	}
 
-	private List<String> getRelatedIds(SolrDocument result) {
+	private List<String> getOutboundIds(SolrDocument result) {
 		if(!result.getFieldNames().stream().anyMatch(name -> name.startsWith("lookup_"))) {
 			logger.debug("No lookup_* fields found");
 			return new ArrayList<>();
@@ -109,13 +111,41 @@ public class NameService {
 				.collect(Collectors.toList());
 	}
 
+	private Map<String, List<Name>> getInboundNames(SolrDocument result) throws SolrServerException, IOException {
+		SolrQuery q = new SolrQuery();
+		String inboundId = IdUtil.idPart((String)result.getFieldValue("id"));
+		q.setQuery("lookup_all:" + inboundId);
+		SolrDocumentList results = solr.query(q).getResults();
+		Map<String, List<Name>> mapping = new HashMap<>();
+
+		for(SolrDocument res : results) {
+			Name nameResult = new Name(res);
+			for(LinkType link : LinkType.values()) {
+				Collection<Object> ids = res.getFieldValues(link.getForwardField());
+				if(ids != null && ids.stream().anyMatch(id -> id.toString().equals(inboundId))) {
+					logger.debug("found {} in {}", inboundId, ids);
+
+					if(!mapping.containsKey(link.getReverseField())) {
+						mapping.put(link.getReverseField(), new ArrayList<>());
+					}
+
+					mapping.get(link.getReverseField()).add(nameResult);
+				}
+			}
+		}
+
+		logger.debug("Inbound names: {}", mapping);
+
+		return mapping;
+	}
+
 	private Map<String, Name> getRelatedNames(SolrDocument result) throws SolrServerException, IOException {
-		List<String> relatedIds = getRelatedIds(result);
-		if(relatedIds.isEmpty()) {
+		List<String> outboundIds = getOutboundIds(result);
+		if(outboundIds.isEmpty()) {
 			return new HashMap<>();
 		}
 
-		return solr.getById(relatedIds).stream()
+		return solr.getById(outboundIds).stream()
 				.filter(doc -> IdUtil.isNameId(doc.getFieldValue("id").toString()))
 				.map(Name::new)
 				.collect(Collectors.toMap(Name::getFqId, Functions.identity(), (a,b) -> a));
