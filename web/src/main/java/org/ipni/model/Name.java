@@ -2,6 +2,7 @@ package org.ipni.model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.solr.common.SolrDocument;
 import org.ipni.constants.FieldMapping;
@@ -118,6 +119,7 @@ public class Name {
 
 	public Name(SolrDocument name) {
 		this.authors = (String) name.getFirstValue(FieldMapping.author.solrField());
+		this.authorTeam = parseAuthorTeam(name);
 		this.bibliographicReference = (String) name.getFirstValue(FieldMapping.bibliographicReference.solrField());
 		this.bibliographicTypeInfo = (String) name.getFirstValue(FieldMapping.bibliographicTypeInfo.solrField());
 		this.collectionNumber = (String) name.getFirstValue(FieldMapping.collectionNumber.solrField());
@@ -190,6 +192,17 @@ public class Name {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	private List<NameAuthor> parseAuthorTeam(SolrDocument name) {
+		if(name.get("detail_author_team_ids") == null) {
+			return null;
+		}
+
+		return ((List<String>) name.get("detail_author_team_ids")).stream()
+				.map(NameAuthor::new)
+				.collect(Collectors.toList());
+	}
+	
 	@JsonProperty
 	public boolean hasNomenclaturalNotes() {
 		return nameStatus != null || referenceRemarks != null;

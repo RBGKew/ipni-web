@@ -94,11 +94,12 @@ dd {
   width: 100%;
   overflow:hidden;
   a {
-    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 
-.static {
+.panel {
+  margin-bottom: 0px;
 }
 
 .title {

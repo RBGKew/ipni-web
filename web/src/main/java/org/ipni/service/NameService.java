@@ -65,7 +65,6 @@ public class NameService {
 			}
 		}
 
-		name.setAuthorTeam(parseAuthorTeam(result));
 		name.setLinkedPublication(publications.load((String)result.getFirstValue("lookup_publication_id")));
 
 		return name;
@@ -86,16 +85,7 @@ public class NameService {
 				.collect(Collectors.toList());
 	}
 
-	@SuppressWarnings("unchecked")
-	private List<NameAuthor> parseAuthorTeam(SolrDocument result) {
-		if(result.get("detail_author_team_ids") == null) {
-			return null;
-		}
 
-		return ((List<String>) result.get("detail_author_team_ids")).stream()
-				.map(NameAuthor::new)
-				.collect(Collectors.toList());
-	}
 
 	private List<String> getOutboundIds(SolrDocument result) {
 		if(!result.getFieldNames().stream().anyMatch(name -> name.startsWith("lookup_"))) {
