@@ -92,6 +92,7 @@ public class Name {
 	private String referenceRemarks;
 	private String remarks;
 	private List<Name> replacedSynonym;
+	private List<Name> replacedSynonymOf;
 	private List<Name> sameCitationAs;
 	private List<Name> duplicateCitationOf;
 	private String speciesAuthor;

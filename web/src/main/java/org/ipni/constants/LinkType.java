@@ -69,9 +69,9 @@ public enum LinkType {
 	ReplacedSynonym("lookup_replaced_synonym_id",
 			"replaced_synonym_of_id",
 			Name::setReplacedSynonym,
-			Name::setReplacedSynonym,
+			Name::setReplacedSynonymOf,
 			Name::getReplacedSynonym,
-			Name::getReplacedSynonym),
+			Name::getReplacedSynonymOf),
 
 	SameCitation("lookup_same_citation_as_id",
 			"duplicate_citation_of_id",

@@ -180,6 +180,9 @@
         {{#each replacedSynonym}}
           <dt>Replaced synonym</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
+        {{#each replacedSynonymOf}}
+          <dt>Replaced synonym of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
         {{#each sameCitationAs}}
           <dt>Same citation as</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
