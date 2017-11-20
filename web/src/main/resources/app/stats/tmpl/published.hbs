@@ -5,42 +5,44 @@ In <select id="npi-year">
   <option value="{{this}}" {{selected this ../current}}>{{this}}</option>
   {{/each}}
 </select>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Infraspecific</th>
-      <th>Specific</th>
-      <th>Infrageneric</th>
-      <th>Generic</th>
-      <th>Infrafamilial</th>
-      <th>Familial</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each data}}
-    <tr>
-      <th scope="row">{{@key}}</th>
-      <td>{{#if infraspecific}}{{infraspecific}}{{else}}-{{/if}}</td>
-      <td>{{#if specific}}{{specific}}{{else}}-{{/if}}</td>
-      <td>{{#if infrageneric}}{{infrageneric}}{{else}}-{{/if}}</td>
-      <td>{{#if generic}}{{generic}}{{else}}-{{/if}}</td>
-      <td>{{#if infrafamilial}}{{infrafamilial}}{{else}}-{{/if}}</td>
-      <td>{{#if familial}}{{familial}}{{else}}-{{/if}}</td>
-      <td>{{lookup ../totals @key}}</td>
-    </tr>
-    {{/each}}
-    <tr>
-      <th scope="row">Total</th>
-      <td>{{#if totals.infraspecific}}{{totals.infraspecific}}{{else}}-{{/if}}</td>
-      <td>{{#if totals.specific}}{{totals.specific}}{{else}}-{{/if}}</td>
-      <td>{{#if totals.infrageneric}}{{totals.infrageneric}}{{else}}-{{/if}}</td>
-      <td>{{#if totals.generic}}{{totals.generic}}{{else}}-{{/if}}</td>
-      <td>{{#if totals.infrafamilial}}{{totals.infrafamilial}}{{else}}-{{/if}}</td>
-      <td>{{#if totals.familial}}{{totals.familial}}{{else}}-{{/if}}</td>
-      <td>{{totals.total}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Infraspecific</th>
+        <th>Specific</th>
+        <th>Infrageneric</th>
+        <th>Generic</th>
+        <th>Infrafamilial</th>
+        <th>Familial</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+      <tr>
+        <th scope="row">{{@key}}</th>
+        <td>{{#if infraspecific}}{{infraspecific}}{{else}}-{{/if}}</td>
+        <td>{{#if specific}}{{specific}}{{else}}-{{/if}}</td>
+        <td>{{#if infrageneric}}{{infrageneric}}{{else}}-{{/if}}</td>
+        <td>{{#if generic}}{{generic}}{{else}}-{{/if}}</td>
+        <td>{{#if infrafamilial}}{{infrafamilial}}{{else}}-{{/if}}</td>
+        <td>{{#if familial}}{{familial}}{{else}}-{{/if}}</td>
+        <td>{{lookup ../totals @key}}</td>
+      </tr>
+      {{/each}}
+      <tr>
+        <th scope="row">Total</th>
+        <td>{{#if totals.infraspecific}}{{totals.infraspecific}}{{else}}-{{/if}}</td>
+        <td>{{#if totals.specific}}{{totals.specific}}{{else}}-{{/if}}</td>
+        <td>{{#if totals.infrageneric}}{{totals.infrageneric}}{{else}}-{{/if}}</td>
+        <td>{{#if totals.generic}}{{totals.generic}}{{else}}-{{/if}}</td>
+        <td>{{#if totals.infrafamilial}}{{totals.infrafamilial}}{{else}}-{{/if}}</td>
+        <td>{{#if totals.familial}}{{totals.familial}}{{else}}-{{/if}}</td>
+        <td>{{totals.total}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 </section>
