@@ -196,6 +196,11 @@ dd {
 
   .dropdown-menu {
     width: 730px;
+    right: 0;
+    @media (max-width: $screen-xs-min) {
+      width: 100vw;
+      right: -15px;
+    }
   }
 }
 
