@@ -43,6 +43,8 @@ define(function(require) {
     $('.results').removeClass('obscured')
     $('.totalResults').removeClass('hidden');
     $('.loadingResults').addClass('hidden');
+    $('.show-full-record').removeClass('hidden');
+    //unhides the links to the full record when on the search page
     if(data.totalResults > 10000) {
       $('.download').popover({
         content: 'Downloads are capped at a total of 10,000 records. ' +
