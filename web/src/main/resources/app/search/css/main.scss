@@ -9,8 +9,8 @@
 @import 'search/css/bootstrap-tokenfield.scss';
 
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
@@ -86,13 +86,7 @@ dd {
 }
 
 .footer {
-  padding-top: 3em;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 60px;
-  width: 100%;
-  overflow:hidden;
+  padding: 15px 0;
   a {
     padding-left: 15px;
   }
@@ -109,14 +103,15 @@ dd {
   background-repeat: no-repeat;
   padding-left: 200px;
   padding-top: 55px;
+
   @media (max-width: $screen-sm-min) {
     font-size: 1.5em;
     background-size: contain;
     height: auto;
     padding:6px 0px 6px 85px;
     background-position: 15px 0;
-
   }
+
   a {
     cursor: default;
     color: $text-color;

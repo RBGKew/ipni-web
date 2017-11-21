@@ -1,5 +1,5 @@
-{{#with results}}
-  {{#each this}}
+{{#if results}}
+  {{#each results}}
     {{#isType this "citation"}}
       {{> ../navigate/tmpl/name}}
     {{/isType}}
@@ -10,4 +10,6 @@
       {{> ../navigate/tmpl/publication}}
     {{/isType}}
   {{/each}}
-{{/with}}
+{{else}}
+  <div class="no-results">No results. Please try a different search.</div>
+{{/if}}
