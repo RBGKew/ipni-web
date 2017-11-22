@@ -32,10 +32,10 @@ before_install:
   - gcloud components install kubectl
   - gcloud auth activate-service-account deployer@ipni-1867.iam.gserviceaccount.com --key-file ipni-deployer-sa.json
   - gcloud config set project ipni-1867
-  - gcloud config set container/cluster powop-dev
+  - gcloud config set container/cluster ipni-beta
   - gcloud config set compute/region europe-west1-d
   - gcloud config set compute/zone europe-west1-d
-  - gcloud container clusters get-credentials powop-dev
+  - gcloud container clusters get-credentials ipni-beta
 # download and set up helm
   - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
   - helm init --client-only
