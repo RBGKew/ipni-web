@@ -17,6 +17,7 @@ module.exports = (env = {}) => {
       vendor: [
         'bloodhound',
         'bootstrap',
+        'c3',
         'handlebars',
         'immutable',
         'jquery',
