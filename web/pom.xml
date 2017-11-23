@@ -119,7 +119,7 @@
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>${dockerfile.maven.version}</version>
 				<configuration>
-					<repository>${env.DOCKER_REGISTRY}ipni/app</repository>
+					<repository>${docker.registry}ipni/app</repository>
 					<tag>${buildNumber}</tag>
 				</configuration>
 				<executions>

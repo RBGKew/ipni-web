@@ -24,7 +24,7 @@
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>${dockerfile.maven.version}</version>
 				<configuration>
-					<repository>${env.DOCKER_REGISTRY}ipni/solr</repository>
+					<repository>${docker.registry}ipni/solr</repository>
 					<tag>${buildNumber}</tag>
 				</configuration>
 				<executions>

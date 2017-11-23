@@ -77,7 +77,7 @@ Loads solr index from flat files</description>
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>${dockerfile.maven.version}</version>
 				<configuration>
-					<repository>${env.DOCKER_REGISTRY}ipni/indexer</repository>
+					<repository>${docker.registry}ipni/indexer</repository>
 					<tag>${buildNumber}</tag>
 				</configuration>
 				<executions>
