@@ -27,6 +27,18 @@ public class StatsService {
 		return buildResponse(query("Update", year));
 	}
 
+	public String getStandardization() throws SolrServerException, IOException {
+		SolrQuery query = new SolrQuery();
+		query.addFilterQuery("stat_type_s:Standardization");
+		SolrDocumentList results = solr.query(query).getResults();
+
+		if(!results.isEmpty()) {
+			return (String)results.get(0).getFieldValue("blob_s");
+		} else {
+			return "{\"error\":\"no standardization stats found\"}";
+		}
+	}
+
 	private SolrDocumentList query(String type, Integer year) throws SolrServerException, IOException {
 		SolrQuery query = new SolrQuery();
 		query.addFilterQuery("stat_type_s:" + type);

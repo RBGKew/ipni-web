@@ -32,4 +32,9 @@ public class StatsController {
 	public @ResponseBody String recordsUpdated(@PathVariable Integer year) throws SolrServerException, IOException {
 		return stats.getRecordsUpdated(year);
 	}
+
+	@GetMapping(path = "/standardization", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String standardization() throws SolrServerException, IOException {
+		return stats.getStandardization();
+	}
 }

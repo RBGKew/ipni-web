@@ -91,6 +91,9 @@ public class Loader implements Runnable {
 	@Value("${ipni.stats.record_activity}")
 	private String STATS_RECORD_ACTIVITY;
 
+	@Value("${ipni.stats.standardization}")
+	private String STATS_STANDARDIZATION;
+
 	@PostConstruct
 	public void initializeSolrClients() {
 		adminClient = new HttpSolrClient.Builder(SOLR_SERVER).build();
@@ -105,11 +108,12 @@ public class Loader implements Runnable {
 			File publicationsFile = getFile(PUBLICATIONS_FILE_URL);
 			File statsPublishedFile = getFile(STATS_NAMES_PUBLISHED);
 			File statsActivityFile = getFile(STATS_RECORD_ACTIVITY);
+			File statsStandardizationFile = getFile(STATS_STANDARDIZATION);
 
 			loadData(namesFile);
 			loadData(authorsFile);
 			loadData(publicationsFile);
-			loadStats(statsPublishedFile, statsActivityFile);
+			loadStats(statsPublishedFile, statsActivityFile, statsStandardizationFile);
 
 			updateSuggesters();
 			optimizeCore();
@@ -126,11 +130,12 @@ public class Loader implements Runnable {
 		}
 	}
 
-	private void loadStats(File statsPublishedFile, File statsActivityFile) throws SolrServerException, IOException {
-		StatsLoader loader = new StatsLoader(statsPublishedFile, statsActivityFile);
+	private void loadStats(File statsPublishedFile, File statsActivityFile, File statsStandardizationFile) throws SolrServerException, IOException {
+		StatsLoader loader = new StatsLoader(statsPublishedFile, statsActivityFile, statsStandardizationFile);
 		logger.info("Loading stats data");
 		buildClient.add(loader.getNamesPublishedStats());
 		buildClient.add(loader.getRecordActivityStats());
+		buildClient.add(loader.getStandardizationStats());
 		logger.info("Commiting stats data");
 		buildClient.commit();
 	}
