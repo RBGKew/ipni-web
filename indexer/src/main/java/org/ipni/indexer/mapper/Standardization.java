@@ -2,9 +2,7 @@ package org.ipni.indexer.mapper;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.solr.common.SolrInputDocument;
@@ -16,6 +14,13 @@ import com.google.common.collect.ImmutableList;
 public class Standardization {
 
 	private final BufferedReader in;
+
+	private static final List<String> headings = ImmutableList.<String>of(
+			"date",
+			"standardised author citations",
+			"standardised publication titles",
+			"plausible publication year",
+			"no roman numerals in collation");
 
 	public Standardization(BufferedReader in) {
 		this.in = in;
@@ -30,11 +35,15 @@ public class Standardization {
 	}
 
 	public List<List<String>> buildList() {
-		return in.lines()
+		List<List<String>> data =  in.lines()
 				.skip(1)
 				.map(line -> line.split("\\|"))
 				.map(row -> computeRow(row))
-				.collect(transpose());
+				.collect(Collectors.toList());
+
+		data.add(0, headings);
+
+		return data;
 	}
 
 	private List<String> computeRow(String[] row) {
@@ -65,36 +74,5 @@ public class Standardization {
 			e.printStackTrace();
 			return "{}";
 		}
-	}
-
-	private Collector<List<String>, ?, List<List<String>>> transpose() {
-		return Collector.of(
-				// initialize map to store values in under column headings
-				() -> new HashMap<String, List<String>>(),
-
-				// Add each element of row to map under column title
-				(result, row) -> {
-					result.computeIfAbsent("date", k -> new ArrayList<>()).add(row.get(0));
-					result.computeIfAbsent("standardised author citations", k -> new ArrayList<>()).add(row.get(1));
-					result.computeIfAbsent("standardised publication titles", k -> new ArrayList<>()).add(row.get(2));
-					result.computeIfAbsent("plausible publication year", k -> new ArrayList<>()).add(row.get(3));
-					result.computeIfAbsent("no roman numerals in collation", k -> new ArrayList<>()).add(row.get(4));
-				},
-
-				// dummy combiner, not parallelisable
-				(a, b) -> a,
-
-				// convert each entry in map to row with column heading as first entry
-				(computed) -> {
-					return computed.entrySet().stream()
-							.map(entry -> {
-								return ImmutableList.<String>builder()
-										.add(entry.getKey())
-										.addAll(entry.getValue())
-										.build();
-							})
-							.collect(Collectors.toList());
-				}
-				);
 	}
 }

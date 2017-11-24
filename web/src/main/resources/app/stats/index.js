@@ -1,5 +1,7 @@
 define(function(require) {
 
+  var c3 = require('c3');
+
   var publishedTmpl = require('./tmpl/published.hbs');
   var activityAddedTmpl = require('./tmpl/activity.hbs');
 
@@ -94,10 +96,37 @@ define(function(require) {
     }
   }
 
+  function standardization() {
+    $.getJSON(API_BASE + 'stats/standardization', function(data) {
+      $('#standardization-container').before('<h4>Standardisation</h4>');
+      c3.generate({
+        bindto: '#standardization-container',
+        data: {
+          x: 'date',
+          type: 'spline',
+          rows: data
+        },
+        axis: {
+          x: {
+            type: 'timeseries',
+            tick: { format: '%Y-%m-%d' }
+          },
+          y: {
+            tick: {
+              format: function(y) { return y + '%' }
+            }
+          }
+        },
+        point: { show: false }
+      })
+    });
+  }
+
   var initialize = function() {
     published(currentYear);
     added(currentYear);
     updated(currentYear);
+    standardization();
 
     $('.container')
       .on('change', '#npi-year', show(published))
