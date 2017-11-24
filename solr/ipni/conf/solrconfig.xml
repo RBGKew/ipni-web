@@ -1177,16 +1177,6 @@
     </lst>
     
     <lst name="suggester">
-      <str name="name">collector-team</str>
-      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">collector_team_as_text_t</str>
-      <str name="indexPath">collector_team_suggest</str>
-      <str name="suggestAnalyzerFieldType">text_general</str>
-      <str name="highlight">false</str>
-    </lst>
-    
-    <lst name="suggester">
       <str name="name">author</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
