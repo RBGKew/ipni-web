@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableList;
 public enum FieldMapping {
 
 	all("all", "*"),
+	id("id", "id"),
 	created("added", "date_created_date"),
 	ipniRecordType("ipni_record_type","ipni_record_type_s_lower"),
 	updated("modified", "date_last_modified_date"),
@@ -127,6 +128,7 @@ public enum FieldMapping {
 	;
 
 	public static final List<FieldMapping> citationFields = ImmutableList.<FieldMapping>of(
+			id,
 			fullName,
 			author,
 			scientificName,
@@ -204,6 +206,7 @@ public enum FieldMapping {
 			volume);
 
 	public static final List<FieldMapping> authorFields = ImmutableList.<FieldMapping>of(
+			id,
 			authorAlternativeAbbreviations,
 			authorAlternativeNames,
 			authorComments,
@@ -219,6 +222,7 @@ public enum FieldMapping {
 			authorTaxonGroups);
 
 	public static final List<FieldMapping> publicationFields = ImmutableList.<FieldMapping>of(
+			id,
 			abbreviation,
 			bphNumber,
 			date,
