@@ -117,6 +117,7 @@ module.exports = (env = {}) => {
       new CopyWebpackPlugin([
         { from: '**/tmpl/*.hbs', context: 'app' },
         { from: 'app/gtm.hbs' },
+        { from: 'app/gtmNoscript.hbs' },
         { from: 'app/footer.hbs' }
       ]),
     ],
