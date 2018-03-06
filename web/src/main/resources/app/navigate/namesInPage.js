@@ -11,6 +11,8 @@ define(function(require) {
   var initialize = function() {
     url = window.location.pathname;
     if(shouldLoad()) {
+      currentPage = 1;
+      sort = "name_asc";
       getNames();
     }
   }
