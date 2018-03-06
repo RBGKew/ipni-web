@@ -31,7 +31,7 @@ define(function(require) {
   }
 
   function loadInPage(results){
-    if($('.names-in-page').children().size() === 0) {
+    if($('.names-in-page').children().length === 0) {
       var connector = pageType() === 'author' ? ' by ' : ' in ';
       $(".names-in-page").html(namesInPageTmpl({
         'section-title': results.totalResults + ' names published' + connector + $('.stdForm').text()
