@@ -234,22 +234,23 @@ public class Name {
 		return basionym != null
 				|| basionymOf != null
 				|| conservedAgainst != null
-				|| rejectedInFavorOf != null
-				|| correctionOf != null
 				|| correctedBy != null
+				|| correctionOf != null
+				|| duplicateCitationOf != null
+				|| hasLaterHomonym != null
+				|| hasOrthographicVariant != null
+				|| hybridParents != null
 				|| isonym != null
 				|| isonymOf != null
 				|| laterHomonymOf != null
-				|| hasLaterHomonym != null
 				|| nomenclaturalSynonym != null
+				|| orthographicVariantOf != null
+				|| rejectedInFavorOf != null
 				|| replacedSynonym != null
 				|| sameCitationAs != null
-				|| duplicateCitationOf != null
 				|| superfluousNameOf != null
-				|| validationOf != null
 				|| validatedBy != null
-				|| hasOrthographicVariant != null
-				|| orthographicVariantOf != null;
+				|| validationOf != null;
 	}
 
 	@JsonProperty

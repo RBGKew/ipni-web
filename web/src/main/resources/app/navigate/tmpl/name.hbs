@@ -101,20 +101,6 @@
       </dl>
     {{/if}}
 
-    {{#if hybridParents}}
-      <h4>Hybrid Information</h4>
-      <dl>
-        <dt>Hybrid Parents</dt>
-        <dd>
-        <ul class="list-unstyled">
-          {{#each hybridParents}}
-            <li><a href="{{this.url}}" class="name-link">{{fullName this}}</a></li>
-          {{/each}}
-        </ul>
-        </dd>
-      </dl>
-    {{/if}}
-
     {{#if hasOriginalData}}
       <h4>Original Data</h4>
       <dl>
@@ -206,6 +192,9 @@
         {{/each}}
         {{#each hasOrthographicVariant}}
           <dt>Has orthographic variant</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each hybridParents}}
+          <dt>Hybrid Parent</dt><dd><a href="{{this.url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
       {{/if}}
       </dl>
