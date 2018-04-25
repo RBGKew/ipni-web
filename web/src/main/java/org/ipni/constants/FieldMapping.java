@@ -16,6 +16,8 @@ public enum FieldMapping {
 	// Citation (Name) fields
 	author("name author", "authors_t"),
 	authorTeamIds("author team ids", "detail_author_team_ids"),
+	basionym("basionym", "basionym_s_lower"),
+	basionymAuthor("basionym author", "basionym_author_s_lower"),
 	bibliographicReference("bibliographic reference", "bibliographic_reference_s_lower"),
 	bibliographicTypeInfo("bibliographic type info", "bibliographic_type_info_s_lower"),
 	citationType("citation type", "citation_type_s_lower"),

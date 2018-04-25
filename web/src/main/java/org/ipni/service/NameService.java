@@ -18,7 +18,6 @@ import org.apache.solr.common.params.ModifiableSolrParams;
 import org.ipni.constants.FieldMapping;
 import org.ipni.constants.LinkType;
 import org.ipni.model.Name;
-import org.ipni.model.NameAuthor;
 import org.ipni.util.IdUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

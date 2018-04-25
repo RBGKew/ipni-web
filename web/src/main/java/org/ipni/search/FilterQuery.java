@@ -142,7 +142,7 @@ public class FilterQuery extends QueryOption {
 		if(isHybrid) {
 			query.addFilterQuery(FieldMapping.hybrid.solrField() + ":true OR "
 					+ FieldMapping.hybridGenus.solrField() + ":true");
-		} else {
+		} else if(!selected.isEmpty()) {
 			String filter = String.format("%s: (%s)",
 					FieldMapping.rank.solrField(),
 					Joiner.on(" ").join(selected));

@@ -26,6 +26,7 @@ import lombok.Data;
 public class Name {
 	private String name;
 	private String authors;
+	private String publishingAuthor;
 	private List<NameAuthor> authorTeam;
 	private String originalRemarks;
 	private String rank;
@@ -36,12 +37,15 @@ public class Name {
 	private String infraspecific;
 	private List<Name> basionym;
 	private List<Name> basionymOf;
+	private String basionymStr;
+	private String basionymAuthorStr;
 	private String bibliographicReference;
 	private String bibliographicTypeInfo;
 	private String collectionNumber;
 	private String collectorTeam;
 	private String collectionDate1;
 	private String collectionDate2;
+	private String citationType;
 	private List<Name> conservedAgainst;
 	private List<Name> rejectedInFavorOf;
 	private List<Name> correctionOf;
@@ -122,10 +126,13 @@ public class Name {
 		this.authorTeam = parseAuthorTeam(name);
 		this.bibliographicReference = (String) name.getFirstValue(FieldMapping.bibliographicReference.solrField());
 		this.bibliographicTypeInfo = (String) name.getFirstValue(FieldMapping.bibliographicTypeInfo.solrField());
+		this.basionymStr = (String)name.get(FieldMapping.basionym.solrField());
+		this.basionymAuthorStr = (String)name.get(FieldMapping.basionymAuthor.solrField());
 		this.collectionNumber = (String) name.getFirstValue(FieldMapping.collectionNumber.solrField());
 		this.collectorTeam = (String) name.getFirstValue(FieldMapping.collectorTeam.solrField());
 		this.collectionDate1 = collectionDate(name, FieldMapping.collectionDay1.solrField(), FieldMapping.collectionMonth1.solrField(), FieldMapping.collectionYear1.solrField());
 		this.collectionDate2 = collectionDate(name, FieldMapping.collectionDay2.solrField(), FieldMapping.collectionMonth2.solrField(), FieldMapping.collectionYear2.solrField());
+		this.citationType = (String) name.get(FieldMapping.citationType.solrField());
 		this.distribution = (String) name.getFirstValue(FieldMapping.distribution.solrField());
 		this.eastOrWest = (String) name.getFirstValue(FieldMapping.eastOrWest.solrField());
 		this.family = (String) name.getFirstValue(FieldMapping.family.solrField());
@@ -164,6 +171,7 @@ public class Name {
 		this.publicationYear = (Integer) name.getFirstValue(FieldMapping.yearPublished.solrField());
 		this.publicationYearNote = CleanUtil.stripBrackets((String) name.getFirstValue(FieldMapping.publicationYearNote.solrField()));
 		this.publicationId = IdUtil.idPart((String) name.getFirstValue(FieldMapping.publicationId.solrField()));
+		this.publishingAuthor = (String) name.get(FieldMapping.publishingAuthor.solrField());
 		this.referenceCollation = (String) name.getFirstValue(FieldMapping.referenceCollation.solrField());
 		this.rank = (String) name.getFirstValue(FieldMapping.rank.solrField());
 		this.recordType = "citation";
