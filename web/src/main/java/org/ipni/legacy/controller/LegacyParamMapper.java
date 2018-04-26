@@ -20,6 +20,7 @@ public class LegacyParamMapper {
 			.put("find_infraspecies", FieldMapping.infraspecies.apiField())
 			.put("find_authorAbbrev", FieldMapping.authorStandardForm.apiField())
 			.put("find_publicationTitle", FieldMapping.publication.apiField())
+			.put("find_wholeName", "")
 			.put("find_modifiedSince", "modified after")
 			.put("find_addedSince", "added after")
 			.build();
@@ -52,6 +53,8 @@ public class LegacyParamMapper {
 	private static String formatted(Map.Entry<String, String> entry) {
 		if (Strings.isNullOrEmpty(entry.getValue()) || !paramsMap.containsKey(entry.getKey())) {
 			return null;
+		} else if (entry.getKey().equals("find_wholeName")) {
+			return entry.getValue();
 		} else {
 			return String.format("%s:%s", paramsMap.get(entry.getKey()), entry.getValue());
 		}

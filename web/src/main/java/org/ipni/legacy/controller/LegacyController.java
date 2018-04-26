@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/ipni")
 public class LegacyController {
 
-	@GetMapping("/advPlantNameSearch.do")
+	@GetMapping(path = {"/advPlantNameSearch.do", "/simplePlantNameSearch.do"})
 	public ModelAndView search(@RequestParam Map<String, String> legacyParams, ModelMap model) {
 		String format = legacyParams.get("output_format");
 
