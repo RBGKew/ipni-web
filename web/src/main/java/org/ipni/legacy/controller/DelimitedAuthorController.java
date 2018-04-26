@@ -5,16 +5,16 @@ import static java.util.stream.Collectors.joining;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.ipni.legacy.model.DelimitedClassic;
-import org.ipni.legacy.model.DelimitedExtended;
-import org.ipni.legacy.model.DelimitedField;
-import org.ipni.legacy.model.DelimitedMinimal;
-import org.ipni.legacy.model.DelimitedShort;
+import org.ipni.legacy.model.DelimitedAuthorClassic;
+import org.ipni.legacy.model.DelimitedAuthorExtended;
+import org.ipni.legacy.model.DelimitedAuthorField;
+import org.ipni.legacy.model.DelimitedAuthorMinimal;
 import org.ipni.search.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,17 +24,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class DelimitedController {
+public class DelimitedAuthorController {
 
 	@Autowired
 	SolrClient solr;
 
 	@ResponseBody
-	@RequestMapping(value = "/ipni/search/delimited", method = RequestMethod.GET, produces = {"text/plain"})
+	@RequestMapping(value = "/ipni/search/author/delimited", method = RequestMethod.GET, produces = {"text/plain"})
 	public String search(@RequestParam Map<String, String> params) throws SolrServerException, IOException {
 		params.put("perPage", "5000");
 
-		SolrQuery query = new QueryBuilder(LegacyParamMapper.translate(params)).build();
+		SolrQuery query = new QueryBuilder(LegacyAuthorParamMapper.translate(params)).build();
 		SolrDocumentList results = solr.query(query).getResults();
 		String format = params.remove("output_format");
 
@@ -46,34 +46,31 @@ public class DelimitedController {
 	}
 
 	private String getHeaders(String format) {
-		List<DelimitedField> fields;
+		List<DelimitedAuthorField> fields;
 		switch (format) {
 		case "delimited-minimal":
-			fields = DelimitedMinimal.fields;
-			break;
 		case "delimited-short":
-			fields = DelimitedShort.fields;
+			fields = DelimitedAuthorMinimal.fields;
 			break;
 		case "delimited-extended":
-			fields = DelimitedExtended.fields;
+			fields = DelimitedAuthorExtended.fields;
 			break;
 		default:
-			fields = DelimitedClassic.fields;
+			fields = DelimitedAuthorClassic.fields;
 		}
 
-		return fields.stream().map(DelimitedField::display).collect(joining("%"));
+		return fields.stream().map(DelimitedAuthorField::getDisplay).collect(joining("%"));
 	}
 
 	private String getDelimited(String format, SolrDocument doc) {
 		switch (format) {
 		case "delimited-minimal":
-			return new DelimitedMinimal(doc).toDelimited();
 		case "delimited-short":
-			return new DelimitedShort(doc).toDelimited();
+			return new DelimitedAuthorMinimal(doc).toDelimited();
 		case "delimited-extended":
-			return new DelimitedExtended(doc).toDelimited();
+			return new DelimitedAuthorExtended(doc).toDelimited();
 		default:
-			return new DelimitedClassic(doc).toDelimited();
+			return new DelimitedAuthorClassic(doc).toDelimited();
 		}
 	}
 }

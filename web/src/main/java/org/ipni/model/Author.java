@@ -53,7 +53,7 @@ public class Author {
 		this.forename = (String) author.get(FieldMapping.authorForename.solrField());
 		this.fqId = (String) author.getFirstValue("id");
 		this.id = IdUtil.idPart(fqId);
-		this.isoCountries =  join(author.getFieldValues(FieldMapping.authorIsoCountries.solrField()));
+		this.isoCountries =  join(author.getFieldValues(FieldMapping.authorIsoCountry.solrField()));
 		this.notes = (String) author.get(FieldMapping.authorNameNotes.solrField());
 		this.recordType = "author";
 		this.source = (String) author.get(FieldMapping.authorNameSource.solrField());

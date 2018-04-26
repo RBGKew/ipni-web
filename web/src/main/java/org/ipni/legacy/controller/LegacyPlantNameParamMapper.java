@@ -10,7 +10,7 @@ import org.ipni.constants.FieldMapping;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 
-public class LegacyParamMapper {
+public class LegacyPlantNameParamMapper {
 	private static final Map<String, String> paramsMap = ImmutableMap.<String, String>builder()
 			.put("find_family", FieldMapping.family.apiField())
 			.put("find_infrafamily", FieldMapping.infrafamily.apiField())

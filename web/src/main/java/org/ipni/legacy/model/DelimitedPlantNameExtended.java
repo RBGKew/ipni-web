@@ -1,6 +1,6 @@
 package org.ipni.legacy.model;
 
-import static org.ipni.legacy.model.DelimitedField.*;
+import static org.ipni.legacy.model.DelimitedPlantNameField.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -10,9 +10,9 @@ import org.ipni.model.Name;
 
 import com.google.common.collect.ImmutableList;
 
-public class DelimitedExtended extends Delimited {
+public class DelimitedPlantNameExtended extends DelimitedPlantName {
 
-	public static final List<DelimitedField> fields = ImmutableList.<DelimitedField>of(
+	public static final List<DelimitedPlantNameField> fields = ImmutableList.<DelimitedPlantNameField>of(
 			Id,
 			Version,
 			Family,
@@ -93,19 +93,18 @@ public class DelimitedExtended extends Delimited {
 			OriginalTaxonDistribution,
 			OriginalHybridParentage,
 			OriginalCitedType,
-			OriginalRemarks
-			);
+			OriginalRemarks);
 
-	public DelimitedExtended(SolrDocument doc) {
+	public DelimitedPlantNameExtended(SolrDocument doc) {
 		super(doc);
 	}
 
-	public DelimitedExtended(Name name) {
+	public DelimitedPlantNameExtended(Name name) {
 		super(name);
 	}
 
 	@Override
-	protected Stream<DelimitedField> orderedFields() {
+	protected Stream<DelimitedPlantNameField> orderedFields() {
 		return fields.stream();
 	}
 }

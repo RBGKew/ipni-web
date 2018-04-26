@@ -7,63 +7,39 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import org.apache.solr.common.SolrDocument;
-import org.ipni.model.Name;
 import org.springframework.beans.BeanUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class Delimited {
+public abstract class Delimited<T> {
 
-	protected final Name name;
+	protected T delegate;
+	final Class<T> delegateClass;
 
-	public Delimited(SolrDocument doc) {
-		this(new Name(doc));
+	protected abstract Stream<? extends DelimitedField> orderedFields();
+
+	public Delimited(T delegate, Class<T> delegateClass) {
+		this.delegate = delegate;
+		this.delegateClass = delegateClass;
 	}
-
-	public Delimited(Name name) {
-		this.name = name;
-	}
-
-	public String getHybridGenus() {
-		return name.isHybridGenus() ? "Y" : "N";
-	}
-
-	public String getHybrid() {
-		return name.isHybrid() ? "Y" : "N";
-	}
-
-	public String getFullName() {
-		return String.format("%s %s",
-				Objects.toString(name.getName(), ""),
-				Objects.toString(name.getAuthors(), "")).trim();
-	}
-
-	public String getCollectionDateAsText() {
-		return String.format("%s %s",
-				Objects.toString(name.getCollectionDate1(), ""),
-				Objects.toString(name.getCollectionDate2(), "")).trim();
-	}
-
-	protected abstract Stream<DelimitedField> orderedFields();
 
 	public String toDelimited() {
 		return orderedFields()
-				.map(DelimitedField::field)
+				.map(DelimitedField::getField)
 				.map(field -> extractProperty(field))
 				.collect(joining("%", "", "\n"));
 	}
 
 	public String headers() {
 		return orderedFields()
-				.map(DelimitedField::display)
+				.map(DelimitedField::getDisplay)
 				.collect(joining("%", "", "\n"));
 	}
 
 	public String extractProperty(String field) {
 		try {
-			PropertyDescriptor delegate = BeanUtils.getPropertyDescriptor(Name.class, field);
+			PropertyDescriptor delegate = BeanUtils.getPropertyDescriptor(delegateClass, field);
 			PropertyDescriptor override = BeanUtils.getPropertyDescriptor(this.getClass(), field);
 
 			if(override != null && override.getReadMethod() != null) {
@@ -73,7 +49,7 @@ public abstract class Delimited {
 
 			if(delegate != null && delegate.getReadMethod() != null) {
 				log.trace("calling {}", delegate.getReadMethod().toString());
-				return Objects.toString(delegate.getReadMethod().invoke(this.name), "");
+				return Objects.toString(delegate.getReadMethod().invoke(this.delegate), "");
 			}
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();

@@ -105,7 +105,7 @@ public enum FieldMapping {
 	authorDates("dates","dates_s_lower"),
 	authorExampleOfNamePublished("example of name published","example_of_name_published_s_lower"),
 	authorForename("author forename","author_forename_s_lower"),
-	authorIsoCountries("author country","detail_author_iso_countries"),
+	authorIsoCountry("author country","detail_author_iso_countries"),
 	authorName("author name","author_name_s_lower"),
 	authorNameNotes("name notes","name_notes_s_lower"),
 	authorNameSource("name source","name_source_s_lower"),
@@ -114,7 +114,7 @@ public enum FieldMapping {
 	authorTaxonGroups("detail taxon groups flat","detail_taxon_groups_flat"),
 	authorDateType("author date type", "date_type_string_s_lower"),
 
-	// Publication fieldsabbreviation("abbreviation","abbreviation_s_lower"),
+	// Publication fields
 	abbreviation("publication std","abbreviation_s_lower"),
 	bphNumber("bph number","bph_number_s_lower"),
 	date("date","date_s_lower"),
@@ -215,7 +215,7 @@ public enum FieldMapping {
 			authorDates,
 			authorExampleOfNamePublished,
 			authorForename,
-			authorIsoCountries,
+			authorIsoCountry,
 			authorName,
 			authorNameNotes,
 			authorNameSource,

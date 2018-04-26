@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.google.common.base.Joiner;
 
-public class DelimitedExtendedTest {
+public class DelimitedPlantNameExtendedTest {
 	@Test
 	public void delimitedClassicTest() {
 		Name name = Name.builder()
@@ -34,8 +34,8 @@ public class DelimitedExtendedTest {
 				.collectionDate1("1 April 2018")
 				.collectionDate2("2 April 2018")
 				.build();
-		DelimitedExtended dc = new DelimitedExtended(name);
-		System.out.println(Joiner.on(",").join(DelimitedExtended.fields));
+		DelimitedPlantNameExtended dc = new DelimitedPlantNameExtended(name);
+		System.out.println(Joiner.on(",").join(DelimitedPlantNameExtended.fields));
 		System.out.print(dc.toDelimited());
 	}
 }

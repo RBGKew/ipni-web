@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableMap;
 
-public class LegacyParamMapperTest {
+public class LegacyPlantNameParamMapperTest {
 
 	@Test
 	public void testBasicParamMapping() {
@@ -34,7 +34,7 @@ public class LegacyParamMapperTest {
 				.put("output_format", "delimited-short")
 				.build();
 
-		Map<String, String> translated = LegacyParamMapper.translate(params);
+		Map<String, String> translated = LegacyPlantNameParamMapper.translate(params);
 
 		assertThat(translated.get("q"), containsString(family.apiField() + ":some family"));
 		assertThat(translated.get("q"), containsString(infrafamily.apiField() + ":some infrafamily"));
@@ -48,42 +48,42 @@ public class LegacyParamMapperTest {
 
 	@Test
 	public void testFamilyRankMapping() {
-		Map<String, String> translated = LegacyParamMapper.translate(
+		Map<String, String> translated = LegacyPlantNameParamMapper.translate(
 				ImmutableMap.<String, String>of("find_rankToReturn", "fam"));
 		assertEquals("f_familial", translated.get("f"));
 	}
 
 	@Test
 	public void testInfraFamilyRankMapping() {
-		Map<String, String> translated = LegacyParamMapper.translate(
+		Map<String, String> translated = LegacyPlantNameParamMapper.translate(
 				ImmutableMap.<String, String>of("find_rankToReturn", "infrafam"));
 		assertEquals("f_infrafamilial", translated.get("f"));
 	}
 
 	@Test
 	public void testGenusRankMapping() {
-		Map<String, String> translated = LegacyParamMapper.translate(
+		Map<String, String> translated = LegacyPlantNameParamMapper.translate(
 				ImmutableMap.<String, String>of("find_rankToReturn", "gen"));
 		assertEquals("f_generic", translated.get("f"));
 	}
 
 	@Test
 	public void testInfraGenusRankMapping() {
-		Map<String, String> translated = LegacyParamMapper.translate(
+		Map<String, String> translated = LegacyPlantNameParamMapper.translate(
 				ImmutableMap.<String, String>of("find_rankToReturn", "infragen"));
 		assertEquals("f_infrageneric", translated.get("f"));
 	}
 
 	@Test
 	public void testSpecificRankMapping() {
-		Map<String, String> translated = LegacyParamMapper.translate(
+		Map<String, String> translated = LegacyPlantNameParamMapper.translate(
 				ImmutableMap.<String, String>of("find_rankToReturn", "spec"));
 		assertEquals("f_specific", translated.get("f"));
 	}
 
 	@Test
 	public void testInfraspecificRankMapping() {
-		Map<String, String> translated = LegacyParamMapper.translate(
+		Map<String, String> translated = LegacyPlantNameParamMapper.translate(
 				ImmutableMap.<String, String>of("find_rankToReturn", "infraspec"));
 		assertEquals("f_infraspecific", translated.get("f"));
 	}
