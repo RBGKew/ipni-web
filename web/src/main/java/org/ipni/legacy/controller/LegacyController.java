@@ -36,4 +36,19 @@ public class LegacyController {
 						|| format.equals("delimited-short")
 						|| format.equals("delimited-extended"));
 	}
+
+	@GetMapping("/idPlantNameSearch.do")
+	public String nameIdSearch(@RequestParam String id) {
+		return String.format("redirect:/n/%s", id);
+	}
+
+	@GetMapping("/idPublicationSearch.do")
+	public String publicationIdSearch(@RequestParam String id) {
+		return String.format("redirect:/p/%s", id);
+	}
+
+	@GetMapping("/idAuthorSearch.do")
+	public String authorIdSearch(@RequestParam String id) {
+		return String.format("redirect:/a/%s", id);
+	}
 }

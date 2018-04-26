@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RecordController {
@@ -42,21 +41,5 @@ public class RecordController {
 	public String showPublication(@PathVariable String identifier, Model model) throws SolrServerException, IOException {
 		model.addAttribute("object", publications.load(IdUtil.fqPublication(identifier)));
 		return "publication";
-	}
-
-	// Preserve legacy detail page URLs
-	@GetMapping("ipni/idPlantNameSearch.do")
-	public String legacyShowName(@RequestParam(value = "id", required = true) String id, Model model) throws SolrServerException, IOException {
-		return showName(id, model);
-	}
-
-	@GetMapping("ipni/idAuthorSearch.do")
-	public String legacyShowAuthor(@RequestParam(value = "id", required = true) String id, Model model) throws SolrServerException, IOException {
-		return showAuthor(id, model);
-	}
-
-	@GetMapping("ipni/idPublicationSearch.do")
-	public String legacyShowPublication(@RequestParam(value = "id", required = true) String id, Model model) throws SolrServerException, IOException {
-		return showPublication(id, model);
 	}
 }
