@@ -1,6 +1,5 @@
 define(function(require) {
   var pubsub = require('pubsub-js');
-  require('bootstrap-datepicker');
   require('jquery-serializejson');
 
   var events = require('./events');
