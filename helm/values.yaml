@@ -19,7 +19,7 @@ solr:
     - ipni_2
   image:
     repository: eu.gcr.io/ipni-1867/ipni/solr
-    tag: "5bc4175"
+    tag: "e974f18"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious 
