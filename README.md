@@ -2,6 +2,12 @@
 
 # Building
 
+## Prerequisites
+
+This project requires Java 8, Maven, Docker, and Docker Compose to build. It is also
+expected that you have an environment variable called `SOURCE_DIRECTORY` that is set to
+the directory above this one.
+
 The project as a whole can be built using:
 
     $ mvn install
