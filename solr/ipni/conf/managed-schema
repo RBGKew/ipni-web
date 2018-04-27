@@ -68,6 +68,7 @@
   </fieldType>
   <fieldType name="names_suggester" class="solr.TextField" omitNorms="true" sortMissingLast="true">
     <analyzer>
+      <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="×" replacement=""/>
       <tokenizer class="solr.WhitespaceTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
