@@ -10,7 +10,7 @@
       </button>
       <form class="dropdown-menu dropdown-menu-right panel panel-default" id="advanced-search" aria-labeledby="advanced-search-button">
         <div class="panel-body form-inline">
-          <b>Plant Name</b>
+          <b>Search Plant Name Database</b>
           <div class="row">
             <input type="text" class="form-control" id="family" name="family" placeholder="Family">
             <input type="text" class="form-control" id="genus" name="genus" placeholder="Genus">
@@ -29,7 +29,7 @@
           </div>
 
           <div class="row">
-            <input type="text" class="form-control" id="published-in" name="published in" placeholder="Published in publication">
+            <input type="text" class="form-control" id="published-in" name="published in" placeholder="Name published in (standard form)">
             <input type="text" class="form-control" id="name-id" name="name id" placeholder="Plant name ID" />
           </div>
 
@@ -50,23 +50,22 @@
             <input type="text" class="form-control date" id="modified-before" name="modified before" placeholder="Records modified before" />
           </div>
 
-          <b>Author</b>
+          <b>Search Author Database</b>
           <div class="row">
+            <input type="text" class="form-control" id="author-std-form" name="author std" placeholder="Standard form">
             <input type="text" class="form-control" id="author-forename" name="author forename" placeholder="Author forename">
             <input type="text" class="form-control" id="author-surname" name="author surname" placeholder="Author surname">
-            <input type="text" class="form-control" id="author-std-form" name="author std" placeholder="Standard form">
           </div>
           <div class="row">
             <input type="text" class="form-control" id="author-id" name="author id" placeholder="Author ID" />
           </div>
 
-          <b>Publication</b>
+          <b>Search Publication Database</b>
           <div class="row">
             <input type="text" class="form-control" id="publication-abbrev" name="publication std" placeholder="Standard abbreviation">
             <input type="text" class="form-control" id="publication-title" name="publication" placeholder="Publication title">
             <input type="text" class="form-control" id="publication-id" name="publication id" placeholder="Publication ID" />
           </div>
-
           <button type="submit" class="btn btn-normal search">Search</button>
           <button type="button" class="btn btn-normal clear">Clear</button>
         </div>
