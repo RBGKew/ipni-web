@@ -8,68 +8,78 @@
       <button type="button" class="btn btn-default btn-advanced-search" data-toggle="dropdown" id="advanced-search-button" aria-haspopup="true" aria-expanded="true">
         <span class="glyphicon glyphicon-menu-down"></span>
       </button>
-      <form class="dropdown-menu dropdown-menu-right panel panel-default" id="advanced-search" aria-labeledby="advanced-search-button">
+      <div class="dropdown-menu dropdown-menu-right panel panel-default" id="advanced-search" aria-labeledby="advanced-search-button">
         <div class="panel-body form-inline">
-          <b>Search Plant Name Database</b>
-          <div class="row">
-            <input type="text" class="form-control" id="family" name="family" placeholder="Family">
-            <input type="text" class="form-control" id="genus" name="genus" placeholder="Genus">
-            <input type="text" class="form-control" id="species" name="species" placeholder="Species">
-          </div>
-          <div class="row">
-            <input type="text" class="form-control" id="infrafamilial" name="infrafamily" placeholder="Infrafamily">
-            <input type="text" class="form-control" id="infrageneric" name="infragenus" placeholder="Infragenus">
-            <input type="text" class="form-control" id="infraspecific" name="infraspecies" placeholder="Infraspecies">
-          </div>
-          <div class="row">
-            <input type="text" class="form-control" id="author-std-form" name="name author" placeholder="Name author standard form">
-            <label class="checkbox-inline">
-              <input type="checkbox" id="publishing-author-only" /> Publishing author only
-            </label>
-          </div>
+          <form class="sarch-form search-plant-name">
+            <button type="submit" class="btn btn-xs search">Search</button>
+            <button type="button" class="btn btn-xs clear">Clear</button>
+            <b>Search Plant Name Database</b>
+            <div class="row">
+              <input type="text" class="form-control" id="family" name="family" placeholder="Family">
+              <input type="text" class="form-control" id="genus" name="genus" placeholder="Genus">
+              <input type="text" class="form-control" id="species" name="species" placeholder="Species">
+            </div>
+            <div class="row">
+              <input type="text" class="form-control" id="infrafamilial" name="infrafamily" placeholder="Infrafamily">
+              <input type="text" class="form-control" id="infrageneric" name="infragenus" placeholder="Infragenus">
+              <input type="text" class="form-control" id="infraspecific" name="infraspecies" placeholder="Infraspecies">
+            </div>
+            <div class="row">
+              <input type="text" class="form-control" id="author-std-form" name="name author" placeholder="Name author standard form">
+              <label class="checkbox-inline">
+                <input type="checkbox" id="publishing-author-only" /> Publishing author only
+              </label>
+            </div>
 
-          <div class="row">
-            <input type="text" class="form-control" id="published-in" name="published in" placeholder="Name published in (standard form)">
-            <input type="text" class="form-control" id="name-id" name="name id" placeholder="Plant name ID" />
-          </div>
+            <div class="row">
+              <input type="text" class="form-control" id="published-in" name="published in" placeholder="Name published in (standard form)">
+              <input type="text" class="form-control" id="name-id" name="name id" placeholder="Plant name ID" />
+            </div>
 
-          <span class="help-block">Years must be specified in 'YYYY' format</span>
-          <div class="row">
-            <input type="text" class="form-control" id="year-published" name="published" placeholder="Year published" />
-            <input type="text" class="form-control" id="published-after" name="published after" placeholder="Published after year" />
-            <input type="text" class="form-control" id="published-before" name="published before" placeholder="Published before year" />
-          </div>
+            <span class="help-block">Years must be specified in 'YYYY' format</span>
+            <div class="row">
+              <input type="text" class="form-control" id="year-published" name="published" placeholder="Year published" />
+              <input type="text" class="form-control" id="published-after" name="published after" placeholder="Published after year" />
+              <input type="text" class="form-control" id="published-before" name="published before" placeholder="Published before year" />
+            </div>
 
-          <span class="help-block">Dates must be specified in 'YYYY-MM-DD' format</span>
-          <div class="row">
-            <input type="text" class="form-control date" id="added-after" name="added after" placeholder="Records added after" />
-            <input type="text" class="form-control date" id="added-before" name="added before" placeholder="Records added before" />
-          </div>
-          <div class="row">
-            <input type="text" class="form-control date" id="modified-after" name="modified after" placeholder="Records modified after" />
-            <input type="text" class="form-control date" id="modified-before" name="modified before" placeholder="Records modified before" />
-          </div>
+            <span class="help-block">Dates must be specified in 'YYYY-MM-DD' format</span>
+            <div class="row">
+              <input type="text" class="form-control date" id="added-after" name="added after" placeholder="Records added after" />
+              <input type="text" class="form-control date" id="added-before" name="added before" placeholder="Records added before" />
+            </div>
+            <div class="row">
+              <input type="text" class="form-control date" id="modified-after" name="modified after" placeholder="Records modified after" />
+              <input type="text" class="form-control date" id="modified-before" name="modified before" placeholder="Records modified before" />
+            </div>
+          </form>
 
-          <b>Search Author Database</b>
-          <div class="row">
-            <input type="text" class="form-control" id="author-std-form" name="author std" placeholder="Standard form">
-            <input type="text" class="form-control" id="author-forename" name="author forename" placeholder="Author forename">
-            <input type="text" class="form-control" id="author-surname" name="author surname" placeholder="Author surname">
-          </div>
-          <div class="row">
-            <input type="text" class="form-control" id="author-id" name="author id" placeholder="Author ID" />
-          </div>
+          <form class="ssarch-form earch-author">
+            <button type="submit" class="btn btn-xs search">Search</button>
+            <button type="button" class="btn btn-xs clear">Clear</button>
+            <b>Search Author Database</b>
+            <div class="row">
+              <input type="text" class="form-control" id="author-std-form" name="author std" placeholder="Standard form">
+              <input type="text" class="form-control" id="author-forename" name="author forename" placeholder="Author forename">
+              <input type="text" class="form-control" id="author-surname" name="author surname" placeholder="Author surname">
+            </div>
+            <div class="row">
+              <input type="text" class="form-control" id="author-id" name="author id" placeholder="Author ID" />
+            </div>
+          </form>
 
-          <b>Search Publication Database</b>
-          <div class="row">
-            <input type="text" class="form-control" id="publication-abbrev" name="publication std" placeholder="Standard abbreviation">
-            <input type="text" class="form-control" id="publication-title" name="publication" placeholder="Publication title">
-            <input type="text" class="form-control" id="publication-id" name="publication id" placeholder="Publication ID" />
-          </div>
-          <button type="submit" class="btn btn-normal search">Search</button>
-          <button type="button" class="btn btn-normal clear">Clear</button>
+          <form class="sarch-form search-publication">
+            <button type="submit" class="btn btn-xs search">Search</button>
+            <button type="button" class="btn btn-xs clear">Clear</button>
+            <b>Search Publication Database</b>
+            <div class="row">
+              <input type="text" class="form-control" id="publication-abbrev" name="publication std" placeholder="Standard abbreviation">
+              <input type="text" class="form-control" id="publication-title" name="publication" placeholder="Publication title">
+              <input type="text" class="form-control" id="publication-id" name="publication id" placeholder="Publication ID" />
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

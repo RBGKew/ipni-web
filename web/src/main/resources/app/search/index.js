@@ -18,9 +18,11 @@ define(function(require) {
     }
 
     $('.c-search')
-      .on('submit', '#advanced-search', function(e) {
+      .on('submit', '#advanced-search form', function(e) {
         e.preventDefault();
-        var params = _.pickBy($(this).serializeJSON());
+        var params = _.pickBy($(this).serializeJSON({
+          skipFalsyValuesForTypes:["string"]
+        }));
 
         if($('#publishing-author-only').is(':checked')) {
           params['publishing author'] = params['name author'];
@@ -36,7 +38,7 @@ define(function(require) {
         input.val('');
       })
       .on('click', '.clear', function(e) {
-        $('#advanced-search input').val('');
+        $($(this).parents()[0]).find('input').val('');
         filters.set({});
       })
       .on('click', '.panel-body', function(e) {

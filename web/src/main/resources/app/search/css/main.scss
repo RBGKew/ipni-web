@@ -188,6 +188,15 @@ dd {
     b {
       display: block;
       border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .btn {
+      float: right;
+      padding: 2px 5px;
+      margin-left: 5px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 
