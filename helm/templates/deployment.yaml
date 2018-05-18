@@ -22,6 +22,7 @@ spec:
           ports:
             - containerPort: {{ .Values.service.internalPort }}
           livenessProbe:
+            initialDelaySeconds: 30
             httpGet:
               path: /
               port: {{ .Values.service.internalPort }}
