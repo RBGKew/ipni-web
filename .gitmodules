@@ -1,0 +1,3 @@
+[submodule "secrets"]
+	path = secrets
+	url = git@kppgitlab01.ad.kew.org:secrets/ipni-secrets.git
