@@ -5,7 +5,6 @@
 
 	<groupId>org.ipni</groupId>
 	<artifactId>solr</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>solr</name>
