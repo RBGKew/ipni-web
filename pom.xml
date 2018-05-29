@@ -22,6 +22,7 @@
 		<module>solr</module>
 		<module>indexer</module>
 		<module>web</module>
+		<module>ingress</module>
 	</modules>
 
 	<properties>

@@ -1,13 +1,17 @@
 replicaCount: 1
 image:
   repository: eu.gcr.io/ipni-1867/ipni/app
-  tag: "07eb28f"
+  tag: "6e4e5eb"
   pullPolicy: Always
 service:
   name: ipni
-  type: LoadBalancer
-  externalPort: 80
+  type: ClusterIP
+  externalPort: 8080
   internalPort: 8080
+ingress:
+  replicas: 1
+  repository: eu.gcr.io/ipni-1867/ipni/ingress
+  tag: "cab9eb4"
 indexer:
   repository: eu.gcr.io/ipni-1867/ipni/indexer
   tag: "07eb28f"

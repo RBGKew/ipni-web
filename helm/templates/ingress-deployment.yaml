@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ingress
+  labels:
+    app: ingress
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.ingress.replicas }}
+  template:
+    metadata:
+      labels:
+        app: ingress
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: ingress
+          image: "{{ .Values.ingress.repository }}:{{ .Values.ingress.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+          volumeMounts:
+            - name: tls-certs
+              mountPath: /etc/ssl/certs/
+              readOnly: true
+      volumes:
+        - name: tls-certs
+          secret:
+            secretName: tls
