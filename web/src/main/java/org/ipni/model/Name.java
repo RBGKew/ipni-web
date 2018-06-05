@@ -105,7 +105,8 @@ public class Name {
 	private List<Name> hasSuperfluousName;
 	private boolean suppressed;
 	private boolean topCopy;
-	private Name type;
+	private List<Name> type;
+	private List<Name> typeOf;
 	private String typeLocations;
 	private String typeName;
 	private String typeRemarks;
@@ -257,6 +258,7 @@ public class Name {
 				|| replacedSynonym != null
 				|| sameCitationAs != null
 				|| superfluousNameOf != null
+				|| type != null
 				|| validatedBy != null
 				|| validationOf != null;
 	}

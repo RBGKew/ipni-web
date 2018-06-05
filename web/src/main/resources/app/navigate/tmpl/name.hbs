@@ -181,6 +181,12 @@
         {{#each hasSuperfluousName}}
           <dt>Has superfluous name</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}
+        {{#each type}}
+          <dt>Type</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
+        {{#each typeOf}}
+          <dt>Type of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
+        {{/each}}
         {{#each validationOf}}
           <dt>Validation of</dt><dd><a href="{{url}}" class="name-link">{{fullName this}}</a></dd>
         {{/each}}

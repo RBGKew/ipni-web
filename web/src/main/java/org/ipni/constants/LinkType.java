@@ -66,7 +66,8 @@ public enum LinkType {
 			Name::getParent,
 			Name::getChild),
 
-	HybridParent("lookup_hybrid_parent_id", "",
+	HybridParent("lookup_hybrid_parent_id",
+			"lookup_hybrid_parent_id",
 			Name::setHybridParents,
 			Name::setHybridParents,
 			Name::getHybridParents,
@@ -98,7 +99,14 @@ public enum LinkType {
 			Name::setValidationOf,
 			Name::setValidatedBy,
 			Name::getValidationOf,
-			Name::getValidatedBy);
+			Name::getValidatedBy),
+
+	Type("lookup_type_id",
+			"lookup_type_id",
+			Name::setType,
+			Name::setTypeOf,
+			Name::getType,
+			Name::getTypeOf);
 
 	private String forwardField;
 	private String reverseField;
