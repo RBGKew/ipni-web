@@ -55,36 +55,11 @@
         {{#if typeName}}
           <dt>Type Name</dt><dd>{{typeName}}</dd>
         {{/if}}
-        {{#if bibliographicTypeInfo}}
-          <dt>Type Information</dt><dd>{{bibliographicTypeInfo}}</dd>
-        {{/if}}
-        {{#if typeLocations}}
-          <dt>Type Locations</dt><dd>{{breakLines typeLocations}}</dd>
-        {{/if}}
-        {{#if geographicUnit}}
-          <dt>Geographic Unit</dt><dd>{{geographicUnit}}</dd>
-        {{/if}}
-        {{#if locality}}
-          <dt>Type Locality</dt><dd>{{locality}}</dd>
-        {{/if}}
-        {{#if latitudeDegrees}}
-          <dt>Latitude</dt>
-          <dd>
-            {{#if latitudeDegrees}}{{latitudeDegrees}}° {{/if}}
-            {{#if latitudeMinutes}}{{latitudeMinutes}}' {{/if}}
-            {{#if latitudeSeconds}}{{latitudeSeconds}}" {{/if}}
-            {{northOrSouth}}
-          </dd>
-          <dt>Longitude</dt>
-          <dd>
-            {{#if longitudeDegrees}}{{longitudeDegrees}}° {{/if}}
-            {{#if longitudeMinutes}}{{longitudeMinutes}}' {{/if}}
-            {{#if longitudeSeconds}}{{longitudeSeconds}}" {{/if}}
-            {{eastOrWest}}
-          </dd>
-        {{/if}}
         {{#if collectorTeam}}
           <dt>Collector Team</dt><dd>{{{collectorTeam}}} {{collectionNumber}}</dd>
+        {{/if}}
+        {{#if locality}}
+          <dt>Locality</dt><dd>{{locality}}</dd>
         {{/if}}
         {{#if collectionDate1}}
           <dt>Collection Date</dt><dd>{{collectionDate1}}</dd>
@@ -92,11 +67,30 @@
         {{#if collectionDate2}}
           <dt>Second Collection Date</dt><dd>{{collectionDate2}}</dd>
         {{/if}}
-        {{#if bibliographicReference}}
-          <dt>Type Published in</dt><dd>{{bibliographicReference}}</dd>
+        {{#if bibliographicTypeInfo}}
+          <dt>Bibliographic Type Information</dt><dd>{{bibliographicTypeInfo}}</dd>
+        {{/if}}
+        {{#if typeLocations}}
+          <dt>Type Locations</dt><dd>{{breakLines typeLocations}}</dd>
+        {{/if}}
+        {{#if geographicUnit}}
+          <dt>Geographic Unit</dt><dd>{{geographicUnit}}</dd>
+        {{/if}}
+        {{#if typeCoordinates.valid}}
+          <dt>Latitude</dt><dd>{{typeCoordinates.formattedLatitude}}</dd>
+          <dt>Longitude</dt><dd>{{typeCoordinates.formattedLongitude}}</dd>
+        {{/if}}
+        {{#if typeChosenBy}}
+          <dt>Chosen By</dt><dd><i>{{{typeChosenBy}}}</i> {{bibliographicReference}}</dd>
+        {{/if}}
+        {{#if bibliographicTypeInfo}}
+          <dt>Type Published in</dt><dd>{{bibliographicTypeInfo}}</dd>
         {{/if}}
         {{#if distribution}}
           <dt>Protologue Distribution</dt><dd>{{breakLines distribution}}</dd>
+        {{/if}}
+        {{#if typeNote}}
+          <dt>Type Specimen Note</dt><dd>{{typeNote}}</dd>
         {{/if}}
       </dl>
     {{/if}}

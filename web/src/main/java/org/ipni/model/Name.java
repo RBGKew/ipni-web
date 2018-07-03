@@ -1,6 +1,7 @@
 package org.ipni.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -107,8 +108,11 @@ public class Name {
 	private boolean topCopy;
 	private List<Name> type;
 	private List<Name> typeOf;
+	private String typeChosenBy;
+	private Coordinates typeCoordinates;
 	private String typeLocations;
 	private String typeName;
+	private String typeNote;
 	private String typeRemarks;
 	private List<Name> validationOf;
 	private List<Name> validatedBy;
@@ -135,7 +139,6 @@ public class Name {
 		this.collectionDate2 = collectionDate(name, FieldMapping.collectionDay2.solrField(), FieldMapping.collectionMonth2.solrField(), FieldMapping.collectionYear2.solrField());
 		this.citationType = (String) name.get(FieldMapping.citationType.solrField());
 		this.distribution = (String) name.getFirstValue(FieldMapping.distribution.solrField());
-		this.eastOrWest = (String) name.getFirstValue(FieldMapping.eastOrWest.solrField());
 		this.family = (String) name.getFirstValue(FieldMapping.family.solrField());
 		this.genus = (String) name.getFirstValue(FieldMapping.genus.solrField());
 		this.geographicUnit = (String) name.getFirstValue(FieldMapping.geographicUnit.solrField());
@@ -147,18 +150,11 @@ public class Name {
 		this.infrafamily = (String) name.getFirstValue(FieldMapping.infrafamily.solrField());
 		this.infragenus = (String) name.getFirstValue(FieldMapping.infragenus.solrField());
 		this.infraspecies = (String) name.getFirstValue(FieldMapping.infraspecies.solrField());
-		this.latitudeDegrees = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField()));
-		this.latitudeMinutes = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField()));
-		this.latitudeSeconds = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField()));
 		this.locality = (String) name.getFirstValue(FieldMapping.locality.solrField());
-		this.longitudeDegrees = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.longitudeDegrees.solrField()));
-		this.longitudeMinutes = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.longitudeMinutes.solrField()));
-		this.longitudeSeconds = CleanUtil.zeroToNull((String) name.getFirstValue(FieldMapping.longitudeSeconds.solrField()));
 		this.name = (String) name.get(FieldMapping.scientificName.solrField());
 		this.nameStatus = (String) name.getFirstValue(FieldMapping.nameStatus.solrField());
 		this.nameStatusType = (String) name.getFirstValue(FieldMapping.nameStatusEditorType.solrField());
 		this.nameStatusBotCode = (String) name.getFirstValue(FieldMapping.nameStatusBotCodeType.solrField());
-		this.northOrSouth = (String) name.getFirstValue(FieldMapping.northOrSouth.solrField());
 		this.originalBasionym = (String) name.getFirstValue(FieldMapping.originalBasionym.solrField());
 		this.originalBasionymAuthorTeam = (String) name.getFirstValue(FieldMapping.originalBasionymAuthorTeam.solrField());
 		this.originalHybridParentage = (String) name.getFirstValue(FieldMapping.originalHybridParentage.solrField());
@@ -183,8 +179,11 @@ public class Name {
 		this.speciesAuthor = (String) name.getFirstValue(FieldMapping.speciesAuthor.solrField());
 		this.suppressed = (Boolean) name.get(FieldMapping.suppressed.solrField());
 		this.topCopy = (Boolean) name.get(FieldMapping.topCopy.solrField());
+		this.typeChosenBy = (String) name.getFirstValue(FieldMapping.typeChosenBy.solrField());
+		this.typeCoordinates = buildCoordinates(name);
 		this.typeLocations = (String) name.getFirstValue(FieldMapping.typeLocations.solrField());
 		this.typeName = (String) name.getFirstValue(FieldMapping.typeName.solrField());
+		this.typeNote = (String) name.getFirstValue(FieldMapping.typeNote.solrField());
 		this.typeRemarks = (String) name.getFirstValue(FieldMapping.typeRemarks.solrField());
 		this.url = "/n/" + id;
 		this.version = (String) name.getFirstValue(FieldMapping.version.solrField());
@@ -192,13 +191,49 @@ public class Name {
 	}
 
 	private String collectionDate(SolrDocument name, String dayField, String monthField, String yearField) {
-		String day = (String) name.getFirstValue(dayField);
-		String month = (String) name.getFirstValue(monthField);
-		String year = (String) name.getFirstValue(yearField);
-		if(day != null && month != null && year != null){
-			return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)).toString();
+		String dayStr = (String) name.getFirstValue(dayField);
+		String monthStr = (String) name.getFirstValue(monthField);
+		String yearStr = (String) name.getFirstValue(yearField);
+
+		if(yearStr != null) {
+			String format = "yyyy";
+			int month = 1;
+			int day = 1;
+
+			if(monthStr != null) {
+				month = Integer.parseInt(monthStr);
+				format = "MMM " + format;
+			}
+
+			if(dayStr != null) {
+				day = Integer.parseInt(dayStr);
+				format = "d " + format;
+			}
+
+			return LocalDate
+					.of(Integer.parseInt(yearStr), month, day)
+					.format(DateTimeFormatter.ofPattern(format));
 		}
 		return null;
+	}
+
+	private Coordinates buildCoordinates(SolrDocument name) {
+		Coordinates coordinates =  Coordinates.builder()
+				.latitudeDegrees((String) name.getFirstValue(FieldMapping.latitudeDegrees.solrField()))
+				.latitudeMinutes((String) name.getFirstValue(FieldMapping.latitudeMinutes.solrField()))
+				.latitudeSeconds((String) name.getFirstValue(FieldMapping.latitudeSeconds.solrField()))
+				.longitudeDegrees((String) name.getFirstValue(FieldMapping.longitudeDegrees.solrField()))
+				.longitudeMinutes((String) name.getFirstValue(FieldMapping.longitudeMinutes.solrField()))
+				.longitudeSeconds((String) name.getFirstValue(FieldMapping.longitudeSeconds.solrField()))
+				.eastOrWest((String) name.getFirstValue(FieldMapping.eastOrWest.solrField()))
+				.northOrSouth((String) name.getFirstValue(FieldMapping.northOrSouth.solrField()))
+				.build();
+
+		if(coordinates.isValid()) {
+			return coordinates;
+		} else {
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -211,7 +246,7 @@ public class Name {
 				.map(NameAuthor::new)
 				.collect(Collectors.toList());
 	}
-	
+
 	@JsonProperty
 	public boolean hasNomenclaturalNotes() {
 		return nameStatus != null || referenceRemarks != null;
@@ -219,14 +254,16 @@ public class Name {
 
 	@JsonProperty
 	public boolean hasTypeData() {
-		return typeName != null
+		return bibliographicReference != null
 				|| bibliographicTypeInfo != null
-				|| typeLocations != null
-				|| geographicUnit != null
-				|| locality != null
-				|| latitudeDegrees != null
 				|| collectorTeam != null
-				|| bibliographicReference != null;
+				|| distribution != null
+				|| geographicUnit != null
+				|| latitudeDegrees != null
+				|| locality != null
+				|| typeChosenBy != null
+				|| typeLocations != null
+				|| typeName != null;
 	}
 
 	@JsonProperty
