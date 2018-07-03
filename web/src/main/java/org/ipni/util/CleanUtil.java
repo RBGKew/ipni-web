@@ -15,7 +15,7 @@ public class CleanUtil {
 	}
 
 	/**
-	 * The originalRemarks field has notes about taxonomic synonyms that begin with =.
+	 * The originalRemarks field has notes about taxonomic synonyms that begin with =
 	 * We don't ever want to show these.
 	 */
 	public static String equalsPrefixedToNull(String str) {
@@ -35,6 +35,6 @@ public class CleanUtil {
 
 	public static String stripLeadingPunctuation(String str) {
 		if(str == null) return null;
-		return str.replaceFirst("[,.;]", "");
+		return str.replaceFirst("^[,.;=]\\s*", "");
 	}
 }
