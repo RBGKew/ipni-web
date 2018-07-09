@@ -57,8 +57,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-access</artifactId>
+			<groupId>net.rakugakibox.spring.boot</groupId>
+			<artifactId>logback-access-spring-boot-starter</artifactId>
+			<version>2.7.1</version>
 		</dependency>
 
 		<dependency>
@@ -70,8 +71,9 @@
 		<dependency>
 			<groupId>pl.allegro.tech.boot</groupId>
 			<artifactId>handlebars-spring-boot-starter</artifactId>
-			<version>0.2.15</version>
+			<version>0.3.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-csv</artifactId>
