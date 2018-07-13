@@ -28,9 +28,10 @@ public class CleanUtil {
 		return str.replaceAll("\\[|\\]", "");
 	}
 
-	public static String stripThingsInBrackets(String str) {
+	public static String stripEnglishInBrackets(String str) {
 		if(str == null) return null;
-		return str.replaceAll("\\[.*\\]", "");
+		String res = str.replaceAll("\\s*\\[english\\]\\s*", "");
+		return res.isEmpty() ? null : res;
 	}
 
 	public static String stripLeadingPunctuation(String str) {

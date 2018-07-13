@@ -1,8 +1,6 @@
 package org.ipni.util;
 
-import static org.ipni.util.CleanUtil.equalsPrefixedToNull;
-import static org.ipni.util.CleanUtil.stripBrackets;
-import static org.ipni.util.CleanUtil.stripLeadingPunctuation;
+import static org.ipni.util.CleanUtil.*;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -45,5 +43,14 @@ public class CleanUtilTest {
 		assertEquals(stripLeadingPunctuation(
 				"Verhandelingen, Afdeling Natuurkunde ser. 2, 59] (1970) 251."),
 				"Verhandelingen, Afdeling Natuurkunde ser. 2, 59] (1970) 251.");
+	}
+
+	@Test
+	public void testStripEnglishInBrackets() {
+		assertEquals(stripEnglishInBrackets(null), null);
+		assertEquals(stripEnglishInBrackets(" [english] "), null);
+		assertEquals(stripEnglishInBrackets("[english] blah blah"), "blah blah");
+		assertEquals(stripEnglishInBrackets("blah blah [english]"), "blah blah");
+		assertEquals(stripEnglishInBrackets("[blah blah] english"), "[blah blah] english");
 	}
 }
