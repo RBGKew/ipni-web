@@ -27,10 +27,10 @@ CREATE OR REPLACE VIEW ipni_web AS
     replace(ipni_flat_joined.distribution, '"', '') AS distribution_s_lower,
     ipni_flat_joined.east_or_west AS east_or_west_s_lower,
     ipni_flat_joined.family AS family_s_lower,
-    replace(ipni_flat_joined.full_name_without_family_and_authors, '"', '') AS taxon_scientific_name_s_lower,
+    coalesce(replace(ipni_flat_joined.full_name_without_family_and_authors, '"', ''), ipni_flat_joined.family) AS taxon_scientific_name_s_lower,
         CASE
             WHEN ipni_flat_joined.suppressed THEN ''
-            ELSE replace(ipni_flat_joined.full_name_without_family_and_authors, '"', '')
+            ELSE coalesce(replace(ipni_flat_joined.full_name_without_family_and_authors, '"', ''), ipni_flat_joined.family)
         END AS taxon_sci_name_not_suppressed_s_lower,
     replace(ipni_flat_joined.genus, '"', '') AS genus_s_lower,
     ipni_flat_joined.geographic_unit_as_text AS geographic_unit_as_text_s_lower,
