@@ -32,6 +32,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "bootstrap-float-label": "^3.0.1",
     "deparam": "^1.0.5",
     "handlebars": "^4.0.10",
     "immutable": "^3.8.1",
