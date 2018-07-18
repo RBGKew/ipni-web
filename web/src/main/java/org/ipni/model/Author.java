@@ -36,6 +36,7 @@ public class Author {
 	private String source;
 	private String standardForm;
 	private String surname;
+	private boolean suppressed;
 	private String taxonGroups;
 	private String url;
 	private String version;
@@ -59,6 +60,7 @@ public class Author {
 		this.source = (String) author.get(FieldMapping.authorNameSource.solrField());
 		this.standardForm = (String) author.get(FieldMapping.authorStandardForm.solrField());
 		this.surname = (String) author.get(FieldMapping.authorSurname.solrField());
+		this.suppressed = (Boolean) author.get(FieldMapping.suppressed.solrField());
 		this.taxonGroups = join(author.getFieldValues(FieldMapping.authorTaxonGroups.solrField()));
 		this.url = "/a/" + id;
 		this.version = (String) author.get(FieldMapping.version.solrField());

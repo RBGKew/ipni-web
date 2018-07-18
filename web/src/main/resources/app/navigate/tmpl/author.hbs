@@ -8,6 +8,9 @@
   </div>
 
   <div class="panel-body">
+    {{#if suppressed}}
+      <div class="alert alert-danger" role="alert"><strong>This record is suppressed.</strong> This can happen for a variety of reasons and is only accessible to preserve persistent identifiers.</div>
+    {{/if}}
     <dl>
       <dt>Standard Form</dt><dd class="stdForm">{{standardForm}}</dd>
       <dt>IPNI Identifier</dt><dd>{{id}}</dd>

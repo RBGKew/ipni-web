@@ -33,6 +33,7 @@ public class Publication {
 	private String precededBy;
 	private String recordType;
 	private String remarks;
+	private boolean suppressed;
 	private String supercededBy;
 	private String tdwgAbbreviation;
 	private String title;
@@ -61,6 +62,7 @@ public class Publication {
 		String rawRemarks = (String) publication.get(FieldMapping.remarks.solrField());
 		this.remarks = BHLHelper.stripBhlMarkers(rawRemarks);
 		this.supercededBy = (String) publication.get(FieldMapping.supercededBy.solrField());
+		this.suppressed = (Boolean) publication.get(FieldMapping.suppressed.solrField());
 		this.tdwgAbbreviation = (String) publication.get(FieldMapping.tdwgAbbreviation.solrField());
 		this.title = (String) publication.get(FieldMapping.title.solrField());
 		this.tl2Author = (String) publication.get(FieldMapping.tl2Author.solrField());
