@@ -224,6 +224,10 @@ dd {
     left: 1.8em;
   }
 
+  .has-float-label .form-control::placeholder {
+    opacity: 0;
+  }
+
   .has-float-label label, .has-float-label > span {
     top: -.3em;
     left: 20px;
