@@ -1,10 +1,10 @@
 <div id="c-page-body" class="panel panel-default c-citation">
   <div class="panel-heading detail-heading">
     {{#if inPowo}}
-      <a class="powo btn btn-xs btn-default pull-right" href="http://powo.science.kew.org/taxon/{{id}}" target="_blank" data-toggle="tooltip" data-placement="left" title="For taxonomic data view in Plants of the World Online">POWO</a>
+      <a href="http://powo.science.kew.org/taxon/{{id}}" class="powo btn btn-xs btn-default pull-right"target="_blank" data-toggle="tooltip" data-placement="top" title="For taxonomic data view in Plants of the World Online">POWO</a>
     {{/if}}
     {{#if bhlLink}}
-      <a class="bhl btn btn-xs btn-default pull-right" href="{{bhlLink}}" target="_blank" data-toggle="tooltip" data-placement="left" title="View the protologue in BHL">BHL</a>
+      <a class="bhl btn btn-xs btn-default pull-right" href="{{bhlLink}}" target="_blank" data-toggle="tooltip" data-placement="top" title="View the protologue in BHL">BHL</a>
     {{/if }}
     {{linkedFullName this}}
   </div>

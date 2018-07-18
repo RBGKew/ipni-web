@@ -1,37 +1,47 @@
 {{#if results}}
 <div class="list-group results">
   {{#each results}}
-    {{#isType this "citation"}}
-    <a href="{{url}}" class="list-group-item result name-link {{#if topCopy}}top-copy{{/if}}">
-      {{fullName this}}
+    <div class="list-group-item">
+      {{#isType this "citation"}}
+      <a href="{{url}}" class="result name-link {{#if topCopy}}top-copy{{/if}}">
+        {{fullName this}}
+      </a>
       {{#if inPowo}}
-        <span class="powo label label-success pull-right">POWO</span>
+      <span class="powo label label-primary pull-right">
+        <a href="http://powo.science.kew.org/taxon/{{id}}" target="_blank" data-toggle="tooltip" data-placement="top" title="For taxonomic data view in Plants of the World Online">POWO</a>
+      </span>
       {{/if}}
       {{#if bhlLink}}
-        <span class="bhl label label-primary pull-right">BHL</span>
+        <span class="bhl label label-primary pull-right">
+          <a href="{{bhlLink}}" target="_blank" data-toggle="tooltip" data-placement="top" title="View the protologue in BHL">BHL</a>
+        </span>
       {{/if }}
-    </a>
-    {{/isType}}
+      {{/isType}}
 
-    {{#isType this "author"}}
-    <a href="{{url}}" class="list-group-item result author-link top-copy">
-      <span class="glyphicon glyphicon-user"></span>
-      {{standardForm}} &ndash; {{forename}} {{surname}} {{#if dates}}({{dates}}){{/if}}
+      {{#isType this "author"}}
+      <a href="{{url}}" class="result author-link top-copy">
+        <span class="glyphicon glyphicon-user"></span>
+        {{standardForm}} &ndash; {{forename}} {{surname}} {{#if dates}}({{dates}}){{/if}}
+      </a>
       {{#if hasBhlLinks}}
-        <span class="bhl label label-primary pull-right">BHL</span>
+        <span class="bhl label label-primary pull-right">
+          <a href="{{bhlPageLinks}}" target="_blank" data-toggle="tooltip" data-placement="top" title="View TL-2 information for this author in BHL">BHL</a>
+        </span>
       {{/if }}
-    </a>
-    {{/isType}}
+      {{/isType}}
 
-    {{#isType this "publication"}}
-    <a href="{{url}}" class="list-group-item result publication-link top-copy">
-      <span class="glyphicon glyphicon-book"></span>
-      {{title}}
-      {{#if hasBhlLinks}}
-        <span class="bhl label label-primary pull-right">BHL</span>
-      {{/if }}
-    </a>
-    {{/isType}}
+      {{#isType this "publication"}}
+      <a href="{{url}}" class="result publication-link top-copy">
+        <span class="glyphicon glyphicon-book"></span>
+        {{title}}
+      </a>
+      {{#with bhlTitleLinks}}
+        <span class="bhl label label-primary pull-right">
+          <a href="{{this.[0]}}" target="_blank" data-toggle="tooltip" data-placement="top" title="Read this publication in BHL">BHL</a>
+        </span>
+      {{/with }}
+      {{/isType}}
+    </div>
   {{/each}}
 </div>
 {{else}}
