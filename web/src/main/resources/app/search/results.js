@@ -90,12 +90,7 @@ define(function(require) {
   function toggleFilter(event) {
     if($(this).hasClass('disabled')) return;
     event.preventDefault();
-    var filter = $(this).attr("id");
-    if(filters.getParam('f') === filter) {
-      filters.removeParam('f');
-    } else {
-      filters.setParam('f', filter);
-    }
+    filters.toggleFacet($(this).attr("id"));
   }
 
   function setSort(event) {

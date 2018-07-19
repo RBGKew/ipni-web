@@ -161,6 +161,20 @@ define(function(require) {
     }
   }
 
+  var toggleFacet = function(facet) {
+    var facets = params.get('f');
+    facets = _.isUndefined(facets) ? [] : _.split(facets, ',');
+    if(_.includes(facets, facet)) {
+      _.remove(facets, function(f) { return f === facet })
+    } else {
+      facets.push(facet);
+    }
+
+    params = params.delete('page');
+    params = params.set('f', _.join(facets, ','));
+    publishUpdated();
+  }
+
   var serialize = function() {
     var q = params.toObject();
 
@@ -203,6 +217,7 @@ define(function(require) {
 
   return {
     add: add,
+    clear: clear,
     deserialize: deserialize,
     filters: getFilters,
     getParam: getParam,
@@ -210,8 +225,8 @@ define(function(require) {
     refresh: refresh,
     removeParam: removeParam,
     serialize: serialize,
-    setParam: setParam,
     set: setTokens,
-    clear: clear,
+    setParam: setParam,
+    toggleFacet: toggleFacet,
   }
 });

@@ -60,7 +60,6 @@ define(function(require) {
       $('.jumbotron').removeClass('jumbotron');
     }
 
-    console.log(filters.serialize());
     results.update(filters.serialize());
   });
 
