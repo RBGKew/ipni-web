@@ -4,7 +4,7 @@
   "description": "IPNI wep application",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --env.development --content-base static ",
+    "serve": "webpack-dev-server --env.development --content-base static ",
     "build": "webpack --env.production",
     "test": "tape test/*.js"
   },
