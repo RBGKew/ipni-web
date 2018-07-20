@@ -44,6 +44,7 @@ define(function(require) {
 
       for(i = 0; i < res.suggestedTerms[suggester].length && i < 5; i++) {
         var val = res.suggestedTerms[suggester][i];
+        val = val.replace('>', '');
         ret.push({
           value: suggester === suggesters[0] ? val : suggester + ":" + val,
           display: val,

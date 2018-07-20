@@ -1180,7 +1180,7 @@
       <str name="name">author</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">standard_form_s_lower</str>
+      <str name="field">author_name_s_lower</str>
       <str name="indexPath">author_suggest</str>
       <str name="suggestAnalyzerFieldType">text_general</str>
       <str name="highlight">false</str>
