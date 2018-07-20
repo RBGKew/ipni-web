@@ -40,18 +40,20 @@ public class QueryBuilder {
 			.addAll(publicationQueryFields)
 			.addAll(authorQueryFields)
 			.build();
-	
+
 	private static final QueryOption basicMapper = new SingleFieldFilterQuery();
 	private static final DefaultQuery defaultQuery = new DefaultQuery();
 	private static final RangeFilterQuery rangeQuery = new RangeFilterQuery();
 	private static final RangeFilterQuery dateRangeQuery = new DateRangeFilterQuery();
 	private static final IDQuery idQuery = new IDQuery();
+	private static final QueryOption universalQuery = new CompositeQuery(new MultiFieldQuery(mainQueryFields), new AllTokensQuery(authorName));
+	private static final QueryOption authorQuery = new CompositeQuery(new MultiFieldQuery(authorQueryFields), new AllTokensQuery(authorName));
 
 	private static final Map<String, QueryOption> queryMappings = new ImmutableMap.Builder<String, QueryOption>()
-			.put("any", new MultiFieldQuery(mainQueryFields))
+			.put("any", universalQuery)
 			.put("name", new MultiFieldQuery(nameQueryFields))
 			.put("publication", new MultiFieldQuery(publicationQueryFields))
-			.put("author", new MultiFieldQuery(authorQueryFields))
+			.put("author", authorQuery)
 			.put("page", new PageNumberQuery())
 			.put("sort", new SortQuery())
 			.put("perPage", new PageSizeQuery())
