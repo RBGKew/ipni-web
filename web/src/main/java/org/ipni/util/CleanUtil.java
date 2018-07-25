@@ -30,7 +30,8 @@ public class CleanUtil {
 
 	public static String stripEnglishInBrackets(String str) {
 		if(str == null) return null;
-		String res = str.replaceAll("\\s*\\[english\\]\\s*", "");
+		String res = str.replaceAll("\\[english\\]", "");
+		res = res.replaceAll("\\s{2,}", " ").trim();
 		return res.isEmpty() ? null : res;
 	}
 

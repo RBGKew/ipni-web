@@ -47,10 +47,11 @@ public class CleanUtilTest {
 
 	@Test
 	public void testStripEnglishInBrackets() {
-		assertEquals(stripEnglishInBrackets(null), null);
-		assertEquals(stripEnglishInBrackets(" [english] "), null);
-		assertEquals(stripEnglishInBrackets("[english] blah blah"), "blah blah");
-		assertEquals(stripEnglishInBrackets("blah blah [english]"), "blah blah");
-		assertEquals(stripEnglishInBrackets("[blah blah] english"), "[blah blah] english");
+		assertEquals(null, stripEnglishInBrackets(null));
+		assertEquals(null, stripEnglishInBrackets(" [english] "));
+		assertEquals("blah blah", stripEnglishInBrackets("[english] blah blah"));
+		assertEquals("blah blah", stripEnglishInBrackets("blah blah [english]"));
+		assertEquals("blah blah blah", stripEnglishInBrackets("blah blah [english] blah"));
+		assertEquals("[blah blah] english", stripEnglishInBrackets("[blah blah] english"));
 	}
 }
