@@ -5,22 +5,20 @@ metadata:
   labels:
     app: ipni
     chart: ipni-0.1.0
-    release: invinvible-saola
+    release: beta
     heritage: Tiller
 spec:
   template:
     metadata:
       labels:
-        app: ipni
-        release: invinvible-saola
+        app: indexer-job
+        release: beta
     spec:
       containers:
-        - name: ipni
-          image: "eu.gcr.io/powop-1349/ipni/ipni-indexer:latest"
+        - name: indexer-job
+          image: "eu.gcr.io/ipni-1867/ipni/indexer:8318124"
           imagePullPolicy: Always
           env:
             - name: BUILD_ONSTARTUP
               value: "true"
-            - name: IPNI_FLAT
-              value: "http://storage.googleapis.com/kew-dev-backup/ipni_flat_all.csv.xz"
       restartPolicy: Never
