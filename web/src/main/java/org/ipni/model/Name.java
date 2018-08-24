@@ -1,5 +1,6 @@
 package org.ipni.model;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,11 +20,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 @JsonInclude(Include.NON_NULL)
 @Builder
 @AllArgsConstructor
+@Slf4j
 public class Name {
 	private String name;
 	private String authors;
@@ -195,24 +198,26 @@ public class Name {
 		String monthStr = (String) name.getFirstValue(monthField);
 		String yearStr = (String) name.getFirstValue(yearField);
 
-		if(yearStr != null) {
-			String format = "yyyy";
-			int month = 1;
-			int day = 1;
+		try {
+			if (yearStr != null) {
+				String format = "yyyy";
+				int month = 1;
+				int day = 1;
 
-			if(monthStr != null) {
-				month = Integer.parseInt(monthStr);
-				format = "MMM " + format;
+				if (monthStr != null) {
+					month = Integer.parseInt(monthStr);
+					format = "MMM " + format;
+				}
+
+				if (dayStr != null) {
+					day = Integer.parseInt(dayStr);
+					format = "d " + format;
+				}
+
+				return LocalDate.of(Integer.parseInt(yearStr), month, day).format(DateTimeFormatter.ofPattern(format));
 			}
-
-			if(dayStr != null) {
-				day = Integer.parseInt(dayStr);
-				format = "d " + format;
-			}
-
-			return LocalDate
-					.of(Integer.parseInt(yearStr), month, day)
-					.format(DateTimeFormatter.ofPattern(format));
+		} catch (DateTimeException | NumberFormatException e) {
+			log.warn("Error parsing date: y{} m{} d{}", yearStr, monthStr, dayStr);
 		}
 		return null;
 	}
