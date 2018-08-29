@@ -50,7 +50,8 @@ public class ResponseService {
 				.perPage(perPage)
 				.totalPages(LongMath.divide(totalResults, perPage, RoundingMode.CEILING))
 				.page(LongMath.divide(queryResults.getStart(), perPage, RoundingMode.CEILING))
-				.results(mapResults(queryResults, loadRelatedPublications(queryResults)));
+				.results(mapResults(queryResults, loadRelatedPublications(queryResults)))
+				.cursor(queryResponse.getNextCursorMark());
 
 		return response.build();
 	}

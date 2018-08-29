@@ -1,6 +1,7 @@
 package org.ipni.search;
 
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.ipni.constants.FieldMapping;
 
 import com.google.common.base.Joiner;
@@ -15,6 +16,8 @@ public class DefaultQuery extends QueryOption {
 		};
 
 		query.addFilterQuery(Joiner.on(" AND ").join(filters));
+		query.setSort("sortable", ORDER.asc);
+		query.addSort("id", ORDER.asc);
 	}
 
 	public void add(SolrQuery query) {

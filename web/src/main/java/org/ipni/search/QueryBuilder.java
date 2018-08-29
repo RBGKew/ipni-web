@@ -48,25 +48,27 @@ public class QueryBuilder {
 	private static final IDQuery idQuery = new IDQuery();
 	private static final QueryOption universalQuery = new CompositeQuery(new MultiFieldQuery(mainQueryFields), new AllTokensQuery(authorName));
 	private static final QueryOption authorQuery = new CompositeQuery(new MultiFieldQuery(authorQueryFields), new AllTokensQuery(authorName));
+	private static final QueryOption cursorQuery = new CursorQuery();
 
 	private static final Map<String, QueryOption> queryMappings = new ImmutableMap.Builder<String, QueryOption>()
-			.put("any", universalQuery)
-			.put("name", new MultiFieldQuery(nameQueryFields))
-			.put("publication", new MultiFieldQuery(publicationQueryFields))
-			.put("author", authorQuery)
-			.put("page", new PageNumberQuery())
-			.put("sort", new SortQuery())
-			.put("perPage", new PageSizeQuery())
-			.put("published before", rangeQuery)
-			.put("published after", rangeQuery)
-			.put("added before", dateRangeQuery)
 			.put("added after", dateRangeQuery)
-			.put("modified before", dateRangeQuery)
-			.put("modified after", dateRangeQuery)
-			.put("name id", idQuery)
+			.put("added before", dateRangeQuery)
+			.put("any", universalQuery)
 			.put("author id", idQuery)
-			.put("publication id", idQuery)
+			.put("author", authorQuery)
+			.put("cursor", cursorQuery)
 			.put("f", new FilterQuery())
+			.put("modified after", dateRangeQuery)
+			.put("modified before", dateRangeQuery)
+			.put("name id", idQuery)
+			.put("name", new MultiFieldQuery(nameQueryFields))
+			.put("page", new PageNumberQuery())
+			.put("perPage", new PageSizeQuery())
+			.put("publication id", idQuery)
+			.put("publication", new MultiFieldQuery(publicationQueryFields))
+			.put("published after", rangeQuery)
+			.put("published before", rangeQuery)
+			.put("sort", new SortQuery())
 			.build();
 
 	private SolrQuery query;

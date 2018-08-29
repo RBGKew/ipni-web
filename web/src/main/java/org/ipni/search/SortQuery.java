@@ -23,5 +23,8 @@ public class SortQuery extends QueryOption {
 			query.setSort(yearPublished.solrField(), ORDER.desc);
 			break;
 		}
+
+		// Always add the ID for explicit tie-breaker
+		query.addSort("id", ORDER.asc);
 	}
 }
