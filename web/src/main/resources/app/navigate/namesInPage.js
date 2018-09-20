@@ -50,11 +50,13 @@ define(function(require) {
 
   function getNames() {
     var apiUrl = "search?perPage=20";
+    // strip leading path segment
+    url = url.replace(/\/([ap]\/)*/, "");
     if(pageType() == "author") {
-      apiUrl += '&author+team+ids=*@' + url.replace("/a/", "") + '@*aut*';
+      apiUrl += '&author+team+ids=' + url;
       load(apiUrl);
     } if(pageType() == "publication") {
-      apiUrl += '&published+in+id=' + url.replace("/p/", "urn:lsid:ipni.org:publications:");
+      apiUrl += '&published+in+id=' + url;
       load(apiUrl);
     }
   }
