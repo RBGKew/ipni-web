@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: eu.gcr.io/ipni-1867/ipni/app
-  tag: "6e4e5eb"
+  tag: "01d465e"
   pullPolicy: Always
 service:
   name: ipni
@@ -14,7 +14,7 @@ ingress:
   tag: "cab9eb4"
 indexer:
   repository: eu.gcr.io/ipni-1867/ipni/indexer
-  tag: "07eb28f"
+  tag: "5fada65"
   pullPolicy: Always
   replicas: 1
 solr:
@@ -23,7 +23,7 @@ solr:
     - ipni_2
   image:
     repository: eu.gcr.io/ipni-1867/ipni/solr
-    tag: "e974f18"
+    tag: "01d465e"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious 
