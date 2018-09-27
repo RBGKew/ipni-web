@@ -4,45 +4,20 @@ jdk:
 sudo: required
 git:
   depth: 1
+  submodules: false
 services:
   - docker
-env:
-  global:
-    - DOCKER_GOOGLE_CREDENTIALS=$TRAVIS_BUILD_DIR/ipni-deployer-sa.json
-    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-    - TAG=`git rev-parse --short HEAD`
 install: true # This runs the "true" command in the install phase; thus skipping install. Installation done by mvn deploy
 script:
   - mvn deploy
 # deploys the latest tag of the app _only_. If you want to deploy solr or the indexer it
 # must be done manually
-  - helm upgrade mewing-hydra helm/ --set-string image.tag='$TAG'
+  - ./deploy.sh
 before_install:
-# decrypt service-account key for authentication to gcp
-  - openssl aes-256-cbc -K $encrypted_60b5de841810_key -iv $encrypted_60b5de841810_iv -in .ipni-deployer-sa.json.enc -out ipni-deployer-sa.json -d
-# install custom version of gcloud so we can use it to install kubernetes. The bundled
-# travis version does not allow adding components
-  - |
-    if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then
-      rm -rf $HOME/google-cloud-sdk
-      curl https://sdk.cloud.google.com | bash
-     fi
-     source $HOME/google-cloud-sdk/path.bash.inc
-# get kubectl and configure gcloud
-  - gcloud components install kubectl
-  - gcloud auth activate-service-account deployer@ipni-1867.iam.gserviceaccount.com --key-file ipni-deployer-sa.json
-  - gcloud config set project ipni-1867
-  - gcloud config set container/cluster ipni-beta
-  - gcloud config set compute/region europe-west1-d
-  - gcloud config set compute/zone europe-west1-d
-  - gcloud container clusters get-credentials ipni-beta
-# download and set up helm
-  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
-  - helm init --client-only
-  - helm repo add kew-charts https://kew-charts.storage.googleapis.com
-  - helm dep build helm/
+# decrypt secrets
+  - sh ./.decrypt.sh
+  - tar xvf .travis-secrets.tar
 
 cache:
   directories:
     - "$HOME/.m2"
-    - "$HOME/google-cloud-sdk/"
