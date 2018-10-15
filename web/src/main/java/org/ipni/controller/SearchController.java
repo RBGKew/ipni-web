@@ -1,5 +1,6 @@
 package org.ipni.controller;
 
+import org.ipni.exceptions.NotFoundException;
 import org.ipni.model.Author;
 import org.ipni.model.Name;
 import org.ipni.model.Publication;
@@ -58,16 +59,40 @@ public class SearchController {
 
 	@GetMapping(path = {"urn:lsid:ipni.org:names:{id}", "n/{id}"})
 	public ResponseEntity<Name> getName(@PathVariable String id) throws SolrServerException, IOException {
-		return new ResponseEntity<Name>(names.load(id), HttpStatus.OK);
+		Name response = null;
+		HttpStatus status = HttpStatus.OK;
+		try {
+			response = names.load(id);
+		} catch (NotFoundException e) {
+			status = HttpStatus.NOT_FOUND;
+		}
+
+		return new ResponseEntity<Name>(response, status);
 	}
 
 	@GetMapping(path = {"urn:lsid:ipni.org:authors:{id}", "a/{id}"})
 	public ResponseEntity<Author> getAuthor(@PathVariable String id) throws SolrServerException, IOException {
-		return new ResponseEntity<Author>(authors.load(id), HttpStatus.OK);
+		Author response = null;
+		HttpStatus status = HttpStatus.OK;
+		try {
+			response = authors.load(id);
+		} catch (NotFoundException e) {
+			status = HttpStatus.NOT_FOUND;
+		}
+
+		return new ResponseEntity<Author>(response, status);
 	}
 
 	@GetMapping(path = {"urn:lsid:ipni.org:publications:{id}", "p/{id}"})
 	public ResponseEntity<Publication> getPublication(@PathVariable String id) throws SolrServerException, IOException {
-		return new ResponseEntity<Publication>(publications.load(id), HttpStatus.OK);
+		Publication response = null;
+		HttpStatus status = HttpStatus.OK;
+		try {
+			response = publications.load(id);
+		} catch (NotFoundException e) {
+			status = HttpStatus.NOT_FOUND;
+		}
+
+		return new ResponseEntity<Publication>(response, status);
 	}
 }

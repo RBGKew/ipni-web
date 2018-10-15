@@ -9,6 +9,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.ipni.constants.FieldMapping;
+import org.ipni.exceptions.NotFoundException;
 import org.ipni.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,10 @@ public class AuthorService {
 		}
 
 		SolrDocument result = solr.getById(id, params);
+
+		if (result == null) {
+			throw new NotFoundException();
+		}
 
 		return new Author(result);
 	}

@@ -12,6 +12,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.ipni.constants.FieldMapping;
+import org.ipni.exceptions.NotFoundException;
 import org.ipni.model.Publication;
 import org.ipni.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,11 @@ public class PublicationService {
 
 		if(!ids.isEmpty()) {
 			SolrDocumentList result = solr.getById(ids, params);
+
+			if (result == null) {
+				throw new NotFoundException();
+			}
+
 			if(result != null) {
 				return result.stream()
 						.map(Publication::new)
