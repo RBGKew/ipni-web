@@ -18,7 +18,8 @@ CREATE OR REPLACE VIEW ipni_web_publications AS
         REPLACE(tl2_author,'|','') AS tl2_author_s_lower,
         REPLACE(REPLACE(tl2_number, '"',''),'|','') AS tl2_number_s_lower,
         REPLACE(tdwg_abbreviation, '"','') AS tdwg_abbreviation_s_lower,
-        REPLACE(superceded_by, '"','') AS superceded_by_s_lower
+        REPLACE(superceded_by, '"','') AS superceded_by_s_lower,
+        REPLACE(REPLACE(lower(title),'"',''), '|','') AS sortable
    FROM ipni_flat_publications; 
 
 ALTER TABLE ipni_web_publications

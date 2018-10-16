@@ -19,7 +19,8 @@ SELECT 'urn:lsid:ipni.org:authors:'||id AS id,
        example_of_name_published AS example_of_name_published_s_lower,
        REPLACE(comments,'"','') AS comments_s_lower,
        author_iso_countries AS detail_author_iso_countries,
-       taxon_groups_flat AS detail_taxon_groups_flat
+       taxon_groups_flat AS detail_taxon_groups_flat,
+       COALESCE(lower(default_author_name),null,'') AS sortable
  FROM  ipni_flat_authors;
 
 ALTER TABLE ipni_web_authors
