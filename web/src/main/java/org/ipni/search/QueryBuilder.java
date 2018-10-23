@@ -66,7 +66,6 @@ public class QueryBuilder {
 			.put("page", new PageNumberQuery())
 			.put("perPage", new PageSizeQuery())
 			.put("publication id", idQuery)
-			.put("publication", new MultiFieldQuery(publicationQueryFields))
 			.put("published in id", idQuery)
 			.put("published after", rangeQuery)
 			.put("published before", rangeQuery)
