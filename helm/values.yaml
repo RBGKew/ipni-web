@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: eu.gcr.io/ipni-1867/ipni/app
-  tag: "6e4e5eb"
+  tag: "775abc2"
   pullPolicy: Always
 service:
   name: ipni
@@ -11,7 +11,7 @@ service:
 ingress:
   replicas: 1
   repository: eu.gcr.io/ipni-1867/ipni/ingress
-  tag: "cab9eb4"
+  tag: "775abc2"
 indexer:
   repository: eu.gcr.io/ipni-1867/ipni/indexer
   tag: "07eb28f"
