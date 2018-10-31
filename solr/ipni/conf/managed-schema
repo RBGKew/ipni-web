@@ -61,6 +61,7 @@
   <fieldType name="longs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
   <fieldType name="lowercase" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
+      <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="^[×xX] | [×xX] " replacement=" "/>
       <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt"/>
@@ -69,7 +70,7 @@
   </fieldType>
   <fieldType name="names_suggester" class="solr.TextField" omitNorms="true" sortMissingLast="true">
     <analyzer>
-      <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="×" replacement=""/>
+      <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="^[×xX] | [×xX] " replacement=" "/>
       <tokenizer class="solr.WhitespaceTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
