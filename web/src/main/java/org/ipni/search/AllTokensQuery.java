@@ -28,10 +28,10 @@ public class AllTokensQuery extends QueryOption {
 	protected String prepareValue(String field, String value) {
 		String[] tokens = value.split("\\s+");
 		if(tokens.length == 1) {
-			return String.format("%s:%s", field, tokens[0]);
+			return String.format("%s:\"%s\"", field, tokens[0]);
 		} else {
 			return Arrays.stream(tokens)
-					.map(token -> String.format("%s:%s", field, token))
+					.map(token -> String.format("%s:\"%s\"", field, token))
 					.collect(Collectors.joining(" AND "));
 		}
 	}
