@@ -298,6 +298,7 @@ public class Name {
 				|| orthographicVariantOf != null
 				|| rejectedInFavorOf != null
 				|| replacedSynonym != null
+				|| replacedSynonymOf != null
 				|| sameCitationAs != null
 				|| superfluousNameOf != null
 				|| type != null

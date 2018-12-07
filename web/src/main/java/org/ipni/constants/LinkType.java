@@ -74,7 +74,7 @@ public enum LinkType {
 			Name::getHybridParents),
 
 	ReplacedSynonym("lookup_replaced_synonym_id",
-			"replaced_synonym_of_id",
+			"lookup_replaced_synonym_id",
 			Name::setReplacedSynonym,
 			Name::setReplacedSynonymOf,
 			Name::getReplacedSynonym,
