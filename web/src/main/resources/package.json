@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "^3.4.1",
     "c3": "^0.4.18",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
@@ -22,7 +22,7 @@
     "handlebars-loader": "^1.5.0",
     "html-webpack-plugin": "^2.28.0",
     "jquery-serializejson": "^2.8.1",
-    "node-sass": "^4.5.3",
+    "node-sass": "^7.0.0",
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.2",
@@ -34,11 +34,11 @@
   "dependencies": {
     "bootstrap-float-label": "^3.0.1",
     "deparam": "^1.0.5",
-    "handlebars": "^4.0.10",
+    "handlebars": "^4.7.8",
     "immutable": "^3.8.1",
-    "jquery": "^3.3.1",
-    "lodash": "^4.17.4",
-    "pubsub-js": "^1.5.7",
+    "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
+    "pubsub-js": "^1.9.4",
     "rbgkew-typeahead": "^1.1.1",
     "simple-pagination.js": "^1.6.0"
   }
